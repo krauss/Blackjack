@@ -1,6 +1,6 @@
 package au.com.eca.assignment.entity;
 
-import au.com.eca.assignment.interfaces.ICard;
+import au.com.eca.assignment.interfaces.BJICard;
 
 /**
  * 
@@ -10,7 +10,7 @@ import au.com.eca.assignment.interfaces.ICard;
  *
  *
  */
-public class Card implements ICard{
+public class BJCard implements BJICard{
 	
 	private String number;
 	private String suit;
@@ -23,7 +23,7 @@ public class Card implements ICard{
 	 * @param n = randomly generated number between 1-13
 	 * @param s = the suit might be one of these four: SPADES, HEARTS, DIAMONDS, CLUBS;
 	 */
-	public Card(int n, String s) {
+	public BJCard(int n, String s) {
 		this.suit = s;
 		setValueAndNumber(n);
 	}

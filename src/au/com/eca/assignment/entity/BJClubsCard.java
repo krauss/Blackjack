@@ -1,6 +1,6 @@
 package au.com.eca.assignment.entity;
 
-public class ClubsCard extends Card{
+public class BJClubsCard extends BJCard{
 		
 	/**
 	 * 
@@ -8,7 +8,7 @@ public class ClubsCard extends Card{
 	 * 
 	 * @param n
 	 */
-	public ClubsCard(int n) {
+	public BJClubsCard(int n) {
 		super(n, "\u2663");
 	}
 

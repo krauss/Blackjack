@@ -10,10 +10,10 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import au.com.eca.assignment.entity.Card;
-import au.com.eca.assignment.entity.DBConnection;
-import au.com.eca.assignment.entity.Player;
-import au.com.eca.assignment.main.BlackJackMain;
+import au.com.eca.assignment.entity.BJCard;
+import au.com.eca.assignment.entity.BJPlayer;
+import au.com.eca.assignment.game.BJGame;
+import au.com.eca.assignment.game.BJDatabaseConn;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -27,9 +27,9 @@ public class BJFrame extends JFrame {
 	private MigLayout layout_jframe;
 
 	// Game Objects
-	private Player player;
-	private Player dealer;
-	private BlackJackMain game;
+	private BJPlayer player;
+	private BJPlayer dealer;
+	private BJGame game;
 	private boolean standPressed = false;
 
 	public BJFrame() {
@@ -70,7 +70,7 @@ public class BJFrame extends JFrame {
 
 				if (panelLogin.getJt_login().getText().trim().length() != 0
 						&& panelLogin.getJt_password().getPassword().length != 0) {
-					DBConnection connection = new DBConnection();
+					BJDatabaseConn connection = new BJDatabaseConn();
 					try {
 						player = connection.getAuthentication(panelLogin.getJt_login().getText(),
 								panelLogin.getJt_password().getPassword());
@@ -192,9 +192,11 @@ public class BJFrame extends JFrame {
 
 	}
 
+	
+	
 	private void initGame() {
-		dealer = new Player("Dealer");
-		game = new BlackJackMain(player, dealer);
+		dealer = new BJPlayer("Dealer");
+		game = new BJGame(player, dealer);
 
 		// Sets the Player name on the JLabel
 		panelGame.getPlayerName().setText("Player:  " + player.getName());
@@ -227,14 +229,14 @@ public class BJFrame extends JFrame {
 		} else {
 			panelGame.getWinLoseLabel().setForeground(Color.BLUE);
 			panelGame.getWinLoseLabel().setText("YOU WON!   +100 pts");
-			DBConnection connection = new DBConnection();
+			BJDatabaseConn connection = new BJDatabaseConn();
 			connection.setPlayerScore(player);
 			
 		}
 	}
 
 	private void checkAce() {
-		for (Card d : player.getHandCards()) {
+		for (BJCard d : player.getHandCards()) {
 			if (d.getNumber().equalsIgnoreCase("A")) {
 				panelGame.getPlayerAce().setText("Ace:  " + d.getNumber() + "" + d.getSuit());
 				panelGame.getAce1().setEnabled(true);
@@ -249,14 +251,14 @@ public class BJFrame extends JFrame {
 		
 		if (panelGame.getAce1().isSelected()) {
 
-			for (Card d : player.getHandCards()) {
+			for (BJCard d : player.getHandCards()) {
 				if (d.getNumber().equalsIgnoreCase("A")) {
 					d.setValue(1);
 				}
 			}
 		} else if (panelGame.getAce11().isSelected()) {
 
-			for (Card d : player.getHandCards()) {
+			for (BJCard d : player.getHandCards()) {
 				if (d.getNumber().equalsIgnoreCase("A")) {
 					d.setValue(11);
 				}
@@ -299,15 +301,6 @@ public class BJFrame extends JFrame {
 				}	
 			}
 		});
-
-
-	}
-	
-	
-
-	public static void main(String[] args) {
-
-		new BJFrame();
 
 	}
 

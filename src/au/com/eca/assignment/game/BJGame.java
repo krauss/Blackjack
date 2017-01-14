@@ -1,17 +1,17 @@
-package au.com.eca.assignment.main;
+package au.com.eca.assignment.game;
 
 import java.util.Collections;
 import java.util.Stack;
 import au.com.eca.assignment.entity.*;
 
-public class BlackJackMain {
+public class BJGame {
 
 	// Creates the deck of Card in form of a stack
-	private Stack<Card> deckCards;
+	private Stack<BJCard> deckCards;
 	
 	//Instances of the Player and Dealer
-	private Player player;
-	private Player dealer;
+	private BJPlayer player;
+	private BJPlayer dealer;
 	private int dealerHints = 2;
 	
 	public static enum GameStatus{
@@ -22,7 +22,7 @@ public class BlackJackMain {
 	}
 	
 
-	public BlackJackMain(Player p, Player d) {
+	public BJGame(BJPlayer p, BJPlayer d) {
 		this.player = p;
 		this.dealer = d;
 		init();
@@ -32,7 +32,7 @@ public class BlackJackMain {
 	private void init() {
 
 		// Create the deck of 52 cards 4x13, from A-K each of which of 4 suits
-		deckCards = new Stack<Card>();
+		deckCards = new Stack<BJCard>();
 
 
 		// Card numbers
@@ -41,13 +41,13 @@ public class BlackJackMain {
 		for (int i = 0; i < 52; i++) {
 
 			if (i < 13) {
-				deckCards.push(new ClubsCard(number));
+				deckCards.push(new BJClubsCard(number));
 			} else if (i < 26) {
-				deckCards.push(new HeartsCard(number));
+				deckCards.push(new BJHeartsCard(number));
 			} else if (i < 39) {
-				deckCards.push(new SpadesCard(number));
+				deckCards.push(new BJSpadesCard(number));
 			} else {
-				deckCards.push(new DiamondsCard(number));
+				deckCards.push(new BJDiamondsCard(number));
 			}
 			number++;
 			if (number == 14) {
@@ -62,7 +62,7 @@ public class BlackJackMain {
 	}
 
 	// Pulls out one card from the deck
-	public Card getDeckCard() {
+	public BJCard getDeckCard() {
 		return deckCards.pop();
 	}
 
@@ -71,11 +71,11 @@ public class BlackJackMain {
 		int playerResult = 0;
 		int dealerResult = 0;
 		
-		for (Card n : player.getHandCards()) {
+		for (BJCard n : player.getHandCards()) {
 			playerResult += n.getValue();
 		}
 		
-		for (Card n : dealer.getHandCards()) {
+		for (BJCard n : dealer.getHandCards()) {
 			dealerResult += n.getValue();
 		}
 		
