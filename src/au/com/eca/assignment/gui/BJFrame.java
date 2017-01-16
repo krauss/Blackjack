@@ -314,7 +314,7 @@ public class BJFrame extends JFrame {
 				//Dealer will keep hinting if its sum is under 20, 
 				//its hints is under 3 and its sum is smaller than the player
 				
-				if(dealer.getSum() < 20 && (game.getDealerHints() > 0 ) && (dealer.getSum() < player.getSum())){
+				if(dealer.getSum() < 20 && (game.getDealerHints() > 0 ) && (dealer.getSum() <= player.getSum())){
 					dealer.setHandCards(game.getDeckCard());
 					game.decDealerHints();
 					panelGame.getDealerHints().setText("Hints:  "+game.getDealerHints());
