@@ -1,5 +1,6 @@
 package au.com.eca.assignment.gui;
 
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -13,6 +14,7 @@ public class BJPanelStart extends JPanel{
 	public BJPanelStart(){
 		this.setLayout(new MigLayout("", "[grow]", "[grow]"));
 		jb_start = new JButton(" Start ");
+		//this.setBackground(new Color(0x03853E));
 		this.add(jb_start, "center");
 	}
 	

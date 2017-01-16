@@ -18,12 +18,13 @@ public class BJPanelGame extends JPanel {
 	private JPanel gamePanelDealer;
 	private JPanel dealerCardsPanel;
 	private JPanel controlPanelDealer;
+	private JPanel replayPanelDealer;
 	private JLabel dealerCardslabel;
 	private JLabel dealerSum;
 	private JLabel dealerHints;
 	private JLabel dealerName;
 	private JLabel dealerScore;
-	
+	private JButton jb_replay;
 	
 	// Player components
 	private JPanel gamePanelPLayer;
@@ -47,6 +48,7 @@ public class BJPanelGame extends JPanel {
 	public BJPanelGame() {
 
 		this.setLayout(new MigLayout("", "10[grow]10[grow]10", "10[grow]10"));
+		
 		createPanelGamePlayer();
 		createPanelGameDealer();
 
@@ -62,7 +64,8 @@ public class BJPanelGame extends JPanel {
 
 		// Creates the panel with the two buttons, HIT and STAND
 		playerCardsPanel = new JPanel();
-		playerCardsPanel.setBorder(BorderFactory.createRaisedBevelBorder());
+		playerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, true));
+		playerCardsPanel.setBackground(new Color(0x03853E));
 		playerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[80]5"));
 
 		// Creates the control panel
@@ -126,9 +129,9 @@ public class BJPanelGame extends JPanel {
 
 		// Creates the panel with the two buttons, HIT and STAND
 		dealerCardsPanel = new JPanel();
-		dealerCardsPanel.setBorder(BorderFactory.createRaisedBevelBorder());
+		dealerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, true));
+		dealerCardsPanel.setBackground(new Color(0x03853E));
 		dealerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[80]5"));
-
 
 		// Creates the control panel
 		controlPanelDealer = new JPanel();
@@ -150,8 +153,17 @@ public class BJPanelGame extends JPanel {
 		controlPanelDealer.add(dealerName, "wrap");
 		controlPanelDealer.add(dealerScore);
 		
+		replayPanelDealer = new JPanel();
+		replayPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[30]5"));
+		
+		jb_replay = new JButton("replay");
+		jb_replay.setVisible(false);
+		
+		replayPanelDealer.add(jb_replay, "center");
+		
 		gamePanelDealer.add(dealerCardsPanel, "growx, wrap");
 		gamePanelDealer.add(controlPanelDealer, "growx, wrap");
+		gamePanelDealer.add(replayPanelDealer);
 		
 	}
 
@@ -249,6 +261,16 @@ public class BJPanelGame extends JPanel {
 
 	public JLabel getDealerHints() {
 		return dealerHints;
+	}
+
+
+	public JPanel getReplayPanelDealer() {
+		return replayPanelDealer;
+	}
+
+
+	public JButton getJb_replay() {
+		return jb_replay;
 	}
 
 }

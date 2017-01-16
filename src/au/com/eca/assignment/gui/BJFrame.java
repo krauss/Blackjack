@@ -31,6 +31,7 @@ public class BJFrame extends JFrame {
 	private BJPlayer player;
 	private BJPlayer dealer;
 	private BJGame game;
+	private BJDatabaseConn conn;
 	private boolean standPressed = false;
 
 	public BJFrame() {
@@ -71,9 +72,9 @@ public class BJFrame extends JFrame {
 
 				if (panelLogin.getJt_login().getText().trim().length() != 0
 						&& panelLogin.getJt_password().getPassword().length != 0) {
-					BJDatabaseConn connection = new BJDatabaseConn();
+					conn = new BJDatabaseConn();
 					try {
-						player = connection.getAuthentication(panelLogin.getJt_login().getText(),
+						player = conn.getAuthentication(panelLogin.getJt_login().getText(),
 								panelLogin.getJt_password().getPassword());
 					} catch (SQLException e1) {
 						e1.printStackTrace();
@@ -148,9 +149,11 @@ public class BJFrame extends JFrame {
 				switch (game.checkGameOver(standPressed)) {
 				case LOSE:
 					terminatesGame("LOSE");
+					enableButtonReplay();
 					break;
 				case WIN:
 					terminatesGame("WIN");
+					enableButtonReplay();
 					break;
 				default:
 					break;
@@ -173,6 +176,19 @@ public class BJFrame extends JFrame {
 				panelGame.getDealerHints().setText("Hints:  "+game.getDealerHints());
 				standPressed = true;
 				initDealersGame();
+			}
+		});
+		
+		panelGame.getJb_replay().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createJPanelStart();
+				conn = new BJDatabaseConn();
+				conn.refreshPlayerData(player);
+				panelGame.getPlayerCardsPanel().repaint();
+				panelGame.getDealerCardsPanel().repaint();
+				
 			}
 		});
 
@@ -198,6 +214,7 @@ public class BJFrame extends JFrame {
 	
 	
 	private void initGame() {
+		player.setHandCards(null);
 		dealer = new BJPlayer("Dealer");
 		game = new BJGame(player, dealer);
 
@@ -205,8 +222,7 @@ public class BJFrame extends JFrame {
 		panelGame.getPlayerName().setText("Player:  " + player.getName());
 
 		// Shows the previous player's score
-		panelGame.getPlayerScore().setText("Score:  " + player.getScore());
-		
+		panelGame.getPlayerScore().setText("Score:  " + player.getScore());		
 
 		// Give him the two initial cards each, to the player and dealer
 		player.setHandCards(game.getDeckCard());		
@@ -244,8 +260,8 @@ public class BJFrame extends JFrame {
 		} else {
 			panelGame.getWinLoseLabel().setForeground(Color.BLUE);
 			panelGame.getWinLoseLabel().setText("YOU WON!   +100 pts");
-			BJDatabaseConn connection = new BJDatabaseConn();
-			connection.setPlayerScore(player);
+			conn = new BJDatabaseConn();
+			conn.setPlayerScore(player);
 			
 		}
 	}
@@ -310,17 +326,28 @@ public class BJFrame extends JFrame {
 					switch (game.checkGameOver(standPressed)) {
 					case LOSE:
 						terminatesGame("LOSE");
+						enableButtonReplay();
 						break;
 					case WIN:
 						terminatesGame("WIN");
+						enableButtonReplay();
 						break;
 					default:
 						break;
 					}
 				}	
 			}
+
+			
 		});
 
 	}
-
+	
+	
+	private void enableButtonReplay() {
+		
+		panelGame.getJb_replay().setVisible(true);
+		
+		
+	}
 }

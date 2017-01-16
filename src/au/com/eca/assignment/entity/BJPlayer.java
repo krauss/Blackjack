@@ -61,7 +61,11 @@ public class BJPlayer {
 
 
 	public void setHandCards(BJCard handCards) {
-		this.handCards.add(handCards);
+		if(handCards == null){
+			this.handCards = new ArrayList<BJCard>();
+		}else{
+			this.handCards.add(handCards);
+		}
 	}
 
 	public String printHandCards() {
@@ -74,6 +78,7 @@ public class BJPlayer {
 
 		return cards;
 	}
+
 	
 
 	
