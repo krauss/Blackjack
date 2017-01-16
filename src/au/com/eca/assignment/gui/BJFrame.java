@@ -84,7 +84,7 @@ public class BJFrame extends JFrame {
 						createJPanelStart();
 
 					} else {
-						panelLogin.getJl_login_error().setText("<html>User and/or Pass<br> incorrect!</html>");
+						panelLogin.getJl_login_error().setText("<html>User and/or Pass incorrect!</html>");
 					}
 
 				}
@@ -258,7 +258,7 @@ public class BJFrame extends JFrame {
 		if (t.equalsIgnoreCase("LOSE")) {
 			panelGame.getWinLoseLabel().setText("YOU LOST!");
 		} else {
-			panelGame.getWinLoseLabel().setForeground(Color.BLUE);
+			panelGame.getWinLoseLabel().setForeground(Color.green);
 			panelGame.getWinLoseLabel().setText("YOU WON!   +100 pts");
 			conn = new BJDatabaseConn();
 			conn.setPlayerScore(player);

@@ -84,7 +84,7 @@ public class BJPanelLogin extends JPanel{
 		jl_login_error = new JLabel("");
 		jl_login_error.setFont(new Font("Arial", Font.BOLD, 11));
 		jl_login_error.setForeground(Color.RED);	
-		loginPanel.add(new JLabel("<html><br>Please, insert your username <br>and password in the fields below.<br><br><br></html>"), "wrap");
+		loginPanel.add(new JLabel("<html><br>Welcome to BlackJack Game <br><br><br>Please, insert your username <br>and password in the fields below.<br><br><br></html>"), "wrap");
 		loginPanel.add(jt_login, "wrap");
 		loginPanel.add(jt_password, "wrap");
 		loginPanel.add(jb_login, "wrap");

@@ -44,11 +44,13 @@ public class BJPanelGame extends JPanel {
 	private JLabel playerName;
 	private JLabel playerScore;
 	private JLabel winLoseLabel;
+	
+	private Font defaultFont;
 
 	public BJPanelGame() {
 
 		this.setLayout(new MigLayout("", "10[grow]10[grow]10", "10[grow]10"));
-		
+		this.setBackground(Color.WHITE);
 		createPanelGamePlayer();
 		createPanelGameDealer();
 
@@ -60,30 +62,41 @@ public class BJPanelGame extends JPanel {
 		// Creates the player back panel
 		gamePanelPLayer = new JPanel();
 		gamePanelPLayer.setLayout(new MigLayout("", "10[250]10", "10[140]10[140]10"));
+		gamePanelPLayer.setBackground(new Color(0x03853E));
 		this.add(gamePanelPLayer);
 
 		// Creates the panel with the two buttons, HIT and STAND
 		playerCardsPanel = new JPanel();
-		playerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, true));
+		playerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, false));
 		playerCardsPanel.setBackground(new Color(0x03853E));
-		playerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[80]5"));
+		playerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[100]5"));
 
 		// Creates the control panel
 		controlPanelPLayer = new JPanel();
 		controlPanelPLayer.setBorder(BorderFactory.createEtchedBorder());
+		controlPanelPLayer.setBackground(new Color(0x03853E));
 		controlPanelPLayer.setLayout(new MigLayout("", "5[grow]5", "5[60]5"));
 
 		playerSum = new JLabel();
 		playerAce = new JLabel("Ace:");
 		ace1 = new JRadioButton(one);
+		ace1.setForeground(Color.WHITE);
+		ace1.setBackground(new Color(0x03853E));
 		ace11 = new JRadioButton(eleven);
-		playerName = new JLabel();
+		ace11.setForeground(Color.WHITE);
+		ace11.setBackground(new Color(0x03853E));		playerName = new JLabel();
 		playerScore = new JLabel();
-
-		playerSum.setFont(new Font("arial", Font.PLAIN, 12));
-		playerAce.setFont(new Font("arial", Font.PLAIN, 12));
-		playerName.setFont(new Font("arial", Font.PLAIN, 12));
-		playerScore.setFont(new Font("arial", Font.PLAIN, 12));
+		
+		defaultFont = new Font("arial", Font.PLAIN, 12);
+		
+		playerSum.setFont(defaultFont);
+		playerSum.setForeground(Color.WHITE);
+		playerAce.setFont(defaultFont);
+		playerAce.setForeground(Color.WHITE);
+		playerName.setFont(defaultFont);
+		playerName.setForeground(Color.WHITE);
+		playerScore.setFont(defaultFont);
+		playerScore.setForeground(Color.WHITE);
 
 		ace1.setEnabled(false);
 		ace1.setActionCommand(one);
@@ -103,6 +116,7 @@ public class BJPanelGame extends JPanel {
 
 		// Creates the panel with the two buttons, HIT and STAND
 		hitStandPanel = new JPanel();
+		hitStandPanel.setBackground(new Color(0x03853E));
 		hitStandPanel.setLayout(new MigLayout("", "5[145]5", "5[30]15[30]5"));
 
 		jb_hit = new JButton("Hit");
@@ -125,17 +139,19 @@ public class BJPanelGame extends JPanel {
 	private void createPanelGameDealer() {
 		gamePanelDealer = new JPanel();
 		gamePanelDealer.setLayout(new MigLayout("", "10[250]10", "10[140]10[140]10"));
+		gamePanelDealer.setBackground(new Color(0x03853E));
 		this.add(gamePanelDealer);
 
 		// Creates the panel with the two buttons, HIT and STAND
 		dealerCardsPanel = new JPanel();
-		dealerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, true));
+		dealerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, false));
 		dealerCardsPanel.setBackground(new Color(0x03853E));
-		dealerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[80]5"));
+		dealerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[100]5"));
 
 		// Creates the control panel
 		controlPanelDealer = new JPanel();
 		controlPanelDealer.setBorder(BorderFactory.createEtchedBorder());
+		controlPanelDealer.setBackground(new Color(0x03853E));
 		controlPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[60]5"));
 		
 		dealerSum = new JLabel();
@@ -143,10 +159,14 @@ public class BJPanelGame extends JPanel {
 		dealerName = new JLabel("Name:  Dealer");
 		dealerScore = new JLabel();
 
-		dealerSum.setFont(new Font("arial", Font.PLAIN, 12));
-		dealerHints.setFont(new Font("arial", Font.PLAIN, 12));
-		dealerName.setFont(new Font("arial", Font.PLAIN, 12));
-		dealerScore.setFont(new Font("arial", Font.PLAIN, 12));
+		dealerSum.setFont(defaultFont);
+		dealerSum.setForeground(Color.WHITE);
+		dealerHints.setFont(defaultFont);
+		dealerHints.setForeground(Color.WHITE);
+		dealerName.setFont(defaultFont);
+		dealerName.setForeground(Color.WHITE);
+		dealerScore.setFont(defaultFont);
+		dealerScore.setForeground(Color.WHITE);
 		
 		controlPanelDealer.add(dealerSum, "wrap");
 		controlPanelDealer.add(dealerHints, "wrap");
@@ -155,6 +175,7 @@ public class BJPanelGame extends JPanel {
 		
 		replayPanelDealer = new JPanel();
 		replayPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[30]5"));
+		replayPanelDealer.setBackground(new Color(0x03853E));
 		
 		jb_replay = new JButton("replay");
 		jb_replay.setVisible(false);

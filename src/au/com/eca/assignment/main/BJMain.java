@@ -7,6 +7,7 @@ public class BJMain {
 	
 	
 	/**
+	 * Class that starts the whole BlackJack game
 	 * 
 	 * @param args
 	 */
