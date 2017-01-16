@@ -12,7 +12,7 @@ public class BJGame {
 	//Instances of the Player and Dealer
 	private BJPlayer player;
 	private BJPlayer dealer;
-	private int dealerHints = 2;
+	private int dealerHints = 3;
 	
 	public static enum GameStatus{
 		WIN, 

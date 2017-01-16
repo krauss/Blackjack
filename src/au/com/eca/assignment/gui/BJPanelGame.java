@@ -63,18 +63,12 @@ public class BJPanelGame extends JPanel {
 		// Creates the panel with the two buttons, HIT and STAND
 		playerCardsPanel = new JPanel();
 		playerCardsPanel.setBorder(BorderFactory.createRaisedBevelBorder());
-		playerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[80]10"));
-
-		// JLabel that show the Player Cards
-		playerCardslabel = new JLabel();
-		playerCardslabel.setFont(new Font("arial", Font.PLAIN, 17));
-		// playerCardslabel.setBackground(Color.WHITE);
-		playerCardsPanel.add(playerCardslabel, "center");
+		playerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[80]5"));
 
 		// Creates the control panel
 		controlPanelPLayer = new JPanel();
 		controlPanelPLayer.setBorder(BorderFactory.createEtchedBorder());
-		controlPanelPLayer.setLayout(new MigLayout("", "5[grow]5", "10[60]5"));
+		controlPanelPLayer.setLayout(new MigLayout("", "5[grow]5", "5[60]5"));
 
 		playerSum = new JLabel();
 		playerAce = new JLabel("Ace:");
@@ -133,17 +127,13 @@ public class BJPanelGame extends JPanel {
 		// Creates the panel with the two buttons, HIT and STAND
 		dealerCardsPanel = new JPanel();
 		dealerCardsPanel.setBorder(BorderFactory.createRaisedBevelBorder());
-		dealerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[80]10"));
+		dealerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[80]5"));
 
-		// JLabel that show the Player Cards
-		dealerCardslabel = new JLabel();
-		dealerCardslabel.setFont(new Font("arial", Font.PLAIN, 17));
-		dealerCardsPanel.add(dealerCardslabel, "center");
 
 		// Creates the control panel
 		controlPanelDealer = new JPanel();
 		controlPanelDealer.setBorder(BorderFactory.createEtchedBorder());
-		controlPanelDealer.setLayout(new MigLayout("", "5[grow]5", "10[60]5"));
+		controlPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[60]5"));
 		
 		dealerSum = new JLabel();
 		dealerHints = new JLabel("Hints:  ");

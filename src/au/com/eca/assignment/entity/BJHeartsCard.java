@@ -1,5 +1,7 @@
 package au.com.eca.assignment.entity;
 
+import java.awt.Color;
+
 public class BJHeartsCard extends BJCard{
 	
 	/**
@@ -10,6 +12,7 @@ public class BJHeartsCard extends BJCard{
 	 */
 	public BJHeartsCard(int n) {
 		super(n, "\u2665");
+		this.setForeground(Color.RED);
 	}
 
 }

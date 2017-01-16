@@ -2,6 +2,8 @@ package au.com.eca.assignment.entity;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 /**
  * 
  * @author <b> jrkrauss </b><br>
@@ -72,7 +74,7 @@ public class BJPlayer {
 
 		return cards;
 	}
-
+	
 
 	
 }

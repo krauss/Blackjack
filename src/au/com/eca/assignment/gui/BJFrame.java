@@ -8,6 +8,7 @@ import java.awt.event.ItemListener;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import au.com.eca.assignment.entity.BJCard;
@@ -140,7 +141,7 @@ public class BJFrame extends JFrame {
 				player.setHandCards(game.getDeckCard());
 
 				// print the cards and the sum
-				panelGame.getPlayerCardslabel().setText(player.printHandCards());
+				addCardsOnPanel(player, panelGame.getPlayerCardsPanel());
 				panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
 				checkAce();
 
@@ -165,7 +166,9 @@ public class BJFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				panelGame.getJb_hit().setEnabled(false);
 				panelGame.getJb_stand().setEnabled(false);
-				panelGame.getDealerCardslabel().setText(dealer.printHandCards());
+				
+				dealer.getHandCards().get(0).setVisible(true);
+				
 				panelGame.getDealerSum().setText("Sum:  "+dealer.getSum());
 				panelGame.getDealerHints().setText("Hints:  "+game.getDealerHints());
 				standPressed = true;
@@ -203,22 +206,34 @@ public class BJFrame extends JFrame {
 
 		// Shows the previous player's score
 		panelGame.getPlayerScore().setText("Score:  " + player.getScore());
+		
 
 		// Give him the two initial cards each, to the player and dealer
-		player.setHandCards(game.getDeckCard());
+		player.setHandCards(game.getDeckCard());		
+		dealer.setHandCards(game.getDeckCard());		
+		player.setHandCards(game.getDeckCard());		
 		dealer.setHandCards(game.getDeckCard());
-		player.setHandCards(game.getDeckCard());
-		dealer.setHandCards(game.getDeckCard());
-
-		// print the cards and the sum
-		panelGame.getPlayerCardslabel().setText(player.printHandCards());
+		
+		addCardsOnPanel(player, panelGame.getPlayerCardsPanel());
+		addCardsOnPanel(dealer, panelGame.getDealerCardsPanel());
+		
 		panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
 		checkAce();
-
-		panelGame.getDealerCardslabel().setText("## " + dealer.printHandCards().substring(3));
+		
+		dealer.getHandCards().get(0).setVisible(false);
 
 	}
 
+	private void addCardsOnPanel(BJPlayer player, JPanel p) {
+		
+		p.removeAll();
+		p.repaint();
+		for (BJCard card : player.getHandCards()) {
+			p.add(card, "center");
+		}		
+	}
+
+	
 	private void terminatesGame(String t) {
 		panelGame.getJb_hit().setEnabled(false);
 		panelGame.getJb_stand().setEnabled(false);
@@ -279,11 +294,15 @@ public class BJFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(dealer.getSum() < 20 && (game.getDealerHints() > 0 )){
+				
+				//Dealer will keep hinting if its sum is under 20, 
+				//its hints is under 3 and its sum is smaller than the player
+				
+				if(dealer.getSum() < 20 && (game.getDealerHints() > 0 ) && (dealer.getSum() < player.getSum())){
 					dealer.setHandCards(game.getDeckCard());
 					game.decDealerHints();
 					panelGame.getDealerHints().setText("Hints:  "+game.getDealerHints());
-					panelGame.getDealerCardslabel().setText(dealer.printHandCards());
+					addCardsOnPanel(dealer, panelGame.getDealerCardsPanel());
 					panelGame.getDealerSum().setText("Sum:  "+dealer.getSum());
 				}else{
 					timer.stop();
