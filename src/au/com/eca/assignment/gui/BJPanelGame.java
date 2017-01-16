@@ -125,9 +125,9 @@ public class BJPanelGame extends JPanel {
 		winLoseLabel.setFont(new Font("arial", Font.BOLD, 17));
 		winLoseLabel.setForeground(Color.RED);
 
-		hitStandPanel.add(jb_hit, "growx");
-		hitStandPanel.add(jb_stand, "growx, wrap");
-		hitStandPanel.add(winLoseLabel, "span 2");
+		hitStandPanel.add(jb_hit, "w 80!, right");
+		hitStandPanel.add(jb_stand, "w 80!, left, wrap");
+		hitStandPanel.add(winLoseLabel, "span 2, center");
 
 		gamePanelPLayer.add(playerCardsPanel, " growx, wrap");
 		gamePanelPLayer.add(controlPanelPLayer, "growx, wrap");
