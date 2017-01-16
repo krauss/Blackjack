@@ -26,7 +26,7 @@ public class BJDatabaseConn {
 
 		try {
 
-			conn = DriverManager.getConnection("jdbc:mysql://172.17.0.2:3306/?useSSL=false", "root", "mamicamole");
+			conn = DriverManager.getConnection("jdbc:sqlite:blackjack.db");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -40,7 +40,6 @@ public class BJDatabaseConn {
 
 		statement = conn.createStatement();
 
-		statement.executeQuery("use BlackJack;");
 		result = statement.executeQuery("select * from Login where username = '" + user + "';");
 
 		if (result.next()) {
@@ -59,7 +58,6 @@ public class BJDatabaseConn {
 	public void refreshPlayerData(BJPlayer p) {
 		try {
 			statement = conn.createStatement();
-			statement.executeQuery("use BlackJack;");
 			result = statement.executeQuery("select * from Login where username = '" + p.getUserName() + "';");
 
 			if (result.next()) {
@@ -82,7 +80,6 @@ public class BJDatabaseConn {
 		try {
 
 			statement = conn.createStatement();
-			statement.executeQuery("use BlackJack;");
 			statement.executeUpdate("update Login set score = score + 100 where username = '" + p.getUserName() + "';");
 
 			conn.close();

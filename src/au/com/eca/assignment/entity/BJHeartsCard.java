@@ -2,6 +2,7 @@ package au.com.eca.assignment.entity;
 
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class BJHeartsCard extends BJCard{
 	
 	/**

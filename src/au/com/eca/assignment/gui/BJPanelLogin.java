@@ -32,7 +32,6 @@ public class BJPanelLogin extends JPanel{
 	
 	private void createPanelLogin() {
 		loginPanel = new JPanel();
-		//loginPanel.setPreferredSize(new Dimension(165, 280));
 		loginPanel.setBorder(BorderFactory.createEtchedBorder());
 		loginPanel.setLayout(new MigLayout("", "20[grow]20", "20[]10[]10[]20"));		
 		this.add(loginPanel, "growy");
@@ -70,6 +69,7 @@ public class BJPanelLogin extends JPanel{
 				
 			}
 			
+			@SuppressWarnings("deprecation")
 			@Override
 			public void focusGained(FocusEvent e) {
 				if(jt_password.getText().equalsIgnoreCase("password")){

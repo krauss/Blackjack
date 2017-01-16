@@ -2,7 +2,6 @@ package au.com.eca.assignment.entity;
 
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
 
 /**
  * 
