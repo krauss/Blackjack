@@ -16,6 +16,7 @@ public interface BJICard {
 	public String getSuit();
 	public int getValue();
 	public void setValue(int n);
+	@Override
 	public String toString();
 	
 	

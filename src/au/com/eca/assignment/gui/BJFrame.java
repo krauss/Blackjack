@@ -68,6 +68,7 @@ public class BJFrame extends JFrame {
 		// Adds the login action to the button
 		panelLogin.getJb_login().addActionListener(new ActionListener() {
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				if (panelLogin.getJt_login().getText().trim().length() != 0
