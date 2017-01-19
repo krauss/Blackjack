@@ -1,5 +1,5 @@
-FROM openjdk:7
-COPY . /blackjack/*
-WORKDIR /blackjack/
-RUN javac /assignment/main/BJMain.java
+FROM openjdk:8
+COPY ../assignment/* /tmp/
+WORKDIR /tmp/
+RUN javac ./main/BJMain.java
 CMD ["java", "BJMain"]
