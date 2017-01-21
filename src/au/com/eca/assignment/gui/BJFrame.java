@@ -70,12 +70,21 @@ public class BJFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				if (panelLogin.getJt_login().getText().trim().length() != 0
+				if(panelLogin.getJc_createUser().isSelected()){
+					conn = new BJDatabaseConn();
+					
+					conn.insertNewUser(panelLogin.getJt_login().getText(), panelLogin.getJt_password().getPassword(), "Player 1");
+					
+					player = new BJPlayer(panelLogin.getJt_login().getText());
+					player.setName("Player 1");
+					panelLogin.removeCreationPanel();
+					createJPanelStart();
+					
+				}else if (panelLogin.getJt_login().getText().trim().length() != 0
 						&& panelLogin.getJt_password().getPassword().length != 0) {
 					conn = new BJDatabaseConn();
 					try {
-						player = conn.getAuthentication(panelLogin.getJt_login().getText(),
+						player = conn.authenticate(panelLogin.getJt_login().getText(),
 								panelLogin.getJt_password().getPassword());
 					} catch (SQLException e1) {
 						e1.printStackTrace();

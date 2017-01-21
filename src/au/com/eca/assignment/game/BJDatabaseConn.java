@@ -21,6 +21,7 @@ public class BJDatabaseConn {
 	private Connection conn;
 	private Statement statement;
 	private ResultSet result;
+	private static int idLogin;
 
 	public BJDatabaseConn() {
 
@@ -34,7 +35,7 @@ public class BJDatabaseConn {
 
 	}
 
-	public BJPlayer getAuthentication(String user, char[] pass) throws SQLException {
+	public BJPlayer authenticate(String user, char[] pass) throws SQLException {
 		BJPlayer p = null;
 		String password = String.copyValueOf(pass);
 
@@ -87,6 +88,53 @@ public class BJDatabaseConn {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public boolean checkExistingUser(String userName){
+		boolean result = false;
+		
+		try {
+			
+			statement = conn.createStatement();
+			ResultSet r = statement.executeQuery("Select username from Login where username = '"+userName+"';");
+			
+			if(r.next()){
+				if(r.getString("username").equalsIgnoreCase(userName)){				
+					result = true;
+				}
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result; 
+	}
+	
+	public void insertNewUser(String userName, char[] userPassword, String name){
+		String userPass = "";
+		
+		for (char c : userPassword) {
+			userPass += c;
+		}
+		
+		try {
+			
+			statement = conn.createStatement();
+			
+			statement.execute("insert into Login values ('"+getIdLogin()+"', '"+userName+"', '"+userPass+"', '"+name+"', 0);"); 
+			
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private int getIdLogin(){
+		idLogin++;
+		return idLogin;
 	}
 
 	public Connection getConn() {
