@@ -1,4 +1,4 @@
-package au.com.eca.assignment.game;
+package com.eca.assignment.game;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import au.com.eca.assignment.entity.BJPlayer;
+import com.eca.assignment.entity.BJPlayer;
 
 /**
  * 

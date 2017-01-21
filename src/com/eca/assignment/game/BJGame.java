@@ -1,8 +1,8 @@
-package au.com.eca.assignment.game;
+package com.eca.assignment.game;
 
 import java.util.Collections;
 import java.util.Stack;
-import au.com.eca.assignment.entity.*;
+import com.eca.assignment.entity.*;
 
 public class BJGame {
 

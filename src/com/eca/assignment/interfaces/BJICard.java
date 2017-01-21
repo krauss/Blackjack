@@ -1,4 +1,4 @@
-package au.com.eca.assignment.interfaces;
+package com.eca.assignment.interfaces;
 
 
 /**

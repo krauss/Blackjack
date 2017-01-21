@@ -1,4 +1,4 @@
-package au.com.eca.assignment.entity;
+package com.eca.assignment.entity;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import au.com.eca.assignment.interfaces.BJICard;
+import com.eca.assignment.interfaces.BJICard;
 
 /**
  * 

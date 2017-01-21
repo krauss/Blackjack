@@ -1,4 +1,4 @@
-package au.com.eca.assignment.gui;
+package com.eca.assignment.gui;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -11,10 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import au.com.eca.assignment.entity.BJCard;
-import au.com.eca.assignment.entity.BJPlayer;
-import au.com.eca.assignment.game.BJGame;
-import au.com.eca.assignment.game.BJDatabaseConn;
+import com.eca.assignment.entity.BJCard;
+import com.eca.assignment.entity.BJPlayer;
+import com.eca.assignment.game.BJGame;
+import com.eca.assignment.game.BJDatabaseConn;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")

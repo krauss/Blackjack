@@ -1,7 +1,7 @@
-package au.com.eca.assignment.main;
+package com.eca.assignment.main;
 
 import javax.swing.SwingUtilities;
-import au.com.eca.assignment.gui.BJFrame;
+import com.eca.assignment.gui.BJFrame;
 
 public class BJMain {	
 	

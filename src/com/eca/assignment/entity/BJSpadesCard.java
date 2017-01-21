@@ -1,4 +1,4 @@
-package au.com.eca.assignment.entity;
+package com.eca.assignment.entity;
 
 @SuppressWarnings("serial")
 public class BJSpadesCard extends BJCard{

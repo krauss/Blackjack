@@ -1,4 +1,4 @@
-package au.com.eca.assignment.gui;
+package com.eca.assignment.gui;
 
 import java.awt.Dimension;
 

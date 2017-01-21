@@ -1,4 +1,4 @@
-package au.com.eca.assignment.gui;
+package com.eca.assignment.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import au.com.eca.assignment.game.BJDatabaseConn;
+import com.eca.assignment.game.BJDatabaseConn;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
