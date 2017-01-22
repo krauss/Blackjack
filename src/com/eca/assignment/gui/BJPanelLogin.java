@@ -112,7 +112,7 @@ public class BJPanelLogin extends JPanel {
 		loginPanel.add(jt_login, "cell 0 1");
 		loginPanel.add(jt_password, "cell 0 2");
 		loginPanel.add(jb_login, "cell 0 3");
-		loginPanel.add(jl_login_error);
+		loginPanel.add(jl_login_error,"cell 0 4" );
 
 		// Creation of the New User Panel
 
