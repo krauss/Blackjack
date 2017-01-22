@@ -5,7 +5,7 @@ import com.eca.assignment.gui.BJFrame;
 public class BJMain {
 
 	/**
-	 * Class that starts the whole BlackJack game
+	 * Everything starts from this class
 	 * 
 	 * @param args
 	 */

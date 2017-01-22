@@ -11,6 +11,14 @@ import javax.swing.JRadioButton;
 
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * 
+ * @author jrkrauss
+ * <br>
+ * <br>
+ * This class defines the panel of the game. All the components are setup in this class.
+ *
+ */
 @SuppressWarnings("serial")
 public class BJPanelGame extends JPanel {
 

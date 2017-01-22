@@ -33,7 +33,16 @@ public class BJFrame extends JFrame {
 	private BJGame game;
 	private BJDatabaseConn conn;
 	private boolean standPressed = false;
-
+	
+	/**
+	 * 
+	 * Default constructor runs these 3 private methods that start the login panel.
+	 * 
+	 * It was used JTabbedPanel in order to easily swap panels without having to 
+	 * create different JFrame
+	 * 
+	 *   
+	 */
 	public BJFrame() {
 
 		createJFrame();
@@ -41,7 +50,12 @@ public class BJFrame extends JFrame {
 		createJPanelLogin();
 
 	}
-
+	
+	/**
+	 * 
+	 * Private method that creates an instance of BJFrame.
+	 * 
+	 */
 	private void createJFrame() {
 		this.setTitle(" .: Blackjack :.");
 		this.setSize(500, 400);
@@ -53,13 +67,25 @@ public class BJFrame extends JFrame {
 		this.pack();
 
 	}
-
+	
+	
+	/**
+	 * 
+	 * Private method that creates an instance of BJTabbedPanel.
+	 * 
+	 */
 	private void createJTabbedPanel() {
 		tabbedpanel = new BJTabbedPanel();
 		this.add(tabbedpanel);
 
 	}
-
+	
+	
+	/**
+	 * 
+	 * Private method that creates an instance of BJPanelLogin.
+	 * 
+	 */
 	private void createJPanelLogin() {
 
 		// Creates de Login panel using the BJPanelLogin class
@@ -73,10 +99,10 @@ public class BJFrame extends JFrame {
 				if(panelLogin.getJc_createUser().isSelected()){
 					conn = new BJDatabaseConn();
 					
-					conn.insertNewUser(panelLogin.getJt_login().getText(), panelLogin.getJt_password().getPassword(), "Player 1");
+					conn.insertNewUser(panelLogin.getJt_login().getText(), panelLogin.getJt_password().getPassword(), panelLogin.getJt_login().getText());
 					
 					player = new BJPlayer(panelLogin.getJt_login().getText());
-					player.setName("Player 1");
+					player.setName(panelLogin.getJt_login().getText());
 					panelLogin.removeCreationPanel();
 					createJPanelStart();
 					
@@ -105,7 +131,13 @@ public class BJFrame extends JFrame {
 		tabbedpanel.add("Login", panelLogin);
 
 	}
-
+	
+	/**
+	 * 
+	 * Private method that creates an instance of BJPanelStart. It is called after the login step
+	 * succeeds. 
+	 * 
+	 */
 	private void createJPanelStart() {
 		// Creates the Start Game panel using the BJPanelStart class
 		panelStart = new BJPanelStart();
@@ -131,7 +163,16 @@ public class BJFrame extends JFrame {
 		tabbedpanel.setSelectedIndex(1);
 
 	}
-
+	
+	/**
+	 * 
+	 * Private method that creates an instance of BJPanelGame. It is called when the user 
+	 * press the button 'Start' at the StartPanel
+	 * 
+	 * Everything regarded to GUI is defined on the BJPanelGame class. Therefore, <b>ALL</b> the actions performed
+	 * by any component is implemented in this class, more specifically, in this method. 
+	 * 
+	 */
 	private void createJPanelGame() {
 		// Creates the new tab using the BJPanelGame class
 		panelGame = new BJPanelGame();
@@ -206,7 +247,14 @@ public class BJFrame extends JFrame {
 			
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				changeAceValue();
+				//In case there are more than one ace, it's going to change just the first one.
+				for (BJCard d : player.getHandCards()) {
+					if (d.getNumber().equalsIgnoreCase("A")) {
+						d.setValue(1);
+						break;
+					}
+				}
+				panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
 				
 			}
 		});
@@ -215,14 +263,25 @@ public class BJFrame extends JFrame {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				changeAceValue();
+				//In case there are more than one ace, it's going to change just the first one.
+				for (BJCard d : player.getHandCards()) {
+					if (d.getNumber().equalsIgnoreCase("A")) {
+						d.setValue(11);
+					}
+				}
+				panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
 			}
 		});
 
 	}
 
 	
-	
+	/**
+	 * 
+	 * Private method that creates the only instance of the BJGame and also gives the two firsts cards 
+	 * for the Player and Dealer. 
+	 * 
+	 */
 	private void initGame() {
 		player.setHandCards(null);
 		dealer = new BJPlayer("Dealer");
@@ -287,29 +346,17 @@ public class BJFrame extends JFrame {
 		}
 
 	}
-
-	private void changeAceValue() {
-		
-		if (panelGame.getAce1().isSelected()) {
-
-			for (BJCard d : player.getHandCards()) {
-				if (d.getNumber().equalsIgnoreCase("A")) {
-					d.setValue(1);
-				}
-			}
-		} else if (panelGame.getAce11().isSelected()) {
-
-			for (BJCard d : player.getHandCards()) {
-				if (d.getNumber().equalsIgnoreCase("A")) {
-					d.setValue(11);
-				}
-			}
-
-		}
-		panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
-
-	}
-
+	
+	/**
+	 *  
+	 * When the Player hits STAND button, this method is called to start the Dealer's fase.<br>
+	 * <br>
+	 * The Dealer keeps getting card while:<br>
+	 * <b>- sum isn't over 20</b>,<br> 
+	 * <b>- his hints aren't equal 0</b> <br>
+	 * <b>- his sum is still smaller than the Player</b>.  
+	 * 
+	 */	
 	private void initDealersGame() {
 
 		Timer timer = new Timer(3000, null);

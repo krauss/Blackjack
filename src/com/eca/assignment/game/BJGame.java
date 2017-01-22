@@ -1,8 +1,20 @@
 package com.eca.assignment.game;
 
 import java.util.Collections;
+
 import java.util.Stack;
 import com.eca.assignment.entity.*;
+
+/**
+ * 
+ * @author jrkrauss
+ * <br>
+ * <br>
+ * This class provides the entities of the game. It has two players, a shuffled deck of card and
+ * methods to provide verification of the games rules.  
+ * 
+ *
+ */
 
 public class BJGame {
 

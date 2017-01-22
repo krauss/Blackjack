@@ -23,6 +23,7 @@ public class BJDatabaseConn {
 	private ResultSet result;
 	private static int idLogin;
 
+	
 	public BJDatabaseConn() {
 
 		try {
@@ -135,14 +136,6 @@ public class BJDatabaseConn {
 	private int getIdLogin(){
 		idLogin++;
 		return idLogin;
-	}
-
-	public Connection getConn() {
-		return conn;
-	}
-
-	public Statement getStatement() {
-		return statement;
 	}
 
 }

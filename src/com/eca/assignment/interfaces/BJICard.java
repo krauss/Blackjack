@@ -5,7 +5,7 @@ package com.eca.assignment.interfaces;
  * 
  *@author <b> jrkrauss </b><br><br>
  *
- * Interface that defines basic method that the entities must implements 
+ * Interface that defines basic method that the Card entities must implements 
  *
  */
 
