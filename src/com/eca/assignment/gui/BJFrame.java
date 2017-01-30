@@ -314,7 +314,7 @@ public class BJFrame extends JFrame {
 		p.removeAll();
 		p.repaint();
 		for (BJCard card : player.getHandCards()) {
-			p.add(card, "center");
+			p.add(card, "west, h 40!");
 		}		
 	}
 

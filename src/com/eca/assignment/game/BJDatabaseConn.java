@@ -21,7 +21,6 @@ public class BJDatabaseConn {
 	private Connection conn;
 	private Statement statement;
 	private ResultSet result;
-	private static int idLogin;
 
 	
 	public BJDatabaseConn() {
@@ -115,6 +114,7 @@ public class BJDatabaseConn {
 	
 	public void insertNewUser(String userName, char[] userPassword, String name){
 		String userPass = "";
+		int nextValidId = 0;
 		
 		for (char c : userPassword) {
 			userPass += c;
@@ -122,20 +122,19 @@ public class BJDatabaseConn {
 		
 		try {
 			
+			statement = conn.createStatement();	
+			
+			nextValidId = statement.executeQuery("select max(idLogin)+2 as maxId from Login;").getInt("maxId");
+			
 			statement = conn.createStatement();
 			
-			statement.execute("insert into Login values ('"+getIdLogin()+"', '"+userName+"', '"+userPass+"', '"+name+"', 0);"); 
+			statement.execute("insert into Login values ('"+nextValidId+"', '"+userName+"', '"+userPass+"', '"+name+"', 0);"); 
 			
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-	}
-	
-	private int getIdLogin(){
-		idLogin++;
-		return idLogin;
 	}
 
 }
