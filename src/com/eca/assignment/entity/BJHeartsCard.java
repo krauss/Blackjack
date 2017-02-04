@@ -2,6 +2,8 @@ package com.eca.assignment.entity;
 
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
+
 @SuppressWarnings("serial")
 public class BJHeartsCard extends BJCard{
 	
@@ -13,7 +15,7 @@ public class BJHeartsCard extends BJCard{
 	 */
 	public BJHeartsCard(int n) {
 		super(n, "\u2665");
-		this.setForeground(Color.RED);
+		this.setIcon(new ImageIcon("./resources/imgs/"+this.getNumber()+"H.png"));
 	}
 
 }

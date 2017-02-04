@@ -13,13 +13,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.eca.assignment.game.BJDatabaseConn;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class BJPanelLogin extends JPanel {
-
+	
+	private JPanel welcomeLoginPanel;
 	private JPanel loginPanel;
 	private JPanel createUserPanel;
 	private JLabel jl_createUser;
@@ -32,24 +34,45 @@ public class BJPanelLogin extends JPanel {
 	private BJDatabaseConn conn;
 
 	public BJPanelLogin() {
-		this.setLayout(new MigLayout("", "20[grow]10[grow]20", "20[grow]20"));
+		this.setLayout(new MigLayout("", "20[grow]20[grow]20", "20[200]20[grow]20"));
+		this.setBackground(Color.BLACK);
 		createPanelLogin();
-		createLoginComponents();
+		createLoginComponents();	
 	}
 
-	private void createPanelLogin() {
+	private void createPanelLogin() {	
+		
+		welcomeLoginPanel = new JPanel();
+		welcomeLoginPanel.setBorder(BorderFactory.createEtchedBorder());
+		welcomeLoginPanel.setBackground(Color.BLACK);
+		welcomeLoginPanel.setLayout(new MigLayout("", "10[250]10", "10[70][70]10"));
+		
 		loginPanel = new JPanel();
-		loginPanel.setBorder(BorderFactory.createEtchedBorder());
-		loginPanel.setLayout(new MigLayout("", "20[grow]20", "10[]10[]10[]10"));
-		bjimage = new JLabel(new ImageIcon("./resources/blackjack.png"));
+		loginPanel.setBackground(Color.BLACK);
+		loginPanel.setLayout(new MigLayout("", "10[250]10", "10[][][]10"));
+		
+		bjimage = new JLabel(new ImageIcon("./resources/blackjack.png"));		
 		bjimage.setOpaque(true);
-		bjimage.setBackground(new Color(0x03853E));
-		this.add(bjimage, "growy, growx");
-		this.add(loginPanel, "growx, growy");		
+		bjimage.setBackground(Color.BLACK);
+		
+		this.add(bjimage, "span 0 2, growx, growy");
+		this.add(welcomeLoginPanel, "right, top, wrap");
+		this.add(loginPanel, "cell 1 1, growy, right, top");		
 
 	}
 
 	private void createLoginComponents() {
+		JLabel welcome = new JLabel("<html>the BlackJack Game</html>");
+		welcome.setFont(new Font("Arial", Font.BOLD, 16));
+		welcome.setHorizontalAlignment(SwingConstants.CENTER);
+		welcome.setVerticalAlignment(SwingConstants.CENTER);
+		welcome.setForeground(Color.WHITE);
+		JLabel txt = new JLabel("<html>Have a look at the existence of your <font color=\"red\">username</font> and"
+				+ " <font color=\"red\">password</font> in the fields below:</html>");
+		txt.setForeground(Color.WHITE);
+		welcomeLoginPanel.add(welcome, "center, wrap");
+		welcomeLoginPanel.add(txt, "center");
+		
 		jt_login = new JTextField("username");
 		jt_login.setPreferredSize(new Dimension(150, 22));
 		jt_login.addFocusListener(new FocusListener() {
@@ -104,30 +127,30 @@ public class BJPanelLogin extends JPanel {
 			}
 		});
 
-		jb_login = new JButton("Login");
+		jb_login = new JButton("Play");
 		jl_login_error = new JLabel("");
 		jl_login_error.setFont(new Font("Arial", Font.BOLD, 11));
 		jl_login_error.setForeground(Color.RED);
-		loginPanel.add(
-				new JLabel(
-						"<html><br><b>Welcome to BlackJack Game </b><br><br><br>Please, insert your username <br>and password in the fields below.<br><br><br></html>"),
-				"cell 0 0");
-		loginPanel.add(jt_login, "cell 0 1, right");
-		loginPanel.add(jt_password, "cell 0 2, right");
-		loginPanel.add(jb_login, "cell 0 3, right");
-		loginPanel.add(jl_login_error,"cell 0 4, right" );
+		
+		loginPanel.add(jt_login, "cell 0 0, right");
+		loginPanel.add(jt_password, "cell 0 1, right");
+		loginPanel.add(jb_login, "cell 0 2, right");
+		loginPanel.add(jl_login_error,"cell 0 3, right" );
 		
 
 		// Creation of the New User Panel
 		createUserPanel = new JPanel();
 		createUserPanel.setPreferredSize(new Dimension(150, 30));
 		createUserPanel.setLayout(new MigLayout());
+		createUserPanel.setBackground(Color.BLACK);
 		createUserPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
 
-		jl_createUser = new JLabel("User not found!");
+		jl_createUser = new JLabel("Unknown Player!");
 		jl_createUser.setFont(new Font("arial", Font.PLAIN, 11));
 		jl_createUser.setForeground(Color.RED);
 		jc_createUser = new JCheckBox("Create it?");
+		jc_createUser.setBackground(Color.BLACK);
+		jc_createUser.setForeground(Color.WHITE);
 		jc_createUser.setFont(new Font("arial", Font.PLAIN, 11));
 
 		createUserPanel.add(jl_createUser, "wrap");
@@ -139,10 +162,10 @@ public class BJPanelLogin extends JPanel {
 
 		loginPanel.remove(jt_password);
 		loginPanel.remove(jb_login);
-		loginPanel.add(createUserPanel, "cell 0 2, right");
-		loginPanel.add(jt_password, "cell 0 3, right");
-		loginPanel.add(jb_login, "cell 0 4, right");
-		loginPanel.add(jl_login_error, "cell 0 5, right");
+		loginPanel.add(createUserPanel, "cell 0 1, right");
+		loginPanel.add(jt_password, "cell 0 2, right");
+		loginPanel.add(jb_login, "cell 0 3, right");
+		loginPanel.add(jl_login_error, "cell 0 4, right");
 		loginPanel.updateUI();
 	}
 
@@ -152,9 +175,9 @@ public class BJPanelLogin extends JPanel {
 		loginPanel.remove(createUserPanel);
 		loginPanel.remove(jt_password);
 		loginPanel.remove(jb_login);
-		loginPanel.add(jt_password, "cell 0 2, right");
-		loginPanel.add(jb_login, "cell 0 3, right");
-		loginPanel.add(jl_login_error, "cell 0 4, right");
+		loginPanel.add(jt_password, "cell 0 1, right");
+		loginPanel.add(jb_login, "cell 0 2, right");
+		loginPanel.add(jl_login_error, "cell 0 3, right");
 		loginPanel.updateUI();
 	}
 

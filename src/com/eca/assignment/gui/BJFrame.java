@@ -44,40 +44,21 @@ public class BJFrame extends JFrame {
 	 *   
 	 */
 	public BJFrame() {
-
-		createJFrame();
-		createJTabbedPanel();
-		createJPanelLogin();
-
-	}
-	
-	/**
-	 * 
-	 * Private method that creates an instance of BJFrame.
-	 * 
-	 */
-	private void createJFrame() {
-		this.setTitle(" .: Blackjack :.");
-		this.setSize(500, 400);
+		
+		this.setSize(600, 460);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.layout_jframe = new MigLayout("", "20[600]20", "20[460]20");
-		this.setLayout(layout_jframe);
-		this.setVisible(true);
-		this.setLocationRelativeTo(null);
+		this.layout_jframe = new MigLayout("", "0[600]0", "0[460]0");
+		this.setLayout(layout_jframe);		
+		this.setLocationRelativeTo(null);		
 		this.pack();
-
-	}
-	
-	
-	/**
-	 * 
-	 * Private method that creates an instance of BJTabbedPanel.
-	 * 
-	 */
-	private void createJTabbedPanel() {
-		tabbedpanel = new BJTabbedPanel();
-		this.add(tabbedpanel);
-
+		
+		createJPanelLogin();	
+		
+		//It gives the initial focus to the Login button
+		this.getRootPane().setDefaultButton(panelLogin.getJb_login());
+		panelLogin.getJb_login().requestFocus();
+		
+		this.setVisible(true);
 	}
 	
 	
@@ -92,6 +73,7 @@ public class BJFrame extends JFrame {
 		panelLogin = new BJPanelLogin();
 
 		// Adds the login action to the button
+		
 		panelLogin.getJb_login().addActionListener(new ActionListener() {
 
 			@Override
@@ -127,8 +109,7 @@ public class BJFrame extends JFrame {
 			}
 		});
 
-		// Add the JPanel component to the container JTabbedPanel
-		tabbedpanel.add("Login", panelLogin);
+		this.add(panelLogin, "growx, growy");
 
 	}
 	

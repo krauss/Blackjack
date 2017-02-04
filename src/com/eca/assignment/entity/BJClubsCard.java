@@ -1,5 +1,7 @@
 package com.eca.assignment.entity;
 
+import javax.swing.ImageIcon;
+
 @SuppressWarnings("serial")
 public class BJClubsCard extends BJCard{
 		
@@ -11,6 +13,7 @@ public class BJClubsCard extends BJCard{
 	 */
 	public BJClubsCard(int n) {
 		super(n, "\u2663");
+		this.setIcon(new ImageIcon("./resources/imgs/"+this.getNumber()+"C.png"));
 	}
 
 		
