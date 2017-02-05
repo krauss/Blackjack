@@ -1,6 +1,6 @@
 package com.eca.assignment.main;
 
-import com.eca.assignment.gui.BJFrame;
+import com.eca.assignment.gui.BJFrameLogin;
 
 public class BJMain {
 
@@ -11,7 +11,7 @@ public class BJMain {
 	 */
 	public static void main(String[] args) {
 
-		new BJFrame();
+		new BJFrameLogin();
 
 	}
 }

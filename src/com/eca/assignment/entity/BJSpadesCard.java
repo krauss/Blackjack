@@ -11,4 +11,12 @@ public class BJSpadesCard extends BJCard{
 		this.setIcon(new ImageIcon("./resources/imgs/"+this.getNumber()+"S.png"));
 	}
 
+	
+	public void setBackImage(boolean s) {
+		if (s){
+			this.setIcon(new ImageIcon("./resources/imgs/back.png"));
+		}else{
+			this.setIcon(new ImageIcon("./resources/imgs/"+getNumber()+"S.png"));
+		}
+	}
 }

@@ -15,7 +15,14 @@ public class BJClubsCard extends BJCard{
 		super(n, "\u2663");
 		this.setIcon(new ImageIcon("./resources/imgs/"+this.getNumber()+"C.png"));
 	}
-
-		
+	
+	
+	public void setBackImage(boolean s) {
+		if (s){
+			this.setIcon(new ImageIcon("./resources/imgs/back.png"));
+		}else{
+			this.setIcon(new ImageIcon("./resources/imgs/"+getNumber()+"C.png"));
+		}
+	}	
 
 }

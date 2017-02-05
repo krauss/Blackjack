@@ -2,12 +2,8 @@ package com.eca.assignment.entity;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
 import com.eca.assignment.interfaces.BJICard;
 
 /**
@@ -19,11 +15,12 @@ import com.eca.assignment.interfaces.BJICard;
  *
  */
 @SuppressWarnings("serial")
-public class BJCard extends JLabel implements BJICard{
+public abstract class BJCard extends JLabel implements BJICard{
 	
 	private String number;
 	private String suit;
 	private int value;
+	private boolean upsideDown = false;
 		
 	
 	/**
@@ -35,14 +32,10 @@ public class BJCard extends JLabel implements BJICard{
 	public BJCard(int n, String s) {
 		this.suit = s;
 		this.setBackground(Color.WHITE);
-		this.setOpaque(true);
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-		this.setPreferredSize(new Dimension(35, 40));
-		this.setFont(new Font("arial", Font.PLAIN, 17));
+		this.setOpaque(true);		
+		this.setBorder(BorderFactory.createMatteBorder(-2, -2, -2, -2, Color.WHITE));
+		this.setPreferredSize(new Dimension(65, 80));
 		setValueAndNumber(n);
-		this.setText(number+suit);
-		this.setHorizontalAlignment(SwingConstants.CENTER);
-		this.setVerticalAlignment(SwingConstants.CENTER);
 	}
 	
 	
@@ -127,5 +120,13 @@ public class BJCard extends JLabel implements BJICard{
 			break;
 		}		
 	}
+
+
+	public boolean isUpsideDown() {
+		return upsideDown;
+	}
+	
+	
+	public void setBackImage(boolean s) {}
 
 }

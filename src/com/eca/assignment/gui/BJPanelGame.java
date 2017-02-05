@@ -8,15 +8,14 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-
 import net.miginfocom.swing.MigLayout;
 
 /**
  * 
- * @author jrkrauss
- * <br>
- * <br>
- * This class defines the panel of the game. All the components are setup in this class.
+ * @author jrkrauss <br>
+ *         <br>
+ *         This class defines the panel of the game. All the components are
+ *         setup in this class.
  *
  */
 @SuppressWarnings("serial")
@@ -33,7 +32,7 @@ public class BJPanelGame extends JPanel {
 	private JLabel dealerName;
 	private JLabel dealerScore;
 	private JButton jb_replay;
-	
+
 	// Player components
 	private JPanel gamePanelPLayer;
 	private JPanel playerCardsPanel;
@@ -52,38 +51,90 @@ public class BJPanelGame extends JPanel {
 	private JLabel playerName;
 	private JLabel playerScore;
 	private JLabel winLoseLabel;
-	
-	private Font defaultFont;
+	private Font defaultFont = new Font("arial", Font.BOLD, 13);
 
 	public BJPanelGame() {
 
-		this.setLayout(new MigLayout("", "10[grow]10[grow]10", "10[grow]10"));
-		this.setBackground(Color.WHITE);
-		createPanelGamePlayer();
+		this.setLayout(new MigLayout("", "[grow, center]", "[center][center]"));
+		this.setBackground(Color.BLACK);
+
 		createPanelGameDealer();
+		createPanelGamePlayer();
 
 	}
-	
-	
-	//The Player side of the game
+
+	// The Dealer side of the game
+	private void createPanelGameDealer() {
+		gamePanelDealer = new JPanel();
+		gamePanelDealer.setLayout(new MigLayout("", "[grow]","[center][center]"));
+		gamePanelDealer.setBackground(new Color(0x03853E));
+		this.add(gamePanelDealer, "growx, gap 15 15 15 15, wrap");
+
+		// Creates the panel with the two buttons, HIT and STAND
+		dealerCardsPanel = new JPanel();
+		dealerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
+		dealerCardsPanel.setBackground(new Color(0x03853E));
+		dealerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[100]5"));
+
+		// Creates the control panel
+		controlPanelDealer = new JPanel();
+		controlPanelDealer.setBorder(BorderFactory.createEtchedBorder());
+		controlPanelDealer.setBackground(new Color(0x03853E));
+		controlPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[]5"));
+
+		dealerSum = new JLabel("Sum: ");
+		dealerHints = new JLabel("Hints:  ");
+		dealerName = new JLabel("Name:  Dealer");
+		dealerScore = new JLabel();
+
+		dealerSum.setFont(defaultFont);
+		dealerSum.setForeground(Color.WHITE);
+		dealerHints.setFont(defaultFont);
+		dealerHints.setForeground(Color.WHITE);
+		dealerName.setFont(defaultFont);
+		dealerName.setForeground(Color.WHITE);
+		dealerScore.setFont(defaultFont);
+		dealerScore.setForeground(Color.WHITE);
+
+		controlPanelDealer.add(dealerName, "wrap");
+		controlPanelDealer.add(dealerSum, "wrap");
+		controlPanelDealer.add(dealerHints, "wrap");
+		controlPanelDealer.add(dealerScore);
+
+		replayPanelDealer = new JPanel();
+		replayPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[30]5"));
+		replayPanelDealer.setBackground(new Color(0x03853E));
+
+		jb_replay = new JButton("replay");
+		jb_replay.setVisible(false);
+
+		replayPanelDealer.add(jb_replay, "center");
+
+		gamePanelDealer.add(controlPanelDealer, "align center, wrap");
+		gamePanelDealer.add(dealerCardsPanel, "align center, growx, wrap");
+		gamePanelDealer.add(replayPanelDealer, "align center");
+
+	}
+
+	// The Player side of the game
 	private void createPanelGamePlayer() {
 		// Creates the player back panel
 		gamePanelPLayer = new JPanel();
-		gamePanelPLayer.setLayout(new MigLayout("", "10[250]10", "10[140]10[140]10"));
+		gamePanelPLayer.setLayout(new MigLayout("", "[grow]","[center][center]"));
 		gamePanelPLayer.setBackground(new Color(0x03853E));
-		this.add(gamePanelPLayer);
+		this.add(gamePanelPLayer, "gap 15 15 0 15, growx");
 
 		// Creates the panel with the two buttons, HIT and STAND
 		playerCardsPanel = new JPanel();
-		playerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, false));
+		playerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
 		playerCardsPanel.setBackground(new Color(0x03853E));
-		playerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[100]5"));
+		playerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[]5"));
 
 		// Creates the control panel
 		controlPanelPLayer = new JPanel();
 		controlPanelPLayer.setBorder(BorderFactory.createEtchedBorder());
 		controlPanelPLayer.setBackground(new Color(0x03853E));
-		controlPanelPLayer.setLayout(new MigLayout("", "5[grow]5", "5[60]5"));
+		controlPanelPLayer.setLayout(new MigLayout("", "5[grow]5", "5[]5"));
 
 		playerSum = new JLabel();
 		playerAce = new JLabel("Ace:");
@@ -92,11 +143,11 @@ public class BJPanelGame extends JPanel {
 		ace1.setBackground(new Color(0x03853E));
 		ace11 = new JRadioButton(eleven);
 		ace11.setForeground(Color.WHITE);
-		ace11.setBackground(new Color(0x03853E));		playerName = new JLabel();
+		ace11.setBackground(new Color(0x03853E));
+		playerName = new JLabel();
 		playerScore = new JLabel();
-		
-		defaultFont = new Font("arial", Font.PLAIN, 12);
-		
+
+
 		playerSum.setFont(defaultFont);
 		playerSum.setForeground(Color.WHITE);
 		playerAce.setFont(defaultFont);
@@ -115,11 +166,11 @@ public class BJPanelGame extends JPanel {
 		radiogroup.add(ace1);
 		radiogroup.add(ace11);
 
+		controlPanelPLayer.add(playerName, "wrap");
 		controlPanelPLayer.add(playerSum, "wrap");
 		controlPanelPLayer.add(playerAce);
 		controlPanelPLayer.add(ace1);
 		controlPanelPLayer.add(ace11, "wrap");
-		controlPanelPLayer.add(playerName, "wrap");
 		controlPanelPLayer.add(playerScore);
 
 		// Creates the panel with the two buttons, HIT and STAND
@@ -136,64 +187,10 @@ public class BJPanelGame extends JPanel {
 		hitStandPanel.add(jb_hit, "w 80!, right");
 		hitStandPanel.add(jb_stand, "w 80!, left, wrap");
 		hitStandPanel.add(winLoseLabel, "span 2, center");
-
-		gamePanelPLayer.add(playerCardsPanel, " growx, wrap");
-		gamePanelPLayer.add(controlPanelPLayer, "growx, wrap");
-		gamePanelPLayer.add(hitStandPanel);
-	}
-	
-	
-	//The Dealer side of the game
-	private void createPanelGameDealer() {
-		gamePanelDealer = new JPanel();
-		gamePanelDealer.setLayout(new MigLayout("", "10[250]10", "10[140]10[140]10"));
-		gamePanelDealer.setBackground(new Color(0x03853E));
-		this.add(gamePanelDealer);
-
-		// Creates the panel with the two buttons, HIT and STAND
-		dealerCardsPanel = new JPanel();
-		dealerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, false));
-		dealerCardsPanel.setBackground(new Color(0x03853E));
-		dealerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[100]5"));
-
-		// Creates the control panel
-		controlPanelDealer = new JPanel();
-		controlPanelDealer.setBorder(BorderFactory.createEtchedBorder());
-		controlPanelDealer.setBackground(new Color(0x03853E));
-		controlPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[60]5"));
 		
-		dealerSum = new JLabel();
-		dealerHints = new JLabel("Hints:  ");
-		dealerName = new JLabel("Name:  Dealer");
-		dealerScore = new JLabel();
-
-		dealerSum.setFont(defaultFont);
-		dealerSum.setForeground(Color.WHITE);
-		dealerHints.setFont(defaultFont);
-		dealerHints.setForeground(Color.WHITE);
-		dealerName.setFont(defaultFont);
-		dealerName.setForeground(Color.WHITE);
-		dealerScore.setFont(defaultFont);
-		dealerScore.setForeground(Color.WHITE);
-		
-		controlPanelDealer.add(dealerSum, "wrap");
-		controlPanelDealer.add(dealerHints, "wrap");
-		controlPanelDealer.add(dealerName, "wrap");
-		controlPanelDealer.add(dealerScore);
-		
-		replayPanelDealer = new JPanel();
-		replayPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[30]5"));
-		replayPanelDealer.setBackground(new Color(0x03853E));
-		
-		jb_replay = new JButton("replay");
-		jb_replay.setVisible(false);
-		
-		replayPanelDealer.add(jb_replay, "center");
-		
-		gamePanelDealer.add(dealerCardsPanel, "growx, wrap");
-		gamePanelDealer.add(controlPanelDealer, "growx, wrap");
-		gamePanelDealer.add(replayPanelDealer);
-		
+		gamePanelPLayer.add(playerCardsPanel, "growx, align center, wrap");
+		gamePanelPLayer.add(controlPanelPLayer, "align center, wrap");
+		gamePanelPLayer.add(hitStandPanel,"center");
 	}
 
 	public JPanel getGamePanelPLayer() {
@@ -272,31 +269,25 @@ public class BJPanelGame extends JPanel {
 		return dealerCardslabel;
 	}
 
-
 	public JLabel getDealerSum() {
 		return dealerSum;
 	}
-
 
 	public JLabel getDealerName() {
 		return dealerName;
 	}
 
-
 	public JLabel getDealerScore() {
 		return dealerScore;
 	}
-
 
 	public JLabel getDealerHints() {
 		return dealerHints;
 	}
 
-
 	public JPanel getReplayPanelDealer() {
 		return replayPanelDealer;
 	}
-
 
 	public JButton getJb_replay() {
 		return jb_replay;

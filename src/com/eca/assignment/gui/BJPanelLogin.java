@@ -62,13 +62,16 @@ public class BJPanelLogin extends JPanel {
 	}
 
 	private void createLoginComponents() {
-		JLabel welcome = new JLabel("<html>the BlackJack Game</html>");
-		welcome.setFont(new Font("Arial", Font.BOLD, 16));
+		JLabel welcome = new JLabel("<html> The BlackJack Game </html>");
+		welcome.setFont(new Font("Arial", Font.BOLD, 15));
 		welcome.setHorizontalAlignment(SwingConstants.CENTER);
 		welcome.setVerticalAlignment(SwingConstants.CENTER);
 		welcome.setForeground(Color.WHITE);
-		JLabel txt = new JLabel("<html>Have a look at the existence of your <font color=\"red\">username</font> and"
-				+ " <font color=\"red\">password</font> in the fields below:</html>");
+		JLabel txt = new JLabel("<html>Welcome! This is an aca<font color=\"gray\">d</font>emic implementati<font color=\"gray\">on</font> "
+				+ "of <font color=\"gray\">t</font>he classic cards game <font color=\"gray\">b</font>lackjack, in ord<font color=\"gray\">e</font>r "
+				+ "<font color=\"gray\">t</font>o tr<font color=\"gray\">y</font> different pr<font color=\"gray\">o</font>gramming concepts "
+				+ "and patterns. Before start playing, check whether yo<font color=\"gray\">ur</font> username and pass<font color=\"gray\">w</font>ord "
+				+ "ex<font color=\"gray\">i</font>st in our database <font color=\"gray\">f</font>il<font color=\"gray\">e</font></html>");
 		txt.setForeground(Color.WHITE);
 		welcomeLoginPanel.add(welcome, "center, wrap");
 		welcomeLoginPanel.add(txt, "center");
@@ -127,9 +130,9 @@ public class BJPanelLogin extends JPanel {
 			}
 		});
 
-		jb_login = new JButton("Play");
+		jb_login = new JButton(" Check ");
 		jl_login_error = new JLabel("");
-		jl_login_error.setFont(new Font("Arial", Font.BOLD, 11));
+		jl_login_error.setFont(new Font("Arial", Font.BOLD, 12));
 		jl_login_error.setForeground(Color.RED);
 		
 		loginPanel.add(jt_login, "cell 0 0, right");
@@ -146,12 +149,12 @@ public class BJPanelLogin extends JPanel {
 		createUserPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
 
 		jl_createUser = new JLabel("Unknown Player!");
-		jl_createUser.setFont(new Font("arial", Font.PLAIN, 11));
+		jl_createUser.setFont(new Font("arial", Font.BOLD, 11));
 		jl_createUser.setForeground(Color.RED);
 		jc_createUser = new JCheckBox("Create it?");
 		jc_createUser.setBackground(Color.BLACK);
 		jc_createUser.setForeground(Color.WHITE);
-		jc_createUser.setFont(new Font("arial", Font.PLAIN, 11));
+		jc_createUser.setFont(new Font("arial", Font.BOLD, 11));
 
 		createUserPanel.add(jl_createUser, "wrap");
 		createUserPanel.add(jc_createUser, "wrap");
