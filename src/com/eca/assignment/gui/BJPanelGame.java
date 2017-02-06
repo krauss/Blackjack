@@ -67,7 +67,7 @@ public class BJPanelGame extends JPanel {
 	private void createPanelGameDealer() {
 		gamePanelDealer = new JPanel();
 		gamePanelDealer.setLayout(new MigLayout("", "[grow]","[center][center]"));
-		gamePanelDealer.setBackground(new Color(0x03853E));
+		gamePanelDealer.setBackground(Color.BLACK);
 		this.add(gamePanelDealer, "growx, gap 15 15 15 15, wrap");
 
 		// Creates the panel with the two buttons, HIT and STAND
@@ -79,7 +79,7 @@ public class BJPanelGame extends JPanel {
 		// Creates the control panel
 		controlPanelDealer = new JPanel();
 		controlPanelDealer.setBorder(BorderFactory.createEtchedBorder());
-		controlPanelDealer.setBackground(new Color(0x03853E));
+		controlPanelDealer.setBackground(Color.BLACK);
 		controlPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[]5"));
 
 		dealerSum = new JLabel("Sum: ");
@@ -103,7 +103,7 @@ public class BJPanelGame extends JPanel {
 
 		replayPanelDealer = new JPanel();
 		replayPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[30]5"));
-		replayPanelDealer.setBackground(new Color(0x03853E));
+		replayPanelDealer.setBackground(Color.BLACK);
 
 		jb_replay = new JButton("replay");
 		jb_replay.setVisible(false);
@@ -121,7 +121,7 @@ public class BJPanelGame extends JPanel {
 		// Creates the player back panel
 		gamePanelPLayer = new JPanel();
 		gamePanelPLayer.setLayout(new MigLayout("", "[grow]","[center][center]"));
-		gamePanelPLayer.setBackground(new Color(0x03853E));
+		gamePanelPLayer.setBackground(Color.BLACK);
 		this.add(gamePanelPLayer, "gap 15 15 0 15, growx");
 
 		// Creates the panel with the two buttons, HIT and STAND
@@ -133,17 +133,17 @@ public class BJPanelGame extends JPanel {
 		// Creates the control panel
 		controlPanelPLayer = new JPanel();
 		controlPanelPLayer.setBorder(BorderFactory.createEtchedBorder());
-		controlPanelPLayer.setBackground(new Color(0x03853E));
+		controlPanelPLayer.setBackground(Color.BLACK);
 		controlPanelPLayer.setLayout(new MigLayout("", "5[grow]5", "5[]5"));
 
 		playerSum = new JLabel();
 		playerAce = new JLabel("Ace:");
 		ace1 = new JRadioButton(one);
 		ace1.setForeground(Color.WHITE);
-		ace1.setBackground(new Color(0x03853E));
+		ace1.setBackground(Color.BLACK);
 		ace11 = new JRadioButton(eleven);
 		ace11.setForeground(Color.WHITE);
-		ace11.setBackground(new Color(0x03853E));
+		ace11.setBackground(Color.BLACK);
 		playerName = new JLabel();
 		playerScore = new JLabel();
 
@@ -175,7 +175,7 @@ public class BJPanelGame extends JPanel {
 
 		// Creates the panel with the two buttons, HIT and STAND
 		hitStandPanel = new JPanel();
-		hitStandPanel.setBackground(new Color(0x03853E));
+		hitStandPanel.setBackground(Color.BLACK);
 		hitStandPanel.setLayout(new MigLayout("", "5[145]5", "5[30]15[30]5"));
 
 		jb_hit = new JButton("Hit");

@@ -178,7 +178,7 @@ public class BJFrameGame extends JFrame {
 		p.removeAll();
 		p.repaint();
 		for (BJCard card : player.getHandCards()) {
-			p.add(card, "west, gap 7 0 7 7");
+			p.add(card, "west, gap 10 0 10 10");
 		}
 	}
 

@@ -146,7 +146,6 @@ public class BJPanelLogin extends JPanel {
 		createUserPanel.setPreferredSize(new Dimension(150, 30));
 		createUserPanel.setLayout(new MigLayout());
 		createUserPanel.setBackground(Color.BLACK);
-		createUserPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
 
 		jl_createUser = new JLabel("Unknown Player!");
 		jl_createUser.setFont(new Font("arial", Font.BOLD, 11));

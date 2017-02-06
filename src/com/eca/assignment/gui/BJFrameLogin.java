@@ -10,9 +10,10 @@ import com.eca.assignment.entity.BJPlayer;
 import com.eca.assignment.game.BJDatabaseConn;
 import net.miginfocom.swing.MigLayout;
 
+
 @SuppressWarnings("serial")
 public class BJFrameLogin extends JFrame {
-
+	
 	// Container components
 	private BJPanelLogin panelLogin;
 	private MigLayout layout_jframe;
@@ -50,20 +51,21 @@ public class BJFrameLogin extends JFrame {
 		
 		//Initialize the timer
 		timer = new Timer(2000, null);
-		timer.setRepeats(false);		
+		timer.setRepeats(false);	
+		
 		timer.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				createJPanelGame();
-				
+			public void actionPerformed(ActionEvent e) {					
+				createJPanelGame();				
 			}
 		});
 		
+		
 		// Adds the login action to the button		
 		panelLogin.getJb_login().addActionListener(new ActionListener() {
+			
+			String text = "<html><b><font color=\"#00FF00\"><br>OK, let's play!</font></b></html>";
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -74,13 +76,13 @@ public class BJFrameLogin extends JFrame {
 					
 					player = new BJPlayer(panelLogin.getJt_login().getText());
 					player.setName(panelLogin.getJt_login().getText());					
-					panelLogin.getJl_login_error().setText("<html><font color=\"green\">OK, let's play!</font></html>");
+					panelLogin.getJl_login_error().setText(text);
 					
 					//It executes the actionPerformed method from the ActionListener previously defined
 					timer.start();
 					panelLogin.removeCreationPanel();
 					
-				}else if ((panelLogin.getJt_login().getText().trim().length() != 0) && panelLogin.getJt_password().getPassword().length != 0) {
+				}else if ((panelLogin.getJt_login().getText().trim().length() != 0) && (panelLogin.getJt_password().getPassword().length != 0)) {
 					try {
 						
 						conn = new BJDatabaseConn();
@@ -91,7 +93,7 @@ public class BJFrameLogin extends JFrame {
 					}
 					if (player != null) {
 						
-						panelLogin.getJl_login_error().setText("<html><b><font color=\"green\">OK, let's play!</font></b></html>");						
+						panelLogin.getJl_login_error().setText(text);						
 						
 						//It executes the ActionListener previously defined
 						timer.start();						
