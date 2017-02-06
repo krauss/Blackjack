@@ -1,1 +1,2 @@
-# Temporary BlackJack Game repository
+# BlackJack Game repository 
+## Branch: master
