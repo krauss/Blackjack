@@ -1,6 +1,9 @@
 package com.eca.assignment.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -8,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.OverlayLayout;
+
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -52,6 +57,11 @@ public class BJPanelGame extends JPanel {
 	private JLabel playerScore;
 	private JLabel winLoseLabel;
 	private Font defaultFont = new Font("arial", Font.BOLD, 13);
+	
+	//Bet Panel
+	private JPanel overlayPanel;
+	private JPanel transparentPanel;
+	private JPanel finishedGamePanel;
 
 	public BJPanelGame() {
 
@@ -60,8 +70,11 @@ public class BJPanelGame extends JPanel {
 
 		createPanelGameDealer();
 		createPanelGamePlayer();
+		addBetPanel();
 
 	}
+
+	
 
 	// The Dealer side of the game
 	private void createPanelGameDealer() {
@@ -101,18 +114,9 @@ public class BJPanelGame extends JPanel {
 		controlPanelDealer.add(dealerHints, "wrap");
 		controlPanelDealer.add(dealerScore);
 
-		replayPanelDealer = new JPanel();
-		replayPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[30]5"));
-		replayPanelDealer.setBackground(Color.BLACK);
-
-		jb_replay = new JButton("replay");
-		jb_replay.setVisible(false);
-
-		replayPanelDealer.add(jb_replay, "center");
-
 		gamePanelDealer.add(controlPanelDealer, "align center, wrap");
 		gamePanelDealer.add(dealerCardsPanel, "align center, growx, wrap");
-		gamePanelDealer.add(replayPanelDealer, "align center");
+		//gamePanelDealer.add(replayPanelDealer, "align center");
 
 	}
 
@@ -180,19 +184,49 @@ public class BJPanelGame extends JPanel {
 
 		jb_hit = new JButton("Hit");
 		jb_stand = new JButton("Stand");
-		winLoseLabel = new JLabel();
-		winLoseLabel.setFont(new Font("arial", Font.BOLD, 17));
-		winLoseLabel.setForeground(Color.RED);
 
 		hitStandPanel.add(jb_hit, "w 80!, right");
 		hitStandPanel.add(jb_stand, "w 80!, left, wrap");
-		hitStandPanel.add(winLoseLabel, "span 2, center");
 		
 		gamePanelPLayer.add(playerCardsPanel, "growx, align center, wrap");
 		gamePanelPLayer.add(controlPanelPLayer, "align center, wrap");
 		gamePanelPLayer.add(hitStandPanel,"center");
 	}
 
+	
+	private void addBetPanel() {
+		
+		overlayPanel = new JPanel();
+		overlayPanel.setPreferredSize(this.getPreferredSize());
+		overlayPanel.setLayout(new OverlayLayout(overlayPanel));
+		
+		transparentPanel = new JPanel();
+		transparentPanel.setPreferredSize(this.getPreferredSize());
+		transparentPanel.setLayout(new MigLayout());
+		transparentPanel.setBackground(new Color(0, 0, 0, 90));
+		
+		finishedGamePanel = new JPanel();
+		//finishedGamePanel.setPreferredSize(new Dimension(300, 120));
+		finishedGamePanel.setLayout(new MigLayout("", "10[280]10","10[45]10[45]10"));
+		finishedGamePanel.setBorder(BorderFactory.createEtchedBorder());
+
+		winLoseLabel = new JLabel();
+		winLoseLabel.setFont(new Font("arial", Font.BOLD, 17));
+		winLoseLabel.setForeground(Color.RED);
+		
+		jb_replay = new JButton("replay");
+		jb_replay.setVisible(false);
+				
+		
+		finishedGamePanel.add(winLoseLabel, "growx, center, wrap");
+		finishedGamePanel.add(jb_replay, "w 100!, center");	
+		
+		transparentPanel.add(finishedGamePanel, "center");		
+		overlayPanel.add(transparentPanel, BorderLayout.CENTER);
+		
+	}
+	
+	
 	public JPanel getGamePanelPLayer() {
 		return gamePanelPLayer;
 	}
@@ -291,6 +325,12 @@ public class BJPanelGame extends JPanel {
 
 	public JButton getJb_replay() {
 		return jb_replay;
+	}
+
+
+
+	public JPanel getOverlayPanel() {
+		return this.overlayPanel;
 	}
 
 }

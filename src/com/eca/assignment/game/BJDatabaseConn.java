@@ -44,7 +44,7 @@ public class BJDatabaseConn {
 		result = statement.executeQuery("select * from Login where username = '" + user + "';");
 
 		if (result.next()) {
-			if (result.getString("password").equalsIgnoreCase(password)) {
+			if (result.getString("password").equalsIgnoreCase(password.hashCode()+"")) {
 				p = new BJPlayer(result.getString("username"));
 				p.setScore(result.getInt("score"));
 				p.setName(result.getString("name"));
@@ -81,7 +81,7 @@ public class BJDatabaseConn {
 		try {
 
 			statement = conn.createStatement();
-			statement.executeUpdate("update Login set score = score + 100 where username = '" + p.getUserName() + "';");
+			statement.executeUpdate("update Login set score = score + 50 where username = '" + p.getUserName() + "';");
 
 			conn.close();
 		} catch (SQLException e) {
@@ -128,7 +128,7 @@ public class BJDatabaseConn {
 			
 			statement = conn.createStatement();
 			
-			statement.execute("insert into Login values ('"+nextValidId+"', '"+userName+"', '"+userPass+"', '"+name+"', 0);"); 
+			statement.execute("insert into Login values ('"+nextValidId+"', '"+userName+"', '"+userPass.hashCode()+"', '"+name+"', 0);"); 
 			
 			conn.close();
 		} catch (SQLException e) {

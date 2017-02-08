@@ -66,18 +66,6 @@ public class BJPlayer {
 			this.handCards.add(handCards);
 		}
 	}
-
-	public String printHandCards() {
-		String cards = "";
-		
-		for (BJCard n : handCards) {
-			cards += n.getNumber() + "" + n.getSuit() + "  ";
-			
-		}
-
-		return cards;
-	}
-
 	
 
 	

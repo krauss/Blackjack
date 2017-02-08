@@ -26,6 +26,7 @@ public class BJFrameLogin extends JFrame {
 
 	public BJFrameLogin() {
 		
+		this.setResizable(false);
 		this.setSize(600, 460);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.layout_jframe = new MigLayout("", "0[600]0", "0[460]0");

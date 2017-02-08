@@ -1,5 +1,6 @@
 package com.eca.assignment.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -27,7 +28,8 @@ public class BJFrameGame extends JFrame {
 
 	public BJFrameGame(BJPlayer p) {
 		this.player = p;
-		
+
+		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(750, 690));
 		this.setSize(750, 690);
@@ -35,7 +37,7 @@ public class BJFrameGame extends JFrame {
 
 		initPanelGame();
 		initGame();
-		
+
 		this.pack();
 		this.setVisible(true);
 	}
@@ -43,7 +45,6 @@ public class BJFrameGame extends JFrame {
 	private void initPanelGame() {
 
 		panelGame = new BJPanelGame();
-		this.add(panelGame);
 
 		// Button actions implementations
 		panelGame.getJb_hit().addActionListener(new ActionListener() {
@@ -95,14 +96,20 @@ public class BJFrameGame extends JFrame {
 		panelGame.getJb_replay().addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {				
-				 
-				 conn = new BJDatabaseConn();
-				 conn.refreshPlayerData(player);
-				 initGame();
-				 panelGame.getPlayerCardsPanel().repaint();
-				 panelGame.getDealerCardsPanel().repaint();
-				 
+			public void actionPerformed(ActionEvent e) {
+
+				conn = new BJDatabaseConn();
+				conn.refreshPlayerData(player);
+				
+				panelGame.getJb_hit().setEnabled(true);
+				panelGame.getJb_stand().setEnabled(true);
+				panelGame.remove(panelGame.getOverlayPanel());
+				initGame();
+				panelGame.getPlayerCardsPanel().repaint();
+				panelGame.getDealerCardsPanel().repaint();
+				panelGame.repaint();
+				
+
 			}
 		});
 
@@ -138,6 +145,7 @@ public class BJFrameGame extends JFrame {
 			}
 		});
 
+		this.add(panelGame);
 	}
 
 	/**
@@ -187,13 +195,19 @@ public class BJFrameGame extends JFrame {
 		panelGame.getJb_stand().setEnabled(false);
 		panelGame.getAce1().setEnabled(false);
 		panelGame.getAce11().setEnabled(false);
+		panelGame.setLayout(new BorderLayout());
+		panelGame.add(panelGame.getOverlayPanel(), BorderLayout.EAST);
 		if (t.equalsIgnoreCase("LOSE")) {
 			panelGame.getWinLoseLabel().setText("YOU LOST!");
-		} else {
-			panelGame.getWinLoseLabel().setForeground(Color.green);
+		} else if (t.equalsIgnoreCase("WIN")) {
+			panelGame.getWinLoseLabel().setForeground(Color.BLUE);
 			panelGame.getWinLoseLabel().setText("YOU WON!   +50 pts");
 			conn = new BJDatabaseConn();
 			conn.setPlayerScore(player);
+
+		} else{
+			panelGame.getWinLoseLabel().setForeground(Color.ORANGE);
+			panelGame.getWinLoseLabel().setText("NO ONE WON!");
 
 		}
 	}
@@ -253,6 +267,10 @@ public class BJFrameGame extends JFrame {
 						terminatesGame("WIN");
 						enableButtonReplay();
 						break;
+					case KEEP:
+						terminatesGame("DRAW");
+						enableButtonReplay();
+						break;
 					default:
 						break;
 					}
@@ -269,8 +287,8 @@ public class BJFrameGame extends JFrame {
 
 	}
 
-	
-	/*public static void main(String[] args) {
-		new BJFrameGame(new BJPlayer("TEST"));
-	}*/
+	/*
+	 * public static void main(String[] args) { new BJFrameGame(new
+	 * BJPlayer("TEST")); }
+	 */
 }
