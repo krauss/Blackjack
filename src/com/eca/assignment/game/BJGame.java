@@ -73,6 +73,7 @@ public class BJGame {
 
 	}
 
+	
 	// Pulls out one card from the deck
 	public BJCard getDeckCard() {
 		return deckCards.pop();
@@ -101,6 +102,8 @@ public class BJGame {
 			return GameStatus.WIN;
 		} else if ((playerResult < dealerResult) && standPressed){
 			return GameStatus.LOSE;
+		} else if ((playerResult == dealerResult) && standPressed){
+			return GameStatus.KEEP;
 		} else {
 			return GameStatus.KEEP;
 		}
@@ -114,5 +117,6 @@ public class BJGame {
 	public void decDealerHints() {
 		this.dealerHints--;
 	}
+
 
 }
