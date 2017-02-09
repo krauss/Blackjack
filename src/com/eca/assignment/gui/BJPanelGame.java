@@ -70,7 +70,6 @@ public class BJPanelGame extends JPanel {
 
 		createPanelGameDealer();
 		createPanelGamePlayer();
-		addBetPanel();
 
 	}
 
@@ -194,21 +193,20 @@ public class BJPanelGame extends JPanel {
 	}
 
 	
-	private void addBetPanel() {
+	public JPanel getBetPanel() {
 		
 		overlayPanel = new JPanel();
 		overlayPanel.setPreferredSize(this.getPreferredSize());
 		overlayPanel.setLayout(new OverlayLayout(overlayPanel));
 		
 		transparentPanel = new JPanel();
-		transparentPanel.setPreferredSize(this.getPreferredSize());
-		transparentPanel.setLayout(new MigLayout());
+		transparentPanel.setPreferredSize(this.getPreferredSize());	
 		transparentPanel.setBackground(new Color(0, 0, 0, 90));
 		
 		finishedGamePanel = new JPanel();
-		//finishedGamePanel.setPreferredSize(new Dimension(300, 120));
 		finishedGamePanel.setLayout(new MigLayout("", "10[280]10","10[45]10[45]10"));
-		finishedGamePanel.setBorder(BorderFactory.createEtchedBorder());
+		finishedGamePanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, true));
+		finishedGamePanel.setBackground(Color.DARK_GRAY);
 
 		winLoseLabel = new JLabel();
 		winLoseLabel.setFont(new Font("arial", Font.BOLD, 17));
@@ -221,8 +219,10 @@ public class BJPanelGame extends JPanel {
 		finishedGamePanel.add(winLoseLabel, "growx, center, wrap");
 		finishedGamePanel.add(jb_replay, "w 100!, center");	
 		
-		transparentPanel.add(finishedGamePanel, "center");		
+		transparentPanel.add(finishedGamePanel, BorderLayout.CENTER);		
 		overlayPanel.add(transparentPanel, BorderLayout.CENTER);
+		
+		return overlayPanel;
 		
 	}
 	
@@ -330,7 +330,8 @@ public class BJPanelGame extends JPanel {
 
 
 	public JPanel getOverlayPanel() {
-		return this.overlayPanel;
+		return overlayPanel;
 	}
+
 
 }

@@ -93,32 +93,10 @@ public class BJFrameGame extends JFrame {
 			}
 		});
 
-		panelGame.getJb_replay().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				conn = new BJDatabaseConn();
-				conn.refreshPlayerData(player);
-				
-				panelGame.getJb_hit().setEnabled(true);
-				panelGame.getJb_stand().setEnabled(true);
-				panelGame.remove(panelGame.getOverlayPanel());
-				initGame();
-				panelGame.getPlayerCardsPanel().repaint();
-				panelGame.getDealerCardsPanel().repaint();
-				panelGame.repaint();
-				
-
-			}
-		});
-
 		panelGame.getAce1().addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				// In case there are more than one ace, it's going to change
-				// just the first one.
 				for (BJCard d : player.getHandCards()) {
 					if (d.getNumber().equalsIgnoreCase("A")) {
 						d.setValue(1);
@@ -134,8 +112,6 @@ public class BJFrameGame extends JFrame {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				// In case there are more than one ace, it's going to change
-				// just the first one.
 				for (BJCard d : player.getHandCards()) {
 					if (d.getNumber().equalsIgnoreCase("A")) {
 						d.setValue(11);
@@ -147,14 +123,10 @@ public class BJFrameGame extends JFrame {
 
 		this.add(panelGame);
 	}
+	
 
-	/**
-	 * 
-	 * Private method that creates the only instance of the BJGame and also
-	 * gives the two firsts cards for the Player and Dealer.
-	 * 
-	 */
 	private void initGame() {
+		panelGame.getPlayerAce().setText("Ace:  ");
 		player.setHandCards(null);
 		dealer = new BJPlayer("Dealer");
 		game = new BJGame(player, dealer);
@@ -180,6 +152,7 @@ public class BJFrameGame extends JFrame {
 		dealer.getHandCards().get(0).setBackImage(true);
 
 	}
+	
 
 	private void addCardsOnPanel(BJPlayer player, JPanel p) {
 
@@ -189,27 +162,55 @@ public class BJFrameGame extends JFrame {
 			p.add(card, "west, gap 10 0 10 10");
 		}
 	}
+	
 
 	private void terminatesGame(String t) {
 		panelGame.getJb_hit().setEnabled(false);
 		panelGame.getJb_stand().setEnabled(false);
 		panelGame.getAce1().setEnabled(false);
-		panelGame.getAce11().setEnabled(false);
+		panelGame.getAce11().setEnabled(false);	
+		
 		panelGame.setLayout(new BorderLayout());
-		panelGame.add(panelGame.getOverlayPanel(), BorderLayout.EAST);
+		panelGame.add(panelGame.getBetPanel(), BorderLayout.CENTER);
+		panelGame.getOverlayPanel().repaint();
+		
 		if (t.equalsIgnoreCase("LOSE")) {
+			panelGame.getWinLoseLabel().setForeground(Color.RED);
 			panelGame.getWinLoseLabel().setText("YOU LOST!");
 		} else if (t.equalsIgnoreCase("WIN")) {
-			panelGame.getWinLoseLabel().setForeground(Color.BLUE);
+			panelGame.getWinLoseLabel().setForeground(Color.green);
 			panelGame.getWinLoseLabel().setText("YOU WON!   +50 pts");
 			conn = new BJDatabaseConn();
 			conn.setPlayerScore(player);
 
-		} else{
+		} else {
 			panelGame.getWinLoseLabel().setForeground(Color.ORANGE);
 			panelGame.getWinLoseLabel().setText("NO ONE WON!");
 
 		}
+
+		createReplayButtonAction();
+	}
+
+	
+	private void createReplayButtonAction() {
+
+		panelGame.getJb_replay().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				conn = new BJDatabaseConn();
+				conn.refreshPlayerData(player);
+
+				panelGame.getJb_hit().setEnabled(true);
+				panelGame.getJb_stand().setEnabled(true);
+				panelGame.remove(panelGame.getOverlayPanel());
+				initGame();
+				panelGame.repaint();
+
+			}
+		});
 	}
 
 	private void checkAce() {
@@ -224,17 +225,6 @@ public class BJFrameGame extends JFrame {
 
 	}
 
-	/**
-	 * 
-	 * When the Player hits STAND button, this method is called to start the
-	 * Dealer's step<br>
-	 * <br>
-	 * The Dealer keeps getting card while:<br>
-	 * <b>- sum isn't over 20</b>,<br>
-	 * <b>- his hints aren't equal 0</b> <br>
-	 * <b>- his sum is still smaller than the Player</b>.
-	 * 
-	 */
 	private void initDealersGame() {
 
 		Timer timer = new Timer(2500, null);
