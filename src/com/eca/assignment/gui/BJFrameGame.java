@@ -60,18 +60,7 @@ public class BJFrameGame extends JFrame {
 				panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
 				checkAce();
 
-				switch (game.checkGameOver(standPressed)) {
-				case LOSE:
-					terminatesGame("LOSE");
-					enableButtonReplay();
-					break;
-				case WIN:
-					terminatesGame("WIN");
-					enableButtonReplay();
-					break;
-				default:
-					break;
-				}
+				checkFinish();
 
 			}
 		});
@@ -123,11 +112,12 @@ public class BJFrameGame extends JFrame {
 
 		this.add(panelGame);
 	}
-	
 
 	private void initGame() {
 		panelGame.getPlayerAce().setText("Ace:  ");
 		player.setHandCards(null);
+		dealer = null;
+		game = null;
 		dealer = new BJPlayer("Dealer");
 		game = new BJGame(player, dealer);
 
@@ -152,7 +142,6 @@ public class BJFrameGame extends JFrame {
 		dealer.getHandCards().get(0).setBackImage(true);
 
 	}
-	
 
 	private void addCardsOnPanel(BJPlayer player, JPanel p) {
 
@@ -162,18 +151,17 @@ public class BJFrameGame extends JFrame {
 			p.add(card, "west, gap 10 0 10 10");
 		}
 	}
-	
 
 	private void terminatesGame(String t) {
 		panelGame.getJb_hit().setEnabled(false);
 		panelGame.getJb_stand().setEnabled(false);
 		panelGame.getAce1().setEnabled(false);
-		panelGame.getAce11().setEnabled(false);	
-		
+		panelGame.getAce11().setEnabled(false);
+
 		panelGame.setLayout(new BorderLayout());
 		panelGame.add(panelGame.getBetPanel(), BorderLayout.CENTER);
 		panelGame.getOverlayPanel().repaint();
-		
+
 		if (t.equalsIgnoreCase("LOSE")) {
 			panelGame.getWinLoseLabel().setForeground(Color.RED);
 			panelGame.getWinLoseLabel().setText("YOU LOST!");
@@ -192,7 +180,14 @@ public class BJFrameGame extends JFrame {
 		createReplayButtonAction();
 	}
 
-	
+	private void resetDealerComps() {
+
+		standPressed = false;
+		panelGame.getDealerHints().setText("Hints:  ");
+		panelGame.getDealerSum().setText("Sum:  ");
+
+	}
+
 	private void createReplayButtonAction() {
 
 		panelGame.getJb_replay().addActionListener(new ActionListener() {
@@ -206,6 +201,7 @@ public class BJFrameGame extends JFrame {
 				panelGame.getJb_hit().setEnabled(true);
 				panelGame.getJb_stand().setEnabled(true);
 				panelGame.remove(panelGame.getOverlayPanel());
+				resetDealerComps();
 				initGame();
 				panelGame.repaint();
 
@@ -248,27 +244,29 @@ public class BJFrameGame extends JFrame {
 				} else {
 					timer.stop();
 
-					switch (game.checkGameOver(standPressed)) {
-					case LOSE:
-						terminatesGame("LOSE");
-						enableButtonReplay();
-						break;
-					case WIN:
-						terminatesGame("WIN");
-						enableButtonReplay();
-						break;
-					case KEEP:
-						terminatesGame("DRAW");
-						enableButtonReplay();
-						break;
-					default:
-						break;
-					}
+					checkFinish();
+
 				}
 			}
 
 		});
 
+	}
+
+	private void checkFinish() {
+		
+		switch (game.checkGameOver(standPressed)) {
+		case LOSE:
+			terminatesGame("LOSE");
+			enableButtonReplay();
+			break;
+		case WIN:
+			terminatesGame("WIN");
+			enableButtonReplay();
+			break;
+		default:
+			break;
+		}
 	}
 
 	private void enableButtonReplay() {
