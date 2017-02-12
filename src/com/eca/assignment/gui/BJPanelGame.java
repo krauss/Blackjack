@@ -47,12 +47,6 @@ public class BJPanelGame extends JPanel {
 	private JButton jb_stand;
 	private JLabel playerCardslabel;
 	private JLabel playerSum;
-	private JLabel playerAce;
-	private JRadioButton ace1;
-	private JRadioButton ace11;
-	private String one = "1";
-	private String eleven = "11";
-	private ButtonGroup radiogroup;
 	private JLabel playerName;
 	private JLabel playerScore;
 	private JLabel winLoseLabel;
@@ -115,7 +109,6 @@ public class BJPanelGame extends JPanel {
 
 		gamePanelDealer.add(controlPanelDealer, "align center, wrap");
 		gamePanelDealer.add(dealerCardsPanel, "align center, growx, wrap");
-		//gamePanelDealer.add(replayPanelDealer, "align center");
 
 	}
 
@@ -140,40 +133,20 @@ public class BJPanelGame extends JPanel {
 		controlPanelPLayer.setLayout(new MigLayout("", "5[grow]5", "5[]5"));
 
 		playerSum = new JLabel();
-		playerAce = new JLabel("Ace:");
-		ace1 = new JRadioButton(one);
-		ace1.setForeground(Color.WHITE);
-		ace1.setBackground(Color.BLACK);
-		ace11 = new JRadioButton(eleven);
-		ace11.setForeground(Color.WHITE);
-		ace11.setBackground(Color.BLACK);
 		playerName = new JLabel();
 		playerScore = new JLabel();
 
 
 		playerSum.setFont(defaultFont);
 		playerSum.setForeground(Color.WHITE);
-		playerAce.setFont(defaultFont);
-		playerAce.setForeground(Color.WHITE);
 		playerName.setFont(defaultFont);
 		playerName.setForeground(Color.WHITE);
 		playerScore.setFont(defaultFont);
 		playerScore.setForeground(Color.WHITE);
 
-		ace1.setEnabled(false);
-		ace1.setActionCommand(one);
-		ace11.setEnabled(false);
-		ace11.setActionCommand(eleven);
-
-		radiogroup = new ButtonGroup();
-		radiogroup.add(ace1);
-		radiogroup.add(ace11);
 
 		controlPanelPLayer.add(playerName, "wrap");
 		controlPanelPLayer.add(playerSum, "wrap");
-		controlPanelPLayer.add(playerAce);
-		controlPanelPLayer.add(ace1);
-		controlPanelPLayer.add(ace11, "wrap");
 		controlPanelPLayer.add(playerScore);
 
 		// Creates the panel with the two buttons, HIT and STAND
@@ -277,22 +250,6 @@ public class BJPanelGame extends JPanel {
 
 	public JLabel getPlayerSum() {
 		return playerSum;
-	}
-
-	public JLabel getPlayerAce() {
-		return playerAce;
-	}
-
-	public JRadioButton getAce1() {
-		return ace1;
-	}
-
-	public JRadioButton getAce11() {
-		return ace11;
-	}
-
-	public ButtonGroup getRadiogroup() {
-		return radiogroup;
 	}
 
 	public JPanel getControlPanelDealer() {

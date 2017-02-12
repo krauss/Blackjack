@@ -58,7 +58,6 @@ public class BJFrameGame extends JFrame {
 				// print the cards and the sum
 				addCardsOnPanel(player, panelGame.getPlayerCardsPanel());
 				panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
-				checkAce();
 
 				checkFinish();
 
@@ -82,39 +81,10 @@ public class BJFrameGame extends JFrame {
 			}
 		});
 
-		panelGame.getAce1().addItemListener(new ItemListener() {
-
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				for (BJCard d : player.getHandCards()) {
-					if (d.getNumber().equalsIgnoreCase("A")) {
-						d.setValue(1);
-						break;
-					}
-				}
-				panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
-
-			}
-		});
-
-		panelGame.getAce11().addItemListener(new ItemListener() {
-
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				for (BJCard d : player.getHandCards()) {
-					if (d.getNumber().equalsIgnoreCase("A")) {
-						d.setValue(11);
-					}
-				}
-				panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
-			}
-		});
-
 		this.add(panelGame);
 	}
 
 	private void initGame() {
-		panelGame.getPlayerAce().setText("Ace:  ");
 		player.setHandCards(null);
 		dealer = null;
 		game = null;
@@ -137,7 +107,6 @@ public class BJFrameGame extends JFrame {
 		addCardsOnPanel(dealer, panelGame.getDealerCardsPanel());
 
 		panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
-		checkAce();
 
 		dealer.getHandCards().get(0).setBackImage(true);
 
@@ -155,8 +124,6 @@ public class BJFrameGame extends JFrame {
 	private void terminatesGame(String t) {
 		panelGame.getJb_hit().setEnabled(false);
 		panelGame.getJb_stand().setEnabled(false);
-		panelGame.getAce1().setEnabled(false);
-		panelGame.getAce11().setEnabled(false);
 
 		panelGame.setLayout(new BorderLayout());
 		panelGame.add(panelGame.getBetPanel(), BorderLayout.CENTER);
@@ -207,18 +174,6 @@ public class BJFrameGame extends JFrame {
 
 			}
 		});
-	}
-
-	private void checkAce() {
-		for (BJCard d : player.getHandCards()) {
-			if (d.getNumber().equalsIgnoreCase("A")) {
-				panelGame.getPlayerAce().setText("Ace:  " + d.getNumber() + "" + d.getSuit());
-				panelGame.getAce1().setEnabled(true);
-				panelGame.getAce1().setSelected(true);
-				panelGame.getAce11().setEnabled(true);
-			}
-		}
-
 	}
 
 	private void initDealersGame() {
