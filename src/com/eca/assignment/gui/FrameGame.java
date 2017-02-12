@@ -10,23 +10,23 @@ import java.awt.event.ItemListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import com.eca.assignment.entity.BJCard;
-import com.eca.assignment.entity.BJPlayer;
-import com.eca.assignment.game.BJDatabaseConn;
-import com.eca.assignment.game.BJGame;
+import com.eca.assignment.entity.Card;
+import com.eca.assignment.entity.Player;
+import com.eca.assignment.game.DBConnection;
+import com.eca.assignment.game.Game;
 
 @SuppressWarnings("serial")
-public class BJFrameGame extends JFrame {
+public class FrameGame extends JFrame {
 
-	private BJPanelGame panelGame;
+	private PanelGame panelGame;
 	// Game Objects
-	private BJPlayer player;
-	private BJPlayer dealer;
-	private BJGame game;
-	private BJDatabaseConn conn;
+	private Player player;
+	private Player dealer;
+	private Game game;
+	private DBConnection conn;
 	private boolean standPressed = false;
 
-	public BJFrameGame(BJPlayer p) {
+	public FrameGame(Player p) {
 		this.player = p;
 
 		this.setResizable(false);
@@ -42,9 +42,12 @@ public class BJFrameGame extends JFrame {
 		this.setVisible(true);
 	}
 
+	
+	
+	
 	private void initPanelGame() {
 
-		panelGame = new BJPanelGame();
+		panelGame = new PanelGame();
 
 		// Button actions implementations
 		panelGame.getJb_hit().addActionListener(new ActionListener() {
@@ -88,8 +91,8 @@ public class BJFrameGame extends JFrame {
 		player.setHandCards(null);
 		dealer = null;
 		game = null;
-		dealer = new BJPlayer("Dealer");
-		game = new BJGame(player, dealer);
+		dealer = new Player("Dealer");
+		game = new Game(player, dealer);
 
 		// Sets the Player name on the JLabel
 		panelGame.getPlayerName().setText("Player:  " + player.getName());
@@ -112,11 +115,11 @@ public class BJFrameGame extends JFrame {
 
 	}
 
-	private void addCardsOnPanel(BJPlayer player, JPanel p) {
+	private void addCardsOnPanel(Player player, JPanel p) {
 
 		p.removeAll();
 		p.repaint();
-		for (BJCard card : player.getHandCards()) {
+		for (Card card : player.getHandCards()) {
 			p.add(card, "west, gap 10 0 10 10");
 		}
 	}
@@ -135,7 +138,7 @@ public class BJFrameGame extends JFrame {
 		} else if (t.equalsIgnoreCase("WIN")) {
 			panelGame.getWinLoseLabel().setForeground(Color.green);
 			panelGame.getWinLoseLabel().setText("YOU WON!   +50 pts");
-			conn = new BJDatabaseConn();
+			conn = new DBConnection();
 			conn.setPlayerScore(player);
 
 		} else {
@@ -145,6 +148,7 @@ public class BJFrameGame extends JFrame {
 		}
 
 		createReplayButtonAction();
+		enableButtonReplay();
 	}
 
 	private void resetDealerComps() {
@@ -162,7 +166,7 @@ public class BJFrameGame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				conn = new BJDatabaseConn();
+				conn = new DBConnection();
 				conn.refreshPlayerData(player);
 
 				panelGame.getJb_hit().setEnabled(true);
@@ -187,9 +191,6 @@ public class BJFrameGame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				// Dealer will keep hinting if its sum is under 20,
-				// its hints is under 3 and its sum is smaller than the player
-
 				if (dealer.getSum() < 20 && (game.getDealerHints() > 0) && (dealer.getSum() <= player.getSum())) {
 					dealer.setHandCards(game.getDeckCard());
 					game.decDealerHints();
@@ -213,11 +214,9 @@ public class BJFrameGame extends JFrame {
 		switch (game.checkGameOver(standPressed)) {
 		case LOSE:
 			terminatesGame("LOSE");
-			enableButtonReplay();
 			break;
 		case WIN:
 			terminatesGame("WIN");
-			enableButtonReplay();
 			break;
 		default:
 			break;

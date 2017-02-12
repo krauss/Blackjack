@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
-public class BJHeartsCard extends BJCard{
+public class HeartsCard extends Card{
 	
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class BJHeartsCard extends BJCard{
 	 * 
 	 * @param n
 	 */
-	public BJHeartsCard(int n) {
+	public HeartsCard(int n) {
 		super(n, "\u2665");
 		this.setIcon(new ImageIcon("./resources/imgs/"+this.getNumber()+"H.png"));
 	}

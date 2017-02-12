@@ -24,7 +24,7 @@ import net.miginfocom.swing.MigLayout;
  *
  */
 @SuppressWarnings("serial")
-public class BJPanelGame extends JPanel {
+public class PanelGame extends JPanel {
 
 	// Dealer components
 	private JPanel gamePanelDealer;
@@ -57,7 +57,7 @@ public class BJPanelGame extends JPanel {
 	private JPanel transparentPanel;
 	private JPanel finishedGamePanel;
 
-	public BJPanelGame() {
+	public PanelGame() {
 
 		this.setLayout(new MigLayout("", "[grow, center]", "[center][center]"));
 		this.setBackground(Color.BLACK);

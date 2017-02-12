@@ -12,16 +12,16 @@ import java.util.ArrayList;
  *         normal player or the dealer.
  *
  */
-public class BJPlayer {
+public class Player {
 
 	private String userName;
 	private String name;
 	private int score;
-	private ArrayList<BJCard> handCards;
+	private ArrayList<Card> handCards;
 
-	public BJPlayer(String userName) {
+	public Player(String userName) {
 		this.userName = userName;
-		this.handCards = new ArrayList<BJCard>();
+		this.handCards = new ArrayList<Card>();
 	}
 
 	public String getUserName() {
@@ -44,14 +44,14 @@ public class BJPlayer {
 		this.score = score;
 	}	
 
-	public ArrayList<BJCard> getHandCards() {
+	public ArrayList<Card> getHandCards() {
 		return handCards;
 	}
 	
 	public int getSum() {
 		int sum = 0;
 		
-		for (BJCard card : handCards) {
+		for (Card card : handCards) {
 			sum += card.getValue();
 		}
 		
@@ -59,9 +59,9 @@ public class BJPlayer {
 	}
 
 
-	public void setHandCards(BJCard handCards) {
+	public void setHandCards(Card handCards) {
 		if(handCards == null){
-			this.handCards = new ArrayList<BJCard>();
+			this.handCards = new ArrayList<Card>();
 		}else{
 			this.handCards.add(handCards);
 		}

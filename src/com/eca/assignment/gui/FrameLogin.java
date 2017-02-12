@@ -6,25 +6,25 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import com.eca.assignment.entity.BJPlayer;
-import com.eca.assignment.game.BJDatabaseConn;
+import com.eca.assignment.entity.Player;
+import com.eca.assignment.game.DBConnection;
 import net.miginfocom.swing.MigLayout;
 
 
 @SuppressWarnings("serial")
-public class BJFrameLogin extends JFrame {
+public class FrameLogin extends JFrame {
 	
 	// Container components
-	private BJPanelLogin panelLogin;
+	private PanelLogin panelLogin;
 	private MigLayout layout_jframe;
 
 	// Game Objects
-	private BJPlayer player;
-	private BJDatabaseConn conn;
+	private Player player;
+	private DBConnection conn;
 	private Timer timer;
 	
 
-	public BJFrameLogin() {
+	public FrameLogin() {
 		
 		this.setResizable(false);
 		this.setSize(600, 460);
@@ -39,7 +39,7 @@ public class BJFrameLogin extends JFrame {
 		//It gives the initial focus to the Login button
 		this.getRootPane().setDefaultButton(panelLogin.getJb_login());
 		panelLogin.getJb_login().requestFocus();
-		
+	
 		this.setVisible(true);
 	}
 	
@@ -48,7 +48,7 @@ public class BJFrameLogin extends JFrame {
 	private void createJPanelLogin() {
 
 		// Creates de Login panel using the BJPanelLogin class
-		panelLogin = new BJPanelLogin();
+		panelLogin = new PanelLogin();
 		
 		//Initialize the timer
 		timer = new Timer(2000, null);
@@ -71,11 +71,11 @@ public class BJFrameLogin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(panelLogin.getJc_createUser().isSelected()){
-					conn = new BJDatabaseConn();
+					conn = new DBConnection();
 					
 					conn.insertNewUser(panelLogin.getJt_login().getText(), panelLogin.getJt_password().getPassword(), panelLogin.getJt_login().getText());
 					
-					player = new BJPlayer(panelLogin.getJt_login().getText());
+					player = new Player(panelLogin.getJt_login().getText());
 					player.setName(panelLogin.getJt_login().getText());					
 					panelLogin.getJl_login_error().setText(text);
 					
@@ -86,7 +86,7 @@ public class BJFrameLogin extends JFrame {
 				}else if ((panelLogin.getJt_login().getText().trim().length() != 0) && (panelLogin.getJt_password().getPassword().length != 0)) {
 					try {
 						
-						conn = new BJDatabaseConn();
+						conn = new DBConnection();
 						player = conn.authenticate(panelLogin.getJt_login().getText(),panelLogin.getJt_password().getPassword());
 						
 					} catch (SQLException e1) {
@@ -96,7 +96,6 @@ public class BJFrameLogin extends JFrame {
 						
 						panelLogin.getJl_login_error().setText(text);						
 						
-						//It executes the ActionListener previously defined
 						timer.start();						
 						
 					} else {
@@ -113,8 +112,9 @@ public class BJFrameLogin extends JFrame {
 	
 	
 	private void createJPanelGame() {
-		new BJFrameGame(player);
+		new FrameGame(player);
 		this.setVisible(false);		
+		timer.stop();
 
 	}
 

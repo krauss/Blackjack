@@ -15,11 +15,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import com.eca.assignment.game.BJDatabaseConn;
+import com.eca.assignment.game.DBConnection;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
-public class BJPanelLogin extends JPanel {
+public class PanelLogin extends JPanel {
 	
 	private JPanel welcomeLoginPanel;
 	private JPanel loginPanel;
@@ -31,9 +31,9 @@ public class BJPanelLogin extends JPanel {
 	private JButton jb_login;
 	private JLabel jl_login_error;
 	private JLabel bjimage;
-	private BJDatabaseConn conn;
+	private DBConnection conn;
 
-	public BJPanelLogin() {
+	public PanelLogin() {
 		this.setLayout(new MigLayout("", "20[grow]20[grow]20", "20[200]20[grow]20"));
 		this.setBackground(Color.BLACK);
 		createPanelLogin();
@@ -88,7 +88,7 @@ public class BJPanelLogin extends JPanel {
 						removeCreationPanel();
 					}
 				} else if (!jt_login.getText().equalsIgnoreCase("")) {
-					conn = new BJDatabaseConn();
+					conn = new DBConnection();
 					if (!conn.checkExistingUser(jt_login.getText())) {
 						createUserCreationPanel();
 					} else if (createUserPanel.isVisible()){

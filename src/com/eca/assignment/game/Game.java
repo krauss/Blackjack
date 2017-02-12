@@ -16,14 +16,14 @@ import com.eca.assignment.entity.*;
  *
  */
 
-public class BJGame {
+public class Game {
 
 	// Creates the deck of Card in form of a stack
-	private Stack<BJCard> deckCards;
+	private Stack<Card> deckCards;
 	
 	//Instances of the Player and Dealer
-	private BJPlayer player;
-	private BJPlayer dealer;
+	private Player player;
+	private Player dealer;
 	private int dealerHints = 3;
 	
 	public static enum GameStatus{
@@ -34,7 +34,7 @@ public class BJGame {
 	}
 	
 
-	public BJGame(BJPlayer p, BJPlayer d) {
+	public Game(Player p, Player d) {
 		this.player = p;
 		this.dealer = d;
 		init();
@@ -44,7 +44,7 @@ public class BJGame {
 	private void init() {
 
 		// Create the deck of 52 cards 4x13, from A-K each of which of 4 suits
-		deckCards = new Stack<BJCard>();
+		deckCards = new Stack<Card>();
 
 
 		// Card numbers
@@ -53,13 +53,13 @@ public class BJGame {
 		for (int i = 0; i < 52; i++) {
 
 			if (i < 13) {
-				deckCards.push(new BJClubsCard(number));
+				deckCards.push(new ClubsCard(number));
 			} else if (i < 26) {
-				deckCards.push(new BJHeartsCard(number));
+				deckCards.push(new HeartsCard(number));
 			} else if (i < 39) {
-				deckCards.push(new BJSpadesCard(number));
+				deckCards.push(new SpadesCard(number));
 			} else {
-				deckCards.push(new BJDiamondsCard(number));
+				deckCards.push(new DiamondsCard(number));
 			}
 			number++;
 			if (number == 14) {
@@ -74,7 +74,7 @@ public class BJGame {
 	}
 
 	// Pulls out one card from the deck
-	public BJCard getDeckCard() {
+	public Card getDeckCard() {
 		return deckCards.pop();
 	}
 
@@ -83,11 +83,11 @@ public class BJGame {
 		int playerResult = 0;
 		int dealerResult = 0;
 		
-		for (BJCard n : player.getHandCards()) {
+		for (Card n : player.getHandCards()) {
 			playerResult += n.getValue();
 		}
 		
-		for (BJCard n : dealer.getHandCards()) {
+		for (Card n : dealer.getHandCards()) {
 			dealerResult += n.getValue();
 		}
 		

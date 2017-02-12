@@ -1,9 +1,9 @@
 package com.eca.assignment.main;
 
 import javax.swing.SwingUtilities;
-import com.eca.assignment.gui.BJFrameLogin;
+import com.eca.assignment.gui.FrameLogin;
 
-public class BJMain {
+public class Main {
 
 	public static void main(String[] args) {
 
@@ -12,7 +12,7 @@ public class BJMain {
 			
 			@Override
 			public void run() {
-				new BJFrameLogin();
+				new FrameLogin();
 			}
 		});
 	}
