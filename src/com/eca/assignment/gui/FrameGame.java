@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -41,48 +39,17 @@ public class FrameGame extends JFrame {
 		this.pack();
 		this.setVisible(true);
 	}
-
-	
-	
 	
 	private void initPanelGame() {
 
 		panelGame = new PanelGame();
 
-		// Button actions implementations
-		panelGame.getJb_hit().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				// The Player gets one card from the game deck.
-				player.setHandCards(game.getDeckCard());
-
-				// print the cards and the sum
-				addCardsOnPanel(player, panelGame.getPlayerCardsPanel());
-				panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
-
-				checkFinish();
-
-			}
-		});
-
-		// Button STAND's actions
-		panelGame.getJb_stand().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				panelGame.getJb_hit().setEnabled(false);
-				panelGame.getJb_stand().setEnabled(false);
-
-				dealer.getHandCards().get(0).setBackImage(false);
-
-				panelGame.getDealerSum().setText("Sum:  " + dealer.getSum());
-				panelGame.getDealerHints().setText("Hints:  " + game.getDealerHints());
-				standPressed = true;
-				initDealersGame();
-			}
-		});
+		// HIT button's action
+		panelGame.getJb_hit().addActionListener(new ACHit());
+		// STAND button's action
+		panelGame.getJb_stand().addActionListener(new ACStand());
+		// Replay Button's action
+		panelGame.getJb_replay().addActionListener(new ACReplay());
 
 		this.add(panelGame);
 	}
@@ -128,10 +95,6 @@ public class FrameGame extends JFrame {
 		panelGame.getJb_hit().setEnabled(false);
 		panelGame.getJb_stand().setEnabled(false);
 
-		panelGame.setLayout(new BorderLayout());
-		panelGame.add(panelGame.getBetPanel(), BorderLayout.CENTER);
-		panelGame.getOverlayPanel().repaint();
-
 		if (t.equalsIgnoreCase("LOSE")) {
 			panelGame.getWinLoseLabel().setForeground(Color.RED);
 			panelGame.getWinLoseLabel().setText("YOU LOST!");
@@ -146,9 +109,12 @@ public class FrameGame extends JFrame {
 			panelGame.getWinLoseLabel().setText("NO ONE WON!");
 
 		}
-
-		createReplayButtonAction();
-		enableButtonReplay();
+		
+		panelGame.setLayout(new BorderLayout());
+		panelGame.validate();
+		panelGame.add(panelGame.getBetPanel(), BorderLayout.CENTER);
+		panelGame.getBetPanel().repaint();
+		
 	}
 
 	private void resetDealerComps() {
@@ -157,27 +123,6 @@ public class FrameGame extends JFrame {
 		panelGame.getDealerHints().setText("Hints:  ");
 		panelGame.getDealerSum().setText("Sum:  ");
 
-	}
-
-	private void createReplayButtonAction() {
-
-		panelGame.getJb_replay().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				conn = new DBConnection();
-				conn.refreshPlayerData(player);
-
-				panelGame.getJb_hit().setEnabled(true);
-				panelGame.getJb_stand().setEnabled(true);
-				panelGame.remove(panelGame.getOverlayPanel());
-				resetDealerComps();
-				initGame();
-				panelGame.repaint();
-
-			}
-		});
 	}
 
 	private void initDealersGame() {
@@ -223,14 +168,60 @@ public class FrameGame extends JFrame {
 		}
 	}
 
-	private void enableButtonReplay() {
+	
+	
+	private class ACHit implements ActionListener{
 
-		panelGame.getJb_replay().setVisible(true);
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			// The Player gets one card from the game deck.
+			player.setHandCards(game.getDeckCard());
 
+			// print the cards and the sum
+			addCardsOnPanel(player, panelGame.getPlayerCardsPanel());
+			panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
+
+			checkFinish();
+			
+		}
+		
+	}
+	
+	private class ACStand implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			panelGame.getJb_hit().setEnabled(false);
+			panelGame.getJb_stand().setEnabled(false);
+
+			dealer.getHandCards().get(0).setBackImage(false);
+
+			panelGame.getDealerSum().setText("Sum:  " + dealer.getSum());
+			panelGame.getDealerHints().setText("Hints:  " + game.getDealerHints());
+			standPressed = true;
+			initDealersGame();
+		}
+		
+	}
+	
+	private class ACReplay implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			conn = new DBConnection();
+			conn.refreshPlayerData(player);
+
+			panelGame.getJb_hit().setEnabled(true);
+			panelGame.getJb_stand().setEnabled(true);
+			panelGame.remove(panelGame.getOverlayPanel());
+			resetDealerComps();
+			initGame();
+			panelGame.updateUI();
+		}
+		
 	}
 
-	/*
-	 * public static void main(String[] args) { new BJFrameGame(new
-	 * BJPlayer("TEST")); }
-	 */
 }

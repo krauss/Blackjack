@@ -51,8 +51,8 @@ public class PanelGame extends JPanel {
 	private JLabel playerScore;
 	private JLabel winLoseLabel;
 	private Font defaultFont = new Font("arial", Font.BOLD, 13);
-	
-	//Bet Panel
+
+	// Bet Panel
 	private JPanel overlayPanel;
 	private JPanel transparentPanel;
 	private JPanel finishedGamePanel;
@@ -64,6 +64,7 @@ public class PanelGame extends JPanel {
 
 		createPanelGameDealer();
 		createPanelGamePlayer();
+		createBetPanel();
 
 	}
 
@@ -72,7 +73,7 @@ public class PanelGame extends JPanel {
 	// The Dealer side of the game
 	private void createPanelGameDealer() {
 		gamePanelDealer = new JPanel();
-		gamePanelDealer.setLayout(new MigLayout("", "[grow]","[center][center]"));
+		gamePanelDealer.setLayout(new MigLayout("", "[grow]", "[center][center]"));
 		gamePanelDealer.setBackground(Color.BLACK);
 		this.add(gamePanelDealer, "growx, gap 15 15 15 15, wrap");
 
@@ -116,7 +117,7 @@ public class PanelGame extends JPanel {
 	private void createPanelGamePlayer() {
 		// Creates the player back panel
 		gamePanelPLayer = new JPanel();
-		gamePanelPLayer.setLayout(new MigLayout("", "[grow]","[center][center]"));
+		gamePanelPLayer.setLayout(new MigLayout("", "[grow]", "[center][center]"));
 		gamePanelPLayer.setBackground(Color.BLACK);
 		this.add(gamePanelPLayer, "gap 15 15 0 15, growx");
 
@@ -136,14 +137,12 @@ public class PanelGame extends JPanel {
 		playerName = new JLabel();
 		playerScore = new JLabel();
 
-
 		playerSum.setFont(defaultFont);
 		playerSum.setForeground(Color.WHITE);
 		playerName.setFont(defaultFont);
 		playerName.setForeground(Color.WHITE);
 		playerScore.setFont(defaultFont);
 		playerScore.setForeground(Color.WHITE);
-
 
 		controlPanelPLayer.add(playerName, "wrap");
 		controlPanelPLayer.add(playerSum, "wrap");
@@ -159,47 +158,49 @@ public class PanelGame extends JPanel {
 
 		hitStandPanel.add(jb_hit, "w 80!, right");
 		hitStandPanel.add(jb_stand, "w 80!, left, wrap");
-		
+
 		gamePanelPLayer.add(playerCardsPanel, "growx, align center, wrap");
 		gamePanelPLayer.add(controlPanelPLayer, "align center, wrap");
-		gamePanelPLayer.add(hitStandPanel,"center");
+		gamePanelPLayer.add(hitStandPanel, "center");
 	}
-
 	
-	public JPanel getBetPanel() {
-		
+	
+	private void createBetPanel() {
 		overlayPanel = new JPanel();
-		overlayPanel.setPreferredSize(this.getPreferredSize());
+		overlayPanel.setSize(750, 690);
+		overlayPanel.setPreferredSize(new Dimension(750, 690));
 		overlayPanel.setLayout(new OverlayLayout(overlayPanel));
-		
+
 		transparentPanel = new JPanel();
-		transparentPanel.setPreferredSize(this.getPreferredSize());	
+		transparentPanel.setLayout(new MigLayout("", "[750]", "[690]"));
 		transparentPanel.setBackground(new Color(0, 0, 0, 90));
-		
+
 		finishedGamePanel = new JPanel();
-		finishedGamePanel.setLayout(new MigLayout("", "10[280]10","10[45]10[45]10"));
+		finishedGamePanel.setLayout(new MigLayout("", "10[280]10", "10[45]10[45]10"));
 		finishedGamePanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, true));
 		finishedGamePanel.setBackground(Color.DARK_GRAY);
 
 		winLoseLabel = new JLabel();
 		winLoseLabel.setFont(new Font("arial", Font.BOLD, 17));
 		winLoseLabel.setForeground(Color.RED);
-		
-		jb_replay = new JButton("replay");
-		jb_replay.setVisible(false);
-				
-		
+
+		jb_replay = new JButton(" Replay ");
+
 		finishedGamePanel.add(winLoseLabel, "growx, center, wrap");
-		finishedGamePanel.add(jb_replay, "w 100!, center");	
-		
-		transparentPanel.add(finishedGamePanel, BorderLayout.CENTER);		
+		finishedGamePanel.add(jb_replay, "w 100!, center");
+
+		transparentPanel.add(finishedGamePanel, "center");
 		overlayPanel.add(transparentPanel, BorderLayout.CENTER);
-		
-		return overlayPanel;
-		
+		overlayPanel.validate();
+
 	}
 	
-	
+	public JPanel getBetPanel() {
+
+		return overlayPanel;
+
+	}
+
 	public JPanel getGamePanelPLayer() {
 		return gamePanelPLayer;
 	}
@@ -284,11 +285,8 @@ public class PanelGame extends JPanel {
 		return jb_replay;
 	}
 
-
-
 	public JPanel getOverlayPanel() {
 		return overlayPanel;
 	}
-
 
 }

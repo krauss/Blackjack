@@ -130,7 +130,7 @@ public class PanelLogin extends JPanel {
 			}
 		});
 
-		jb_login = new JButton(" Check ");
+		jb_login = new JButton(" Play ");
 		jl_login_error = new JLabel("");
 		jl_login_error.setFont(new Font("Arial", Font.BOLD, 12));
 		jl_login_error.setForeground(Color.RED);
