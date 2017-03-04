@@ -86,7 +86,8 @@ public class FrameLogin extends JFrame {
 				player = new Player(panelLogin.getJt_login().getText());
 				player.setName(panelLogin.getJt_login().getText());
 				panelLogin.getJl_login_error().setText(text);
-
+				panelLogin.getJb_login().setText(" -_- ");
+				panelLogin.getJb_login().setEnabled(false);
 				// It executes the actionPerformed method from the
 				// ActionListener previously defined
 				timer.start();
@@ -106,7 +107,8 @@ public class FrameLogin extends JFrame {
 				if (player != null) {
 
 					panelLogin.getJl_login_error().setText(text);
-
+					panelLogin.getJb_login().setText(" -_- ");
+					panelLogin.getJb_login().setEnabled(false);
 					timer.start();
 
 				} else {
