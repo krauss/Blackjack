@@ -2,8 +2,10 @@ package com.eca.assignment.entity;
 
 import java.awt.Color;
 import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+
 import com.eca.assignment.interfaces.ICard;
 
 /**
