@@ -10,11 +10,11 @@ A pretty basic implementation of the famous game BlackJack, written in JAVA usin
 
 To download the image, simply run:
 
-`docker pull jrkrauss/blackjack:latest`
+`docker pull jrkrauss/blackjack:first`
 
 To create and run the container, run:
 
-`docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:latest`
+`docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:first`
 
 P.S: The execution exits with the error below: Sorry, I don't know how to fix it.
 
