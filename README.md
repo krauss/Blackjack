@@ -12,13 +12,13 @@ A pretty basic implementation of the famous game BlackJack, written in JAVA usin
 
 To download the image, simply run:
 
-`docker pull jrkrauss/blackjack:v1`
+`docker pull jrkrauss/blackjack:latest`
 
 To create and run the container, run:  
 
-`docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY blackjack:v1`
+`docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:latest`
 
-P.S: The execution exits with the error below: Sorry, I don't know how to fix it.
+P.S: The container execution exits with the error below: Sorry, I don't know how to fix it.
 
 	No protocol specified
 	Exception in thread "main" java.awt.AWTError: Can't connect to X11 window server using ':0' as the value of the DISPLAY variable.
