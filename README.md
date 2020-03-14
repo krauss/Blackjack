@@ -1,25 +1,4 @@
-<<<<<<< HEAD
-## Blackjack game (First version)
-
-#### What is it
-
-A pretty basic implementation of the famous game BlackJack, written in JAVA using swing components.
-
-* Building the image from Dockerfile successfully finishes, but the container execution problem remains.
-
-#### Docker Image
-
-To download the image, simply run:
-
-`docker pull jrkrauss/blackjack:first`
-
-To create and run the container, run:
-
-`docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:first`
-
-P.S: The execution exits with the error below: Sorry, I don't know how to fix it.
-=======
-## Blackjack game v1.0
+## Blackjack game
 
 #### What is it
 
