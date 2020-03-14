@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.eca.assignment.entity.BJPlayer;
+import com.eca.assignment.entity.Player;
 
 /**
  * 
@@ -16,14 +16,14 @@ import com.eca.assignment.entity.BJPlayer;
  *         and update scores
  *
  */
-public class BJDatabaseConn {
+public class DBConnection {
 
 	private Connection conn;
 	private Statement statement;
 	private ResultSet result;
 
 	
-	public BJDatabaseConn() {
+	public DBConnection() {
 
 		try {
 
@@ -35,8 +35,8 @@ public class BJDatabaseConn {
 
 	}
 
-	public BJPlayer authenticate(String user, char[] pass) throws SQLException {
-		BJPlayer p = null;
+	public Player authenticate(String user, char[] pass) throws SQLException {
+		Player p = null;
 		String password = String.copyValueOf(pass);
 
 		statement = conn.createStatement();
@@ -44,8 +44,8 @@ public class BJDatabaseConn {
 		result = statement.executeQuery("select * from Login where username = '" + user + "';");
 
 		if (result.next()) {
-			if (result.getString("password").equalsIgnoreCase(password)) {
-				p = new BJPlayer(result.getString("username"));
+			if (result.getString("password").equalsIgnoreCase(password.hashCode()+"")) {
+				p = new Player(result.getString("username"));
 				p.setScore(result.getInt("score"));
 				p.setName(result.getString("name"));
 			}
@@ -56,7 +56,7 @@ public class BJDatabaseConn {
 
 	}
 
-	public void refreshPlayerData(BJPlayer p) {
+	public void refreshPlayerData(Player p) {
 		try {
 			statement = conn.createStatement();
 			result = statement.executeQuery("select * from Login where username = '" + p.getUserName() + "';");
@@ -76,12 +76,12 @@ public class BJDatabaseConn {
 	}
 
 	// Increase the user's score to plus 100
-	public void setPlayerScore(BJPlayer p) {
+	public void setPlayerScore(Player p) {
 
 		try {
 
 			statement = conn.createStatement();
-			statement.executeUpdate("update Login set score = score + 100 where username = '" + p.getUserName() + "';");
+			statement.executeUpdate("update Login set score = score + 50 where username = '" + p.getUserName() + "';");
 
 			conn.close();
 		} catch (SQLException e) {
@@ -128,7 +128,7 @@ public class BJDatabaseConn {
 			
 			statement = conn.createStatement();
 			
-			statement.execute("insert into Login values ('"+nextValidId+"', '"+userName+"', '"+userPass+"', '"+name+"', 0);"); 
+			statement.execute("insert into Login values ('"+nextValidId+"', '"+userName+"', '"+userPass.hashCode()+"', '"+name+"', 0);"); 
 			
 			conn.close();
 		} catch (SQLException e) {

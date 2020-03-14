@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Blackjack game (First version)
 
 #### What is it
@@ -17,6 +18,29 @@ To create and run the container, run:
 `docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:first`
 
 P.S: The execution exits with the error below: Sorry, I don't know how to fix it.
+=======
+## Blackjack game v1.0
+
+#### What is it
+
+A pretty basic implementation of the famous game BlackJack, written in JAVA using swing components.
+
+* The GUI had some improvements compared with the previous version
+* New images were added for the cards
+* Building the image from Dockerfile successfully finishes, but the container execution problem remains.
+
+#### Docker Image
+
+To download the image, simply run:
+
+`docker pull jrkrauss/blackjack:latest`
+
+To create and run the container, run:  
+
+`docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:latest`
+
+P.S: The container execution exits with the error below: Sorry, I don't know how to fix it.
+>>>>>>> refs/heads/v1.0
 
 	No protocol specified
 	Exception in thread "main" java.awt.AWTError: Can't connect to X11 window server using ':0' as the value of the DISPLAY variable.

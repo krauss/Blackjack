@@ -4,6 +4,12 @@ COPY ./src /home/blackjack/src
 COPY ./resources /home/blackjack/resources 
 WORKDIR /home/blackjack
 RUN dnf install java-latest-openjdk java-latest-openjdk-devel -y
+<<<<<<< HEAD
 RUN javac -d bin -cp src:resources/External_Libs/sqlite/*:resources/External_Libs/miglayout/* src/com/eca/assignment/main/BJMain.java
 RUN chmod +x -R bin/
 CMD ["java", "-cp", "bin:resources/External_Libs/sqlite/*:resources/External_Libs/miglayout/*", "com.eca.assignment.main.BJMain"] 
+=======
+RUN javac -d bin -cp src:resources/External_Libs/sqlite/*:resources/External_Libs/miglayout/* src/com/eca/assignment/main/Main.java
+RUN chmod +x -R bin/
+CMD ["java", "-cp", "bin:resources/External_Libs/sqlite/*:resources/External_Libs/miglayout/*", "com.eca.assignment.main.Main"] 
+>>>>>>> refs/heads/v1.0

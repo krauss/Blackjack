@@ -9,7 +9,7 @@ package com.eca.assignment.interfaces;
  *
  */
 
-public interface BJICard {
+public interface ICard {
 
 	
 	public String getNumber();
