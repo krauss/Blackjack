@@ -19,7 +19,6 @@ To create and run the container, run:
 `docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:latest`
 
 P.S: The container execution exits with the error below: Sorry, I don't know how to fix it.
->>>>>>> refs/heads/v1.0
 
 	No protocol specified
 	Exception in thread "main" java.awt.AWTError: Can't connect to X11 window server using ':0' as the value of the DISPLAY variable.

@@ -107,12 +107,11 @@ public class FrameLogin extends JFrame {
 				if (player != null) {
 
 					panelLogin.getJl_login_error().setText(text);
-					panelLogin.getJb_login().setText(" -_- ");
-					panelLogin.getJb_login().setEnabled(false);
+					panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
 					timer.start();
 
 				} else {
-					panelLogin.getJl_login_error().setText("<html><b>User and/or Pass incorrect!</b></html>");
+					panelLogin.getJl_login_error().setText("<html>&#x26D4; <b>User and/or Pass incorrect!</b></html>");
 				}
 
 			}
