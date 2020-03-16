@@ -1,4 +1,4 @@
-package com.eca.assignment.gui;
+package com.eca.assignment.gui.game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -1,4 +1,4 @@
-package com.eca.assignment.gui;
+package com.eca.assignment.gui.game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -97,16 +97,16 @@ public class FrameGame extends JFrame {
 
 		if (t.equalsIgnoreCase("LOSE")) {
 			panelGame.getWinLoseLabel().setForeground(Color.RED);
-			panelGame.getWinLoseLabel().setText("YOU LOST!");
+			panelGame.getWinLoseLabel().setText("YOU LOSE!");
 		} else if (t.equalsIgnoreCase("WIN")) {
 			panelGame.getWinLoseLabel().setForeground(Color.green);
-			panelGame.getWinLoseLabel().setText("YOU WON!   +50 pts");
+			panelGame.getWinLoseLabel().setText("YOU WIN!   +50 pts");
 			conn = new DBConnection();
 			conn.setPlayerScore(player);
 
 		} else {
 			panelGame.getWinLoseLabel().setForeground(Color.ORANGE);
-			panelGame.getWinLoseLabel().setText("NO ONE WON!");
+			panelGame.getWinLoseLabel().setText("DRAW!");
 
 		}
 		

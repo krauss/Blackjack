@@ -1,13 +1,14 @@
-package com.eca.assignment.gui;
+package com.eca.assignment.gui.login;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.Timer;
-
 import com.eca.assignment.entity.Player;
 import com.eca.assignment.game.DBConnection;
+import com.eca.assignment.gui.game.FrameGame;
+
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -21,7 +22,7 @@ public class FrameLogin extends JFrame {
 	private Player player;
 	private DBConnection conn;
 	private Timer timer;
-	private String text = "<html><b><font color=\"#00FF00\"><br>OK, let's play!</font></b></html>";
+	private String text = "<html><b><font color=\"#00FF00\"><br>Cool, let's play!</font></b></html>";
 
 	public FrameLogin() {
 
@@ -86,7 +87,7 @@ public class FrameLogin extends JFrame {
 				player = new Player(panelLogin.getJt_login().getText());
 				player.setName(panelLogin.getJt_login().getText());
 				panelLogin.getJl_login_error().setText(text);
-				panelLogin.getJb_login().setText(" -_- ");
+				panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
 				panelLogin.getJb_login().setEnabled(false);
 				// It executes the actionPerformed method from the
 				// ActionListener previously defined

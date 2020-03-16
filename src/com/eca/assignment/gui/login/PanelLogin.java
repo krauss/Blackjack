@@ -1,4 +1,4 @@
-package com.eca.assignment.gui;
+package com.eca.assignment.gui.login;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -71,7 +71,7 @@ public class PanelLogin extends JPanel {
 				+ "of <font color=\"gray\">t</font>he classic cards game <font color=\"gray\">b</font>lackjack, in ord<font color=\"gray\">e</font>r "
 				+ "<font color=\"gray\">t</font>o tr<font color=\"gray\">y</font> different pr<font color=\"gray\">o</font>gramming concepts "
 				+ "and patterns. Before start playing, check whether yo<font color=\"gray\">ur</font> username and pass<font color=\"gray\">w</font>ord "
-				+ "ex<font color=\"gray\">i</font>st in our database <font color=\"gray\">f</font>il<font color=\"gray\">e</font></html>");
+				+ "ex<font color=\"gray\">i</font>st in our database. If it's not, just check the little box and set a password. That will create a new user for you</html>");
 		txt.setForeground(Color.WHITE);
 		welcomeLoginPanel.add(welcome, "center, wrap");
 		welcomeLoginPanel.add(txt, "center");
