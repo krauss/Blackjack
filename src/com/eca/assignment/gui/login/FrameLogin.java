@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import com.eca.assignment.entity.Player;
 import com.eca.assignment.game.DBConnection;
+import com.eca.assignment.gui.admin.FrameAdmin;
 import com.eca.assignment.gui.game.FrameGame;
 
 import net.miginfocom.swing.MigLayout;
@@ -20,9 +21,12 @@ public class FrameLogin extends JFrame {
 
 	// Game Objects
 	private Player player;
+	private Player admin;
 	private DBConnection conn;
-	private Timer timer;
-	private String text = "<html><b><font color=\"#00FF00\"><br>Cool, let's play!</font></b></html>";
+	private Timer gameTimer;
+	private Timer adminTimer;
+	private String playerLoginMsg = "<html><b><font color=\"#00FF00\"><br>Cool, let's play!</font></b></html>";
+	private String adminLoginMsg = "<html><b><font color=\"#0000FF\"><br>Welcome back Master!</font></b></html>";
 
 	public FrameLogin() {
 
@@ -47,12 +51,14 @@ public class FrameLogin extends JFrame {
 
 		// Creates de Login panel using the BJPanelLogin class
 		panelLogin = new PanelLogin();
+		// Adds the login action to the button
+		panelLogin.getJb_login().addActionListener(new ACLogin());
+		this.add(panelLogin, "growx, growy");
 
-		// Initialize the timer
-		timer = new Timer(2000, null);
-		timer.setRepeats(false);
-
-		timer.addActionListener(new ActionListener() {
+		// Initialize the Game timer. Just to give an impression of being loading.
+		gameTimer = new Timer(2000, null);
+		gameTimer.setRepeats(false);
+		gameTimer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -60,16 +66,32 @@ public class FrameLogin extends JFrame {
 			}
 		});
 
-		// Adds the login action to the button
-		panelLogin.getJb_login().addActionListener(new ACLogin());
-		this.add(panelLogin, "growx, growy");
+		// Initialize the Game timer. Just to give an impression of being loading.
+		adminTimer = new Timer(1500, null);
+		adminTimer.setRepeats(false);
+		adminTimer.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createPanelAdmin();
+			}
+		});
 
 	}
-
+	
+	//Creates the Game frame after successful login
 	private void createJPanelGame() {
 		new FrameGame(player);
 		this.setVisible(false);
-		timer.stop();
+		gameTimer.stop();
+
+	}
+	
+	//Creates the Admin Frame after successful login
+	private void createPanelAdmin() {
+		new FrameAdmin();
+		this.setVisible(false);
+		adminTimer.stop();
 
 	}
 
@@ -77,44 +99,75 @@ public class FrameLogin extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			//If it's admin login
+			if (panelLogin.getJt_login().getText().equalsIgnoreCase("admin")) {
+				
+				if ((panelLogin.getJt_login().getText().trim().length() != 0)
+						&& (panelLogin.getJt_password().getPassword().length != 0)) {
+					try {
 
-			if (panelLogin.getJc_createUser().isSelected()) {
-				conn = new DBConnection();
+						conn = new DBConnection();
+						admin = conn.authenticateAdmin(panelLogin.getJt_login().getText(),
+								panelLogin.getJt_password().getPassword());
 
-				conn.insertNewUser(panelLogin.getJt_login().getText(), panelLogin.getJt_password().getPassword(),
-						panelLogin.getJt_login().getText());
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					if (admin != null) {
 
-				player = new Player(panelLogin.getJt_login().getText());
-				player.setName(panelLogin.getJt_login().getText());
-				panelLogin.getJl_login_error().setText(text);
-				panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
-				panelLogin.getJb_login().setEnabled(false);
-				// It executes the actionPerformed method from the
-				// ActionListener previously defined
-				timer.start();
-				panelLogin.removeCreationPanel();
+						panelLogin.getJl_login_error().setText(adminLoginMsg);
+						panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
+						adminTimer.start();
 
-			} else if ((panelLogin.getJt_login().getText().trim().length() != 0)
-					&& (panelLogin.getJt_password().getPassword().length != 0)) {
-				try {
+					} else {
+						panelLogin.getJl_login_error()
+								.setText("<html>&#x26D4; <b>Password incorrect!</b></html>");
+					}
 
+				}
+			
+			//If it's a normal player login
+			} else {
+
+				if (panelLogin.getJc_createUser().isSelected()) {
 					conn = new DBConnection();
-					player = conn.authenticate(panelLogin.getJt_login().getText(),
-							panelLogin.getJt_password().getPassword());
 
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				if (player != null) {
+					conn.insertNewUser(panelLogin.getJt_login().getText(), panelLogin.getJt_password().getPassword(),
+							panelLogin.getJt_login().getText());
 
-					panelLogin.getJl_login_error().setText(text);
+					player = new Player(panelLogin.getJt_login().getText());
+					player.setName(panelLogin.getJt_login().getText());
+					panelLogin.getJl_login_error().setText(playerLoginMsg);
 					panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
-					timer.start();
+					panelLogin.getJb_login().setEnabled(false);
+					// It executes the actionPerformed method from the
+					// ActionListener previously defined
+					gameTimer.start();
+					panelLogin.removeCreationPanel();
 
-				} else {
-					panelLogin.getJl_login_error().setText("<html>&#x26D4; <b>User and/or Pass incorrect!</b></html>");
+				} else if ((panelLogin.getJt_login().getText().trim().length() != 0)
+						&& (panelLogin.getJt_password().getPassword().length != 0)) {
+					try {
+
+						conn = new DBConnection();
+						player = conn.authenticate(panelLogin.getJt_login().getText(),
+								panelLogin.getJt_password().getPassword());
+
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					if (player != null) {
+
+						panelLogin.getJl_login_error().setText(playerLoginMsg);
+						panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
+						gameTimer.start();
+
+					} else {
+						panelLogin.getJl_login_error().setText("<html>&#x26D4; <b>Password incorrect!</b></html>");
+					}
+
 				}
-
 			}
 		}
 
