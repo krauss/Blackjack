@@ -4,7 +4,7 @@
 
 A pretty basic implementation of the famous game BlackJack, written in JAVA using swing components.
 
-* The GUI had some improvements compared with the previous version
+* The GUI had some improvements compared to the first version
 * New images were added for the cards
 * Building the image from Dockerfile successfully finishes, but the container execution problem remains.
 

@@ -1,7 +1,5 @@
 package com.eca.assignment.entity;
 
-import java.awt.Color;
-
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
