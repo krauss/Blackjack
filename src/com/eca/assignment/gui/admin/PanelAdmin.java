@@ -2,15 +2,12 @@ package com.eca.assignment.gui.admin;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.OverlayLayout;
 
 import net.miginfocom.swing.MigLayout;
@@ -60,7 +57,6 @@ public class PanelAdmin extends JPanel {
 	public PanelAdmin() {
 
 		this.setLayout(new MigLayout("", "[grow, center]", "[center][center]"));
-		this.setBackground(Color.BLACK);
 
 		createPanelGameDealer();
 		createPanelGamePlayer();
@@ -74,7 +70,6 @@ public class PanelAdmin extends JPanel {
 	private void createPanelGameDealer() {
 		gamePanelDealer = new JPanel();
 		gamePanelDealer.setLayout(new MigLayout("", "[grow]", "[center][center]"));
-		gamePanelDealer.setBackground(Color.BLACK);
 		this.add(gamePanelDealer, "growx, gap 15 15 15 15, wrap");
 
 		// Creates the panel with the two buttons, HIT and STAND
@@ -86,7 +81,6 @@ public class PanelAdmin extends JPanel {
 		// Creates the control panel
 		controlPanelDealer = new JPanel();
 		controlPanelDealer.setBorder(BorderFactory.createEtchedBorder());
-		controlPanelDealer.setBackground(Color.BLACK);
 		controlPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[]5"));
 
 		dealerSum = new JLabel("Sum: ");
@@ -95,13 +89,9 @@ public class PanelAdmin extends JPanel {
 		dealerScore = new JLabel();
 
 		dealerSum.setFont(defaultFont);
-		dealerSum.setForeground(Color.WHITE);
 		dealerHints.setFont(defaultFont);
-		dealerHints.setForeground(Color.WHITE);
 		dealerName.setFont(defaultFont);
-		dealerName.setForeground(Color.WHITE);
 		dealerScore.setFont(defaultFont);
-		dealerScore.setForeground(Color.WHITE);
 
 		controlPanelDealer.add(dealerName, "wrap");
 		controlPanelDealer.add(dealerSum, "wrap");
@@ -118,7 +108,6 @@ public class PanelAdmin extends JPanel {
 		// Creates the player back panel
 		gamePanelPLayer = new JPanel();
 		gamePanelPLayer.setLayout(new MigLayout("", "[grow]", "[center][center]"));
-		gamePanelPLayer.setBackground(Color.BLACK);
 		this.add(gamePanelPLayer, "gap 15 15 0 15, growx");
 
 		// Creates the panel with the two buttons, HIT and STAND
@@ -130,7 +119,6 @@ public class PanelAdmin extends JPanel {
 		// Creates the control panel
 		controlPanelPLayer = new JPanel();
 		controlPanelPLayer.setBorder(BorderFactory.createEtchedBorder());
-		controlPanelPLayer.setBackground(Color.BLACK);
 		controlPanelPLayer.setLayout(new MigLayout("", "5[grow]5", "5[]5"));
 
 		playerSum = new JLabel();
@@ -138,11 +126,8 @@ public class PanelAdmin extends JPanel {
 		playerScore = new JLabel();
 
 		playerSum.setFont(defaultFont);
-		playerSum.setForeground(Color.WHITE);
 		playerName.setFont(defaultFont);
-		playerName.setForeground(Color.WHITE);
 		playerScore.setFont(defaultFont);
-		playerScore.setForeground(Color.WHITE);
 
 		controlPanelPLayer.add(playerName, "wrap");
 		controlPanelPLayer.add(playerSum, "wrap");
@@ -150,7 +135,6 @@ public class PanelAdmin extends JPanel {
 
 		// Creates the panel with the two buttons, HIT and STAND
 		hitStandPanel = new JPanel();
-		hitStandPanel.setBackground(Color.BLACK);
 		hitStandPanel.setLayout(new MigLayout("", "5[145]5", "5[30]15[30]5"));
 
 		jb_hit = new JButton("Hit");
