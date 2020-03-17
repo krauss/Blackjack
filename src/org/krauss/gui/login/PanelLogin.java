@@ -40,7 +40,7 @@ public class PanelLogin extends JPanel {
 	private void createPanelLogin() {
 		loginPanel = new JPanel();
 		loginPanel.setBorder(BorderFactory.createEtchedBorder());
-		loginPanel.setLayout(new MigLayout("", "10[grow]10", "10[]10[]10[]10"));
+		loginPanel.setLayout(new MigLayout("", "10[grow]10", "10[]20[]10[]10"));
 		loginPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4, true));
 		loginPanel.setBackground(new Color(0x03853E));
 		this.add(loginPanel, "growx, growy");		

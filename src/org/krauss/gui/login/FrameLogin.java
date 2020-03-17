@@ -116,7 +116,7 @@ public class FrameLogin extends JFrame {
 					if (admin != null) {
 
 						panelLogin.getJl_login_error().setText(adminLoginMsg);
-						panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
+						panelLogin.getJb_login().setText("OK");
 						adminTimer.start();
 
 					} else {
@@ -136,9 +136,8 @@ public class FrameLogin extends JFrame {
 							panelLogin.getJt_login().getText());
 
 					player = new Player(panelLogin.getJt_login().getText());
-					//player.set(panelLogin.getJt_login().getText());
 					panelLogin.getJl_login_error().setText(playerLoginMsg);
-					panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
+					panelLogin.getJb_login().setText("OK");
 					panelLogin.getJb_login().setEnabled(false);
 					// It executes the actionPerformed method from the
 					// ActionListener previously defined
@@ -159,7 +158,7 @@ public class FrameLogin extends JFrame {
 					if (player != null) {
 
 						panelLogin.getJl_login_error().setText(playerLoginMsg);
-						panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
+						panelLogin.getJb_login().setText("OK");
 						gameTimer.start();
 
 					} else {

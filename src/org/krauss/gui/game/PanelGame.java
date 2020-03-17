@@ -52,6 +52,7 @@ public class PanelGame extends JPanel {
 
 		this.setLayout(new MigLayout("", "10[grow]10", "10[grow]10"));
 		this.setBackground(new Color(0x03853E));
+		this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4, true));
 		createPanelGameDealer();
 		createPanelGamePlayer();
 		createFinishedGamePanel();
