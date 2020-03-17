@@ -1,4 +1,4 @@
-package com.eca.assignment.gui.admin;
+package org.krauss.gui.admin;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;

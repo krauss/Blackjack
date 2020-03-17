@@ -1,27 +1,15 @@
-package com.eca.assignment.game;
+package org.krauss.game;
 
 import java.util.Collections;
-
 import java.util.Stack;
-import com.eca.assignment.entity.*;
 
-/**
- * 
- * @author jrkrauss
- * <br>
- * <br>
- * This class provides the entities of the game. It has two players, a shuffled deck of card and
- * methods to provide verification of the games rules.  
- * 
- *
- */
+import org.krauss.entity.Card;
+import org.krauss.entity.Player;
 
-public class Game {
+public class GameLogic {
 
-	// Creates the deck of Card in form of a stack
 	private Stack<Card> deckCards;
 	
-	//Instances of the Player and Dealer
 	private Player player;
 	private Player dealer;
 	private int dealerHints = 3;
@@ -34,7 +22,7 @@ public class Game {
 	}
 	
 
-	public Game(Player p, Player d) {
+	public GameLogic(Player p, Player d) {
 		this.player = p;
 		this.dealer = d;
 		init();
@@ -43,23 +31,21 @@ public class Game {
 
 	private void init() {
 
-		// Create the deck of 52 cards 4x13, from A-K each of which of 4 suits
 		deckCards = new Stack<Card>();
 
 
-		// Card numbers
 		int number = 1;
 
 		for (int i = 0; i < 52; i++) {
 
 			if (i < 13) {
-				deckCards.push(new ClubsCard(number));
+				deckCards.push(new Card(number, "\u2663"));
 			} else if (i < 26) {
-				deckCards.push(new HeartsCard(number));
+				deckCards.push(new Card(number, "\u2665"));
 			} else if (i < 39) {
-				deckCards.push(new SpadesCard(number));
+				deckCards.push(new Card(number, "\u2660"));
 			} else {
-				deckCards.push(new DiamondsCard(number));
+				deckCards.push(new Card(number, "\u2666"));
 			}
 			number++;
 			if (number == 14) {
@@ -67,13 +53,11 @@ public class Game {
 			}
 
 		}
-		// After created, the stack of cards gets shuffled twice
 		Collections.shuffle(deckCards);
 		Collections.shuffle(deckCards);
 
 	}
 
-	// Pulls out one card from the deck
 	public Card getDeckCard() {
 		return deckCards.pop();
 	}

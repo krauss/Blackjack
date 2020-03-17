@@ -1,6 +1,8 @@
-package com.eca.assignment.entity;
+package org.krauss.entity;
 
 import java.util.ArrayList;
+
+import org.krauss.entity.Card;
 
 
 /**
@@ -15,7 +17,6 @@ import java.util.ArrayList;
 public class Player {
 
 	private String userName;
-	private String name;
 	private int score;
 	private ArrayList<Card> handCards;
 
@@ -26,14 +27,6 @@ public class Player {
 
 	public String getUserName() {
 		return userName;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
 	}
 
 	public int getScore() {
@@ -66,7 +59,16 @@ public class Player {
 			this.handCards.add(handCards);
 		}
 	}
-	
 
+	public String printHandCards() {
+		String cards = "";
+		
+		for (Card n : handCards) {
+			cards += n.getNumber() + "" + n.getSuit() + "  ";
+			
+		}
+
+		return cards;
+	}
 	
 }

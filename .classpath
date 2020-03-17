@@ -17,5 +17,5 @@
 	<classpathentry kind="lib" path="resources/External_Libs/miglayout/miglayout-4.0-swt.jar"/>
 	<classpathentry kind="lib" path="resources/External_Libs/miglayout/miglayout-4.0.jar"/>
 	<classpathentry kind="lib" path="resources/External_Libs/sqlite/sqlite-jdbc-3.16.1.jar"/>
-	<classpathentry kind="output" path="bin1"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>

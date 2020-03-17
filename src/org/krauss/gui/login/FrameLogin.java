@@ -1,42 +1,41 @@
-package com.eca.assignment.gui.login;
+package org.krauss.gui.login;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import com.eca.assignment.entity.Player;
-import com.eca.assignment.game.DBConnection;
-import com.eca.assignment.gui.admin.FrameAdmin;
-import com.eca.assignment.gui.game.FrameGame;
 
-import net.miginfocom.swing.MigLayout;
+import org.krauss.entity.Player;
+import org.krauss.game.DatabaseHandler;
+import org.krauss.gui.admin.FrameAdmin;
+import org.krauss.gui.game.FrameGame;
+
 
 @SuppressWarnings("serial")
 public class FrameLogin extends JFrame {
 
 	// Container components
 	private PanelLogin panelLogin;
-	private MigLayout layout_jframe;
 
 	// Game Objects
 	private Player player;
 	private Player admin;
-	private DBConnection conn;
+	private DatabaseHandler conn;
 	private Timer gameTimer;
 	private Timer adminTimer;
 	private String playerLoginMsg = "<html><b><font color=\"#00FF00\"><br>Cool, let's play!</font></b></html>";
 	private String adminLoginMsg = "<html><b><font color=\"#0000FF\"><br>Welcome back Master!</font></b></html>";
 
 	public FrameLogin() {
-
-		this.setResizable(false);
-		this.setSize(600, 460);
+		
+		this.setTitle("\u2663 \u2665    The BlackJack Game   \u2660 \u2666");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.layout_jframe = new MigLayout("", "0[600]0", "0[460]0");
-		this.setLayout(layout_jframe);
+		this.setPreferredSize(new Dimension(550, 570));
+		this.setSize(550, 570);
 		this.setLocationRelativeTo(null);
-		this.pack();
+		this.setResizable(false);
 
 		createJPanelLogin();
 
@@ -53,7 +52,7 @@ public class FrameLogin extends JFrame {
 		panelLogin = new PanelLogin();
 		// Adds the login action to the button
 		panelLogin.getJb_login().addActionListener(new ACLogin());
-		this.add(panelLogin, "growx, growy");
+		this.add(panelLogin);
 
 		// Initialize the Game timer. Just to give an impression of being loading.
 		gameTimer = new Timer(2000, null);
@@ -107,7 +106,7 @@ public class FrameLogin extends JFrame {
 						&& (panelLogin.getJt_password().getPassword().length != 0)) {
 					try {
 
-						conn = new DBConnection();
+						conn = new DatabaseHandler();
 						admin = conn.authenticateAdmin(panelLogin.getJt_login().getText(),
 								panelLogin.getJt_password().getPassword());
 
@@ -117,7 +116,7 @@ public class FrameLogin extends JFrame {
 					if (admin != null) {
 
 						panelLogin.getJl_login_error().setText(adminLoginMsg);
-						panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
+						panelLogin.getJb_login().setText("OK");
 						adminTimer.start();
 
 					} else {
@@ -131,15 +130,14 @@ public class FrameLogin extends JFrame {
 			} else {
 
 				if (panelLogin.getJc_createUser().isSelected()) {
-					conn = new DBConnection();
+					conn = new DatabaseHandler();
 
 					conn.insertNewUser(panelLogin.getJt_login().getText(), panelLogin.getJt_password().getPassword(),
 							panelLogin.getJt_login().getText());
 
 					player = new Player(panelLogin.getJt_login().getText());
-					player.setName(panelLogin.getJt_login().getText());
 					panelLogin.getJl_login_error().setText(playerLoginMsg);
-					panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
+					panelLogin.getJb_login().setText("OK");
 					panelLogin.getJb_login().setEnabled(false);
 					// It executes the actionPerformed method from the
 					// ActionListener previously defined
@@ -150,7 +148,7 @@ public class FrameLogin extends JFrame {
 						&& (panelLogin.getJt_password().getPassword().length != 0)) {
 					try {
 
-						conn = new DBConnection();
+						conn = new DatabaseHandler();
 						player = conn.authenticate(panelLogin.getJt_login().getText(),
 								panelLogin.getJt_password().getPassword());
 
@@ -160,7 +158,7 @@ public class FrameLogin extends JFrame {
 					if (player != null) {
 
 						panelLogin.getJl_login_error().setText(playerLoginMsg);
-						panelLogin.getJb_login().setText("<html>&#x1F44D;</html>");
+						panelLogin.getJb_login().setText("OK");
 						gameTimer.start();
 
 					} else {
