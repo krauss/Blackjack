@@ -25,15 +25,15 @@ public class FrameLogin extends JFrame {
 	private DatabaseHandler conn;
 	private Timer gameTimer;
 	private Timer adminTimer;
-	private String playerLoginMsg = "<html><b><font color=\"#00FF00\"><br>Cool, let's play!</font></b></html>";
-	private String adminLoginMsg = "<html><b><font color=\"#0000FF\"><br>Welcome back Master!</font></b></html>";
+	private String playerLoginMsg = "<html><b><font color=\"#00FF00\"><br>Done, let's play!</font></b></html>";
+	private String adminLoginMsg = "<html><b><font color=\"#1efa81\"><br>Welcome back Master!</font></b></html>";
 
 	public FrameLogin() {
 		
 		this.setTitle("\u2663 \u2665    The BlackJack Game   \u2660 \u2666");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(550, 570));
-		this.setSize(550, 570);
+		this.setPreferredSize(new Dimension(550, 590));
+		this.setSize(550, 590);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 
@@ -117,6 +117,7 @@ public class FrameLogin extends JFrame {
 
 						panelLogin.getJl_login_error().setText(adminLoginMsg);
 						panelLogin.getJb_login().setText("OK");
+						panelLogin.getJb_login().setEnabled(false);
 						adminTimer.start();
 
 					} else {

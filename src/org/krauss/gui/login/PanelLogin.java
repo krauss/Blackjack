@@ -3,8 +3,14 @@ package org.krauss.gui.login;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.Timer;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,7 +35,10 @@ public class PanelLogin extends JPanel {
 	private JPasswordField jt_password;
 	private JButton jb_login;
 	private JLabel jl_login_error;
+	private JLabel jl_adminPass;
+	private JLabel jl_9_34;
 	private DatabaseHandler conn;
+	private Timer showAdminAccess;
 
 	public PanelLogin() {
 		this.setLayout(new MigLayout("", "10[grow]10", "10[grow]10"));
@@ -40,7 +49,7 @@ public class PanelLogin extends JPanel {
 	private void createPanelLogin() {
 		loginPanel = new JPanel();
 		loginPanel.setBorder(BorderFactory.createEtchedBorder());
-		loginPanel.setLayout(new MigLayout("", "10[grow]10", "10[]20[]10[]10"));
+		loginPanel.setLayout(new MigLayout("", "10[grow]10", "10[]10[]10[]10[]10[]20[]10"));
 		loginPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4, true));
 		loginPanel.setBackground(new Color(0x03853E));
 		this.add(loginPanel, "growx, growy");		
@@ -104,6 +113,7 @@ public class PanelLogin extends JPanel {
 		});
 
 		jb_login = new JButton("Login");
+		jb_login.requestFocus();
 		jl_login_error = new JLabel("");
 		jl_login_error.setFont(new Font("Arial", Font.BOLD, 11));
 		jl_login_error.setForeground(Color.YELLOW);
@@ -113,7 +123,50 @@ public class PanelLogin extends JPanel {
 		loginPanel.add(jt_password, "cell 0 2, center");
 		loginPanel.add(jb_login, "cell 0 3, center");
 		loginPanel.add(jl_login_error,"cell 0 4, center" );
+		jl_adminPass = new JLabel("Try: admin | password");
+		jl_adminPass.setForeground(new Color(0x02642e));
+		jl_adminPass.setVisible(false);
+		jl_9_34 = new JLabel("9\u00BE");
+		jl_9_34.setForeground(new Color(0x02642e));
+		loginPanel.add(jl_9_34,"cell 0 5, center" );
 		
+		jl_9_34.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				jl_adminPass.setVisible(false);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				jl_adminPass.setVisible(true);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {	
+			}
+		});
+		
+		loginPanel.add(jl_adminPass,"cell 0 6, center" );
+		
+		showAdminAccess = new Timer(3000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loginPanel.remove(jl_adminPass);
+				loginPanel.remove(jl_9_34);
+				loginPanel.updateUI();
+				showAdminAccess.stop();
+			}
+		});
+		showAdminAccess.setRepeats(false);
+		showAdminAccess.start();
 
 		createUserPanel = new JPanel();
 		createUserPanel.setPreferredSize(new Dimension(150, 25));

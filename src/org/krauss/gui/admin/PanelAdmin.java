@@ -21,10 +21,8 @@ public class PanelAdmin extends JPanel {
 	public PanelAdmin() {
 
 		this.setLayout(new MigLayout("", "10[grow]10", "10[grow]10"));
-		this.setBackground(new Color(0x03853E));
-		this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 4, true));
-
-		
+		this.setBackground(Color.DARK_GRAY);
+		this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4, true));
 
 	}
 
