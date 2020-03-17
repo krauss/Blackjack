@@ -154,18 +154,16 @@ public class FrameGame extends JFrame{
 	private void terminatesGame(String t) {
 		gp.getJb_hit().setEnabled(false);
 		gp.getJb_stand().setEnabled(false);
+		gp.setLayout(new BorderLayout());
+		gp.add(gp.getOverlayPanel(), BorderLayout.CENTER);
+		gp.validate();
 		if (t.equalsIgnoreCase("LOSE")) {			
-			gp.setLayout(new BorderLayout());
-			gp.add(gp.getOverlayPanel(), BorderLayout.CENTER);
 			gp.getWinLoseLabel().setText("YOU LOSE!");
 		} else {
 			gp.getWinLoseLabel().setForeground(Color.BLUE);
 			gp.getWinLoseLabel().setText("YOU WIN!   +1000 pts");
-			gp.setLayout(new BorderLayout());
-			gp.add(gp.getOverlayPanel(), BorderLayout.CENTER);
 			conn = new DatabaseHandler();
 			conn.setPlayerScore(payer);
-			
 		}
 	}
 

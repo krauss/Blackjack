@@ -69,7 +69,6 @@ public class DatabaseHandler {
 			if (result.getString("password").equalsIgnoreCase(password.hashCode()+"")) {
 				p = new Player(result.getString("username"));
 				p.setScore(result.getInt("score"));
-				//p.setName(result.getString("name"));
 			}
 		}
 
@@ -85,7 +84,6 @@ public class DatabaseHandler {
 
 			if (result.next()) {
 				p.setScore(result.getInt("score"));
-				//p.setName(result.getString("name"));
 			}
 
 			conn.close();
@@ -103,7 +101,7 @@ public class DatabaseHandler {
 		try {
 
 			statement = conn.createStatement();
-			statement.executeUpdate("update Login set score = score + 50 where username = '" + p.getUserName() + "';");
+			statement.executeUpdate("update Login set score = score + 1000 where username = '" + p.getUserName() + "';");
 
 			conn.close();
 		} catch (SQLException e) {

@@ -167,7 +167,6 @@ public class PanelGame extends JPanel {
 		transparentPanel.setBackground(new Color(0, 0, 0, 90));
 		
 		finishedGamePanel = new JPanel();
-		//finishedGamePanel.setPreferredSize(new Dimension(300, 120));
 		finishedGamePanel.setLayout(new MigLayout("", "10[280]10","10[45]10[45]10"));
 		finishedGamePanel.setBorder(BorderFactory.createEtchedBorder());
 
