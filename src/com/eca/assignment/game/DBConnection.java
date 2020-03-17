@@ -34,6 +34,27 @@ public class DBConnection {
 		}
 
 	}
+	
+	public Player authenticateAdmin(String user, char[] pass) throws SQLException {
+		Player p = null;
+		String password = String.copyValueOf(pass);
+
+		statement = conn.createStatement();
+
+		result = statement.executeQuery("select * from Login where username = '" + user + "';");
+
+		if (result.next()) {
+			if (result.getString("password").equalsIgnoreCase(password)) {
+				p = new Player(result.getString("username"));
+				p.setScore(result.getInt("score"));
+				p.setName(result.getString("name"));
+			}
+		}
+
+		conn.close();
+		return p;
+
+	}
 
 	public Player authenticate(String user, char[] pass) throws SQLException {
 		Player p = null;
