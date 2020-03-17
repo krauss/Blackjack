@@ -1,4 +1,4 @@
-package com.eca.assignment.gui.game;
+package org.krauss.gui.admin;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,12 +16,12 @@ import net.miginfocom.swing.MigLayout;
  * 
  * @author jrkrauss <br>
  *         <br>
- *         This class defines the panel of the game. All the components are
+ *         This class defines the panel of the admin interface. All the components are
  *         setup in this class.
  *
  */
 @SuppressWarnings("serial")
-public class PanelGame extends JPanel {
+public class PanelAdmin extends JPanel {
 
 	// Dealer components
 	private JPanel gamePanelDealer;
@@ -54,10 +54,9 @@ public class PanelGame extends JPanel {
 	private JPanel transparentPanel;
 	private JPanel finishedGamePanel;
 
-	public PanelGame() {
+	public PanelAdmin() {
 
 		this.setLayout(new MigLayout("", "[grow, center]", "[center][center]"));
-		this.setBackground(Color.BLACK);
 
 		createPanelGameDealer();
 		createPanelGamePlayer();
@@ -71,7 +70,6 @@ public class PanelGame extends JPanel {
 	private void createPanelGameDealer() {
 		gamePanelDealer = new JPanel();
 		gamePanelDealer.setLayout(new MigLayout("", "[grow]", "[center][center]"));
-		gamePanelDealer.setBackground(Color.BLACK);
 		this.add(gamePanelDealer, "growx, gap 15 15 15 15, wrap");
 
 		// Creates the panel with the two buttons, HIT and STAND
@@ -83,7 +81,6 @@ public class PanelGame extends JPanel {
 		// Creates the control panel
 		controlPanelDealer = new JPanel();
 		controlPanelDealer.setBorder(BorderFactory.createEtchedBorder());
-		controlPanelDealer.setBackground(Color.BLACK);
 		controlPanelDealer.setLayout(new MigLayout("", "5[grow]5", "5[]5"));
 
 		dealerSum = new JLabel("Sum: ");
@@ -92,13 +89,9 @@ public class PanelGame extends JPanel {
 		dealerScore = new JLabel();
 
 		dealerSum.setFont(defaultFont);
-		dealerSum.setForeground(Color.WHITE);
 		dealerHints.setFont(defaultFont);
-		dealerHints.setForeground(Color.WHITE);
 		dealerName.setFont(defaultFont);
-		dealerName.setForeground(Color.WHITE);
 		dealerScore.setFont(defaultFont);
-		dealerScore.setForeground(Color.WHITE);
 
 		controlPanelDealer.add(dealerName, "wrap");
 		controlPanelDealer.add(dealerSum, "wrap");
@@ -115,7 +108,6 @@ public class PanelGame extends JPanel {
 		// Creates the player back panel
 		gamePanelPLayer = new JPanel();
 		gamePanelPLayer.setLayout(new MigLayout("", "[grow]", "[center][center]"));
-		gamePanelPLayer.setBackground(Color.BLACK);
 		this.add(gamePanelPLayer, "gap 15 15 0 15, growx");
 
 		// Creates the panel with the two buttons, HIT and STAND
@@ -127,7 +119,6 @@ public class PanelGame extends JPanel {
 		// Creates the control panel
 		controlPanelPLayer = new JPanel();
 		controlPanelPLayer.setBorder(BorderFactory.createEtchedBorder());
-		controlPanelPLayer.setBackground(Color.BLACK);
 		controlPanelPLayer.setLayout(new MigLayout("", "5[grow]5", "5[]5"));
 
 		playerSum = new JLabel();
@@ -135,11 +126,8 @@ public class PanelGame extends JPanel {
 		playerScore = new JLabel();
 
 		playerSum.setFont(defaultFont);
-		playerSum.setForeground(Color.WHITE);
 		playerName.setFont(defaultFont);
-		playerName.setForeground(Color.WHITE);
 		playerScore.setFont(defaultFont);
-		playerScore.setForeground(Color.WHITE);
 
 		controlPanelPLayer.add(playerName, "wrap");
 		controlPanelPLayer.add(playerSum, "wrap");
@@ -147,7 +135,6 @@ public class PanelGame extends JPanel {
 
 		// Creates the panel with the two buttons, HIT and STAND
 		hitStandPanel = new JPanel();
-		hitStandPanel.setBackground(Color.BLACK);
 		hitStandPanel.setLayout(new MigLayout("", "5[145]5", "5[30]15[30]5"));
 
 		jb_hit = new JButton("Hit");

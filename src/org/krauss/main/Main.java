@@ -1,8 +1,9 @@
-package com.eca.assignment.main;
+package org.krauss.main;
 
 import javax.swing.SwingUtilities;
 
-import com.eca.assignment.gui.login.FrameLogin;
+import org.krauss.gui.login.FrameLogin;
+
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package com.eca.assignment.game;
+package org.krauss.game;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.eca.assignment.entity.Player;
+import org.krauss.entity.Player;
+
 
 /**
  * 
@@ -16,14 +17,14 @@ import com.eca.assignment.entity.Player;
  *         and update scores
  *
  */
-public class DBConnection {
+public class DatabaseHandler {
 
 	private Connection conn;
 	private Statement statement;
 	private ResultSet result;
 
 	
-	public DBConnection() {
+	public DatabaseHandler() {
 
 		try {
 
@@ -47,7 +48,7 @@ public class DBConnection {
 			if (result.getString("password").equalsIgnoreCase(password)) {
 				p = new Player(result.getString("username"));
 				p.setScore(result.getInt("score"));
-				p.setName(result.getString("name"));
+				//p.setName(result.getString("name"));
 			}
 		}
 
@@ -68,7 +69,7 @@ public class DBConnection {
 			if (result.getString("password").equalsIgnoreCase(password.hashCode()+"")) {
 				p = new Player(result.getString("username"));
 				p.setScore(result.getInt("score"));
-				p.setName(result.getString("name"));
+				//p.setName(result.getString("name"));
 			}
 		}
 
@@ -84,7 +85,7 @@ public class DBConnection {
 
 			if (result.next()) {
 				p.setScore(result.getInt("score"));
-				p.setName(result.getString("name"));
+				//p.setName(result.getString("name"));
 			}
 
 			conn.close();
