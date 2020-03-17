@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 import javax.swing.OverlayLayout;
 
 import net.miginfocom.swing.MigLayout;

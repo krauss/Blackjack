@@ -5,14 +5,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 import javax.swing.Timer;
 
 import org.krauss.entity.Card;
 import org.krauss.entity.Player;
 import org.krauss.game.DatabaseHandler;
 import org.krauss.game.GameLogic;
+import org.krauss.gui.login.FrameLogin;
 
 
 //import eca.game.Card;
@@ -27,6 +31,10 @@ public class FrameGame extends JFrame{
 	private DatabaseHandler conn;
 	private boolean standPressed = false;
 	
+	//ToolBar components
+	private JToolBar jtb_toolBar;
+	private JButton jb_logout;
+	
 	
 	public FrameGame(Player pl){
 		
@@ -39,6 +47,8 @@ public class FrameGame extends JFrame{
 		this.setLocationRelativeTo(null);	
 		
 		createGameScreen();
+		createToolBar();
+		
 		
 		this.setVisible(true);
 		this.pack();
@@ -115,6 +125,29 @@ public class FrameGame extends JFrame{
 		
 		this.add(gp);
 		
+	}
+	
+	private void createToolBar() {
+		
+		jtb_toolBar = new JToolBar();
+		jtb_toolBar.setFloatable(false);
+		jb_logout = new JButton("Logout");
+		jb_logout.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logout();
+			}
+		});
+		
+		jtb_toolBar.add(jb_logout);
+		this.add(jtb_toolBar, BorderLayout.PAGE_END);
+		
+	}
+	
+	private void logout() {
+		this.dispose();
+		new FrameLogin();
 	}
 
 	
