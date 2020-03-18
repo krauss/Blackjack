@@ -4,11 +4,15 @@
 
 A pretty basic implementation of the famous game BlackJack, written in JAVA using swing components.
 
+![Login screen](https://raw.githubusercontent.com/krauss/Blackjack/master/resources/blackjack_login_screen.png)
+
 * The GUI had some improvements compared to the first version
 * New images were added for the cards
 * Building the image from Dockerfile successfully finishes, but the container execution problem remains.
 
 #### Docker Image
+
+If you are a JAVA GUI application & Docker master, feel free to try to help me fix the problem below which is preventing us from having a pretty cool and functioning Docker image of the game.
 
 To download the image, simply run:
 
@@ -18,7 +22,9 @@ To create and run the container, run:
 
 `docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:latest`
 
-P.S: The container execution exits with the error below: Sorry, I don't know how to fix it.
+
+P.S: This is the problem I mentioned before. The container execution exits with the error below:
+
 
 	No protocol specified
 	Exception in thread "main" java.awt.AWTError: Can't connect to X11 window server using ':0' as the value of the DISPLAY variable.
