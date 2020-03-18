@@ -4,7 +4,7 @@
 
 A pretty basic implementation of the famous game BlackJack, written in JAVA using swing components.
 
-![Login screen](https://raw.githubusercontent.com/krauss/Blackjack/master/resources/blackjack_login_screen.png)
+![Login_screen](resources/blackJack_login_screen.png)
 
 * The GUI had some improvements compared to the first version
 * New images were added for the cards
