@@ -21,6 +21,7 @@ public class FrameAdmin extends JFrame {
 	private PanelAdmin panelGame;
 	private Player admin;
 	
+	
 	//ToolBar components
 	private JToolBar jtb_toolBar;
 	private JButton jb_logout;

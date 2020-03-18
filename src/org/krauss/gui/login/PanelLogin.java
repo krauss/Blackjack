@@ -52,7 +52,7 @@ public class PanelLogin extends JPanel {
 	private void createPanelLogin() {
 		loginPanel = new JPanel();
 		loginPanel.setBorder(BorderFactory.createEtchedBorder());
-		loginPanel.setLayout(new MigLayout("", "10[grow]10", "10[]10"));
+		loginPanel.setLayout(new MigLayout("", "20[grow]10", "10[]10"));
 		loginPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4, true));
 		loginPanel.setBackground(new Color(0x03853E));
 		this.add(loginPanel, "growx, growy");		
@@ -121,7 +121,6 @@ public class PanelLogin extends JPanel {
 		jl_login_error.setFont(new Font("Arial", Font.BOLD, 11));
 		jl_login_error.setForeground(Color.ORANGE);
 		
-		//loginPanel.add(new JLabel(new ImageIcon("./resources/Blackjack-Game.png")), "cell 0 0, center");
 		loginPanel.add(new JLabel(new ImageIcon("./resources/Blackjack-Game.png")), "dock north");
 		jl_username = new JLabel("Username: ");
 		jl_username.setForeground(Color.WHITE);
