@@ -33,6 +33,9 @@ public class PanelLogin extends JPanel {
 	private JCheckBox jc_createUser;
 	private JTextField jt_login;
 	private JPasswordField jt_password;
+	private JLabel jl_username;
+	private JLabel jl_password;
+	private JLabel jl_database;
 	private JButton jb_login;
 	private JLabel jl_login_error;
 	private JLabel jl_adminPass;
@@ -49,7 +52,7 @@ public class PanelLogin extends JPanel {
 	private void createPanelLogin() {
 		loginPanel = new JPanel();
 		loginPanel.setBorder(BorderFactory.createEtchedBorder());
-		loginPanel.setLayout(new MigLayout("", "10[grow]10", "10[]10[]10[]10[]10[]20[]10"));
+		loginPanel.setLayout(new MigLayout("", "10[grow]10", "10[]10"));
 		loginPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4, true));
 		loginPanel.setBackground(new Color(0x03853E));
 		this.add(loginPanel, "growx, growy");		
@@ -113,17 +116,26 @@ public class PanelLogin extends JPanel {
 		});
 
 		jb_login = new JButton("Login");
-		jb_login.requestFocus();
+		
 		jl_login_error = new JLabel("");
 		jl_login_error.setFont(new Font("Arial", Font.BOLD, 11));
-		jl_login_error.setForeground(Color.YELLOW);
+		jl_login_error.setForeground(Color.ORANGE);
 		
-		loginPanel.add(new JLabel(new ImageIcon("./resources/Blackjack-Game.png")), "cell 0 0, center");
+		//loginPanel.add(new JLabel(new ImageIcon("./resources/Blackjack-Game.png")), "cell 0 0, center");
+		loginPanel.add(new JLabel(new ImageIcon("./resources/Blackjack-Game.png")), "dock north");
+		jl_username = new JLabel("Username: ");
+		jl_username.setForeground(Color.WHITE);
+		loginPanel.add(jl_username, "cell 0 1, center");
 		loginPanel.add(jt_login, "cell 0 1, center");
+		jl_password = new JLabel("Password: ");
+		jl_password.setForeground(Color.WHITE);
+		jl_database = new JLabel("Database: ");
+		jl_database.setForeground(Color.WHITE);
+		loginPanel.add(jl_password, "cell 0 2, center");
 		loginPanel.add(jt_password, "cell 0 2, center");
 		loginPanel.add(jb_login, "cell 0 3, center");
 		loginPanel.add(jl_login_error,"cell 0 4, center" );
-		jl_adminPass = new JLabel("Try: admin | password");
+		jl_adminPass = new JLabel("Admin access:  admin | password");
 		jl_adminPass.setForeground(new Color(0x02642e));
 		jl_adminPass.setVisible(false);
 		jl_9_34 = new JLabel("9\u00BE");
@@ -155,7 +167,7 @@ public class PanelLogin extends JPanel {
 		
 		loginPanel.add(jl_adminPass,"cell 0 6, center" );
 		
-		showAdminAccess = new Timer(3000, new ActionListener() {
+		showAdminAccess = new Timer(2500, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -174,10 +186,10 @@ public class PanelLogin extends JPanel {
 		createUserPanel.setBackground(new Color(0x03853E));
 		createUserPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
 
-		jl_createUser = new JLabel("User not found!");
+		jl_createUser = new JLabel("User not found! ");
 		jl_createUser.setFont(new Font("arial", Font.BOLD, 11));
-		jl_createUser.setForeground(Color.YELLOW);
-		jc_createUser = new JCheckBox("Create it?");
+		jl_createUser.setForeground(Color.ORANGE);
+		jc_createUser = new JCheckBox("Create? ");
 		jc_createUser.setBackground(new Color(0x03853E));
 		jc_createUser.setFont(new Font("arial", Font.BOLD, 11));
 		jc_createUser.setForeground(Color.WHITE);
@@ -190,23 +202,29 @@ public class PanelLogin extends JPanel {
 	private void createUserCreationPanel() {
 
 		loginPanel.remove(jt_password);
-		loginPanel.remove(jb_login);
+		loginPanel.remove(jb_login);		
+		loginPanel.add(jl_database, "cell 0 2, center");
 		loginPanel.add(createUserPanel, "cell 0 2, center");
-		loginPanel.add(jt_password, "cell 0 3, center");
-		loginPanel.add(jb_login, "cell 0 4, center");
-		loginPanel.add(jl_login_error, "cell 0 5, center");
+		loginPanel.add(jl_password, "cell 0 4, center");
+		loginPanel.add(jt_password, "cell 0 4, center");
+		loginPanel.add(jb_login, "cell 0 5, center");
+		loginPanel.add(jl_login_error, "cell 0 6, center");
+		jl_password.setText("New passw: ");
 		loginPanel.updateUI();
 	}
 
 	public void removeCreationPanel() {
 		
 		jc_createUser.setSelected(false);
+		loginPanel.remove(jl_database);
 		loginPanel.remove(createUserPanel);
 		loginPanel.remove(jt_password);
 		loginPanel.remove(jb_login);
+		loginPanel.add(jl_password, "cell 0 2, center");
 		loginPanel.add(jt_password, "cell 0 2, center");
 		loginPanel.add(jb_login, "cell 0 3, center");
 		loginPanel.add(jl_login_error, "cell 0 4, center");
+		jl_password.setText("Password: ");
 		loginPanel.updateUI();
 	}
 

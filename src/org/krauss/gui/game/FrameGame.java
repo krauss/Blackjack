@@ -5,21 +5,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.Timer;
-
 import org.krauss.entity.Card;
 import org.krauss.entity.Player;
 import org.krauss.game.DatabaseHandler;
 import org.krauss.game.GameLogic;
 import org.krauss.gui.login.FrameLogin;
-
-
-//import eca.game.Card;
 
 @SuppressWarnings("serial")
 public class FrameGame extends JFrame{	
