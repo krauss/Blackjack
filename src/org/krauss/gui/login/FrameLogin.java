@@ -39,9 +39,6 @@ public class FrameLogin extends JFrame {
 
 		createJPanelLogin();
 
-		// It gives the initial focus to the Login button
-		this.getRootPane().setDefaultButton(panelLogin.getJb_login());
-
 		this.setVisible(true);
 	}
 

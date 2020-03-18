@@ -8,9 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import javax.swing.OverlayLayout;
-
 import net.miginfocom.swing.MigLayout;
 
 
@@ -127,12 +125,11 @@ public class PanelGame extends JPanel {
 		controlPanelDealer = new JPanel();
 		controlPanelDealer.setBorder(BorderFactory.createEtchedBorder());
 		controlPanelDealer.setBackground(new Color(0x03853E));
-		controlPanelDealer.setLayout(new MigLayout("", "5[180]5", "5[40]5"));
+		controlPanelDealer.setLayout(new MigLayout("", "5[180]5", "5[50]5"));
 		
 		dealerSum = new JLabel("Sum:  ");
 		dealerHints = new JLabel("Hints:  ");
 		dealerName = new JLabel("Name:  Dealer");
-		dealerScore = new JLabel();
 
 		dealerSum.setFont(defaultFont);
 		dealerSum.setForeground(Color.WHITE);
@@ -140,13 +137,10 @@ public class PanelGame extends JPanel {
 		dealerHints.setForeground(Color.WHITE);
 		dealerName.setFont(defaultFont);
 		dealerName.setForeground(Color.WHITE);
-		dealerScore.setFont(defaultFont);
-		dealerScore.setForeground(Color.WHITE);
 
 		controlPanelDealer.add(dealerName, "wrap");
 		controlPanelDealer.add(dealerSum, "wrap");
-		controlPanelDealer.add(dealerHints, "wrap");
-		controlPanelDealer.add(dealerScore);
+		controlPanelDealer.add(dealerHints);
 		
 		replayPanelDealer = new JPanel();
 		replayPanelDealer.setLayout(new MigLayout("", "5[80]5", "5[30]5"));
