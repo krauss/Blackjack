@@ -19,6 +19,7 @@ public class Player {
 	private String userName;
 	private int score;
 	private ArrayList<Card> handCards;
+	private String lastLogin;
 
 	public Player(String userName) {
 		this.userName = userName;
@@ -35,8 +36,16 @@ public class Player {
 
 	public void setScore(int score) {
 		this.score = score;
-	}	
+	}
+	
+	public String getLastLogin() {
+		return this.lastLogin;
+	}
 
+	public void setLastLogin(String date) {
+		this.lastLogin = date;
+	}
+	
 	public ArrayList<Card> getHandCards() {
 		return handCards;
 	}

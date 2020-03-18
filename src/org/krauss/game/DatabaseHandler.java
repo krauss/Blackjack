@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.krauss.entity.Player;
 
 
@@ -48,7 +49,7 @@ public class DatabaseHandler {
 			if (result.getString("password").equalsIgnoreCase(password)) {
 				p = new Player(result.getString("username"));
 				p.setScore(result.getInt("score"));
-				//p.setName(result.getString("name"));
+				updateLastLogin(statement, p);
 			}
 		}
 
@@ -69,12 +70,28 @@ public class DatabaseHandler {
 			if (result.getString("password").equalsIgnoreCase(password.hashCode()+"")) {
 				p = new Player(result.getString("username"));
 				p.setScore(result.getInt("score"));
+				updateLastLogin(statement, p);
 			}
 		}
 
 		conn.close();
 		return p;
 
+	}
+	
+	private void updateLastLogin(Statement statement, Player user) {
+		
+		try {
+			DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm");
+			LocalDateTime now = LocalDateTime.now();
+			String date = now.format(df);
+			statement.executeUpdate("update Login set lastLogin = '" + date + "' where username = '" + user.getUserName() + "';");
+			user.setLastLogin(date);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void refreshPlayerData(Player p) {
