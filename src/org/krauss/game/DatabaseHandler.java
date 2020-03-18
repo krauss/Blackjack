@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import org.krauss.entity.Player;
+import java.util.ArrayList;
 
+import org.krauss.entity.Player;
 
 /**
  * 
@@ -24,7 +25,6 @@ public class DatabaseHandler {
 	private Statement statement;
 	private ResultSet result;
 
-	
 	public DatabaseHandler() {
 
 		try {
@@ -36,7 +36,7 @@ public class DatabaseHandler {
 		}
 
 	}
-	
+
 	public Player authenticateAdmin(String user, char[] pass) throws SQLException {
 		Player p = null;
 		String password = String.copyValueOf(pass);
@@ -67,7 +67,7 @@ public class DatabaseHandler {
 		result = statement.executeQuery("select * from Login where username = '" + user + "';");
 
 		if (result.next()) {
-			if (result.getString("password").equalsIgnoreCase(password.hashCode()+"")) {
+			if (result.getString("password").equalsIgnoreCase(password.hashCode() + "")) {
 				p = new Player(result.getString("username"));
 				p.setScore(result.getInt("score"));
 				updateLastLogin(statement, p);
@@ -78,20 +78,21 @@ public class DatabaseHandler {
 		return p;
 
 	}
-	
+
 	private void updateLastLogin(Statement statement, Player user) {
-		
+
 		try {
 			DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm");
 			LocalDateTime now = LocalDateTime.now();
 			String date = now.format(df);
-			statement.executeUpdate("update Login set lastLogin = '" + date + "' where username = '" + user.getUserName() + "';");
+			statement.executeUpdate(
+					"update Login set lastLogin = '" + date + "' where username = '" + user.getUserName() + "';");
 			user.setLastLogin(date);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void refreshPlayerData(Player p) {
@@ -104,12 +105,11 @@ public class DatabaseHandler {
 			}
 
 			conn.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		
 	}
 
 	// Increase the user's score to plus 100
@@ -118,7 +118,8 @@ public class DatabaseHandler {
 		try {
 
 			statement = conn.createStatement();
-			statement.executeUpdate("update Login set score = score + 1000 where username = '" + p.getUserName() + "';");
+			statement
+					.executeUpdate("update Login set score = score + 1000 where username = '" + p.getUserName() + "';");
 
 			conn.close();
 		} catch (SQLException e) {
@@ -126,17 +127,17 @@ public class DatabaseHandler {
 		}
 
 	}
-	
-	public boolean checkExistingUser(String userName){
+
+	public boolean checkExistingUser(String userName) {
 		boolean result = false;
-		
+
 		try {
-			
+
 			statement = conn.createStatement();
-			ResultSet r = statement.executeQuery("Select username from Login where username = '"+userName+"';");
-			
-			if(r.next()){
-				if(r.getString("username").equalsIgnoreCase(userName)){				
+			ResultSet r = statement.executeQuery("Select username from Login where username = '" + userName + "';");
+
+			if (r.next()) {
+				if (r.getString("username").equalsIgnoreCase(userName)) {
 					result = true;
 				}
 			}
@@ -144,34 +145,59 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
-		return result; 
+
+		return result;
 	}
-	
-	public void insertNewUser(String userName, char[] userPassword, String name){
+
+	public void insertNewUser(String userName, char[] userPassword, String name) {
 		String userPass = "";
 		int nextValidId = 0;
-		
+
 		for (char c : userPassword) {
 			userPass += c;
 		}
-		
+
 		try {
-			
-			statement = conn.createStatement();	
-			
-			nextValidId = statement.executeQuery("select max(idLogin)+2 as maxId from Login;").getInt("maxId");
-			
+			DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm");
+			LocalDateTime now = LocalDateTime.now();
+			String date = now.format(df);
+
 			statement = conn.createStatement();
-			
-			statement.execute("insert into Login values ('"+nextValidId+"', '"+userName+"', '"+userPass.hashCode()+"', '"+name+"', 0);"); 
-			
+
+			nextValidId = statement.executeQuery("select max(idLogin)+2 as maxId from Login;").getInt("maxId");
+
+			statement = conn.createStatement();
+
+			statement.execute("insert into Login values ('" + nextValidId + "', '" + userName + "', '"
+					+ userPass.hashCode() + "', '" + name + "', 0, '" + date + "');");
+
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public ArrayList<String> getDatabaseData() {
+		
+		ArrayList<String> result = new ArrayList<String>();
+
+		try {
+
+			statement = conn.createStatement();
+			ResultSet r = statement.executeQuery("Select username, score, lastlogin from Login;");
+						
+			while (r.next()) {
+				
+				result.add(r.getString("username") + "," + r.getInt("score") + "," + r.getString("lastLogin"));
+				
+			}
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+		return result;
 	}
 
 }
