@@ -3,19 +3,24 @@ package org.krauss.gui.game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
-
 import org.krauss.entity.Card;
 import org.krauss.entity.Player;
 import org.krauss.game.DatabaseHandler;
 import org.krauss.game.GameLogic;
+import org.krauss.gui.login.FrameLogin;
 
-
-//import eca.game.Card;
+import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class FrameGame extends JFrame{	
@@ -26,6 +31,10 @@ public class FrameGame extends JFrame{
 	private GameLogic game;
 	private DatabaseHandler conn;
 	private boolean standPressed = false;
+	
+	//ToolBar components
+	private JToolBar jtb_toolBar;
+	private JButton jb_logout;
 	
 	
 	public FrameGame(Player pl){
@@ -39,6 +48,8 @@ public class FrameGame extends JFrame{
 		this.setLocationRelativeTo(null);	
 		
 		createGameScreen();
+		createToolBar();
+		
 		
 		this.setVisible(true);
 		this.pack();
@@ -115,6 +126,44 @@ public class FrameGame extends JFrame{
 		
 		this.add(gp);
 		
+	}
+	
+	private void createToolBar() {
+		
+		jtb_toolBar = new JToolBar();
+		jtb_toolBar.setFloatable(false);
+		jtb_toolBar.setLayout(new MigLayout("", "6[]50[]10[]10[]10[]10", "[]"));
+		jb_logout = new JButton("Logout");
+		jb_logout.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logout();
+			}
+		});
+		
+		Font fo = new Font("Arial", Font.PLAIN, 13);
+		JLabel welcome = new JLabel("<html><b>Player: </b>" + payer.getUserName()+ "</html>");
+		welcome.setFont(fo);
+		JLabel lastLogin = new JLabel("<html><b>Last login: </b>" + payer.getLastLogin() + "</html>");
+		lastLogin.setFont(fo);
+		JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
+		separator1.setPreferredSize(new Dimension(5, 20));
+		JSeparator separator2 = new JSeparator(SwingConstants.VERTICAL);
+		separator2.setPreferredSize(new Dimension(5, 20));
+		
+		jtb_toolBar.add(jb_logout, "cell 0 0, center");
+		jtb_toolBar.add(welcome, "cell 1 0, center");
+		jtb_toolBar.add(separator1, "cell 2 0, left");
+		jtb_toolBar.add(lastLogin, "cell 3 0, center");
+		jtb_toolBar.add(separator2, "cell 4 0, left");
+		this.add(jtb_toolBar, BorderLayout.PAGE_END);
+		
+	}
+	
+	private void logout() {
+		this.dispose();
+		new FrameLogin();
 	}
 
 	

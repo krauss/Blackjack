@@ -41,7 +41,6 @@ public class FrameLogin extends JFrame {
 
 		// It gives the initial focus to the Login button
 		this.getRootPane().setDefaultButton(panelLogin.getJb_login());
-		panelLogin.getJb_login().requestFocus();
 
 		this.setVisible(true);
 	}
@@ -51,11 +50,12 @@ public class FrameLogin extends JFrame {
 		// Creates de Login panel using the BJPanelLogin class
 		panelLogin = new PanelLogin();
 		// Adds the login action to the button
+		
 		panelLogin.getJb_login().addActionListener(new ACLogin());
 		this.add(panelLogin);
 
 		// Initialize the Game timer. Just to give an impression of being loading.
-		gameTimer = new Timer(2000, null);
+		gameTimer = new Timer(1500, null);
 		gameTimer.setRepeats(false);
 		gameTimer.addActionListener(new ActionListener() {
 
@@ -88,7 +88,7 @@ public class FrameLogin extends JFrame {
 	
 	//Creates the Admin Frame after successful login
 	private void createPanelAdmin() {
-		new FrameAdmin();
+		new FrameAdmin(admin);
 		this.setVisible(false);
 		adminTimer.stop();
 
