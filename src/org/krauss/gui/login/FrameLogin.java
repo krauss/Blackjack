@@ -129,11 +129,14 @@ public class FrameLogin extends JFrame {
 
 				if (panelLogin.getJc_createUser().isSelected()) {
 					conn = new DatabaseHandler();
-
-					conn.insertNewUser(panelLogin.getJt_login().getText(), panelLogin.getJt_password().getPassword(),
-							panelLogin.getJt_login().getText());
-
+					
+					//Create the object Player first
 					player = new Player(panelLogin.getJt_login().getText());
+					
+					//Insert it into the database
+					conn.insertNewUser(player, panelLogin.getJt_password().getPassword());
+
+					
 					panelLogin.getJl_login_error().setText(playerLoginMsg);
 					panelLogin.getJb_login().setText("OK");
 					panelLogin.getJb_login().setEnabled(false);

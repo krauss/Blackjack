@@ -9,8 +9,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.Timer;
+import java.io.IOException;
 
+import javax.swing.Timer;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -53,7 +55,7 @@ public class PanelLogin extends JPanel {
 		loginPanel.setLayout(new MigLayout("", "20[grow]10", "10[]10"));
 		loginPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4, true));
 		loginPanel.setBackground(new Color(0x03853E));
-		this.add(loginPanel, "growx, growy");		
+		this.add(loginPanel, "growx, growy");
 
 	}
 
@@ -66,14 +68,14 @@ public class PanelLogin extends JPanel {
 			public void focusLost(FocusEvent e) {
 				if (jt_login.getText().equalsIgnoreCase("")) {
 					jt_login.setText("username");
-					if(createUserPanel.isVisible()){
+					if (createUserPanel.isVisible()) {
 						removeCreationPanel();
 					}
 				} else if (!jt_login.getText().equalsIgnoreCase("")) {
 					conn = new DatabaseHandler();
 					if (!conn.checkExistingUser(jt_login.getText())) {
 						createUserCreationPanel();
-					} else if (createUserPanel.isVisible()){
+					} else if (createUserPanel.isVisible()) {
 						removeCreationPanel();
 					}
 				}
@@ -114,13 +116,13 @@ public class PanelLogin extends JPanel {
 		});
 
 		jb_login = new JButton("Login");
-		
+
 		jl_login_error = new JLabel("");
 		jl_login_error.setFont(new Font("Arial", Font.BOLD, 11));
 		jl_login_error.setForeground(Color.ORANGE);
-		
-		loginPanel.add(new JLabel(new ImageIcon("resources/Blackjack-Game.png")), "dock north");
-		
+
+		loginPanel.add(new JLabel(new ImageIcon("res/Blackjack-Game.png")), "dock north");
+
 		jl_username = new JLabel("Username: ");
 		jl_username.setForeground(Color.WHITE);
 		loginPanel.add(jl_username, "cell 0 1, center");
@@ -132,41 +134,43 @@ public class PanelLogin extends JPanel {
 		loginPanel.add(jl_password, "cell 0 2, center");
 		loginPanel.add(jt_password, "cell 0 2, center");
 		loginPanel.add(jb_login, "cell 0 3, center");
-		loginPanel.add(jl_login_error,"cell 0 4, center" );
+		loginPanel.add(jl_login_error, "cell 0 4, center");
 		jl_adminPass = new JLabel("Admin access:  admin | password");
 		jl_adminPass.setForeground(new Color(0x02642e));
 		jl_adminPass.setVisible(false);
 		jl_9_34 = new JLabel("9\u00BE");
 		jl_9_34.setForeground(new Color(0x02642e));
-		loginPanel.add(jl_9_34,"cell 0 5, center" );
-		
+		loginPanel.add(jl_9_34, "cell 0 5, center");
+
 		jl_9_34.addMouseListener(new MouseListener() {
-			
+
 			@Override
-			public void mouseReleased(MouseEvent e) {}
-			
+			public void mouseReleased(MouseEvent e) {
+			}
+
 			@Override
-			public void mousePressed(MouseEvent e) {}
-			
+			public void mousePressed(MouseEvent e) {
+			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				jl_adminPass.setVisible(false);
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				jl_adminPass.setVisible(true);
 			}
-			
+
 			@Override
-			public void mouseClicked(MouseEvent e) {	
+			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		
-		loginPanel.add(jl_adminPass,"cell 0 6, center" );
-		
+
+		loginPanel.add(jl_adminPass, "cell 0 6, center");
+
 		showAdminAccess = new Timer(2500, new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				loginPanel.remove(jl_adminPass);
@@ -200,7 +204,7 @@ public class PanelLogin extends JPanel {
 	private void createUserCreationPanel() {
 
 		loginPanel.remove(jt_password);
-		loginPanel.remove(jb_login);		
+		loginPanel.remove(jb_login);
 		loginPanel.add(jl_database, "cell 0 2, center");
 		loginPanel.add(createUserPanel, "cell 0 2, center");
 		loginPanel.add(jl_password, "cell 0 4, center");
@@ -212,7 +216,7 @@ public class PanelLogin extends JPanel {
 	}
 
 	public void removeCreationPanel() {
-		
+
 		jc_createUser.setSelected(false);
 		loginPanel.remove(jl_database);
 		loginPanel.remove(createUserPanel);

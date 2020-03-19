@@ -29,7 +29,7 @@ public class DatabaseHandler {
 
 		try {
 
-			conn = DriverManager.getConnection("jdbc:sqlite:resources/database/blackjack.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:res/database/blackjack.db");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,12 +82,8 @@ public class DatabaseHandler {
 	private void updateLastLogin(Statement statement, Player user) {
 
 		try {
-			DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm");
-			LocalDateTime now = LocalDateTime.now();
-			String date = now.format(df);
-			statement.executeUpdate(
-					"update Login set lastLogin = '" + date + "' where username = '" + user.getUserName() + "';");
-			user.setLastLogin(date);
+			statement.executeUpdate("update Login set lastLogin = '" + getDate() + "' where username = '" + user.getUserName() + "';");
+			user.setLastLogin(getDate());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,14 +108,13 @@ public class DatabaseHandler {
 
 	}
 
-	// Increase the user's score to plus 100
+	// Increase the user's score to plus 1000
 	public void setPlayerScore(Player p) {
 
 		try {
 
 			statement = conn.createStatement();
-			statement
-					.executeUpdate("update Login set score = score + 1000 where username = '" + p.getUserName() + "';");
+			statement.executeUpdate("update Login set score = score + 1000 where username = '" + p.getUserName() + "';");
 
 			conn.close();
 		} catch (SQLException e) {
@@ -149,18 +144,12 @@ public class DatabaseHandler {
 		return result;
 	}
 
-	public void insertNewUser(String userName, char[] userPassword, String name) {
-		String userPass = "";
+	public void insertNewUser(Player p, char[] pass) {
+
+		String userPass = String.copyValueOf(pass);
 		int nextValidId = 0;
 
-		for (char c : userPassword) {
-			userPass += c;
-		}
-
 		try {
-			DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm");
-			LocalDateTime now = LocalDateTime.now();
-			String date = now.format(df);
 
 			statement = conn.createStatement();
 
@@ -168,8 +157,11 @@ public class DatabaseHandler {
 
 			statement = conn.createStatement();
 
-			statement.execute("insert into Login values ('" + nextValidId + "', '" + userName + "', '"
-					+ userPass.hashCode() + "', '" + name + "', 0, '" + date + "');");
+			statement.execute("insert into Login values ('" + nextValidId + "', '" + p.getUserName() + "', '"
+					+ userPass.hashCode() + "', '" + p.getUserName() + "', 0, '" + getDate() + "');");
+
+			// Update the lastLogin field on the Player object
+			p.setLastLogin(getDate());
 
 			conn.close();
 		} catch (SQLException e) {
@@ -178,25 +170,31 @@ public class DatabaseHandler {
 
 	}
 
+	private String getDate() {
+		LocalDateTime now = LocalDateTime.now();
+		String date = now.format(DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm"));
+		return date;
+	}
+
 	public ArrayList<String> getDatabaseData() {
-		
+
 		ArrayList<String> result = new ArrayList<String>();
 
 		try {
 
 			statement = conn.createStatement();
 			ResultSet r = statement.executeQuery("Select username, score, lastlogin from Login;");
-						
+
 			while (r.next()) {
-				
+
 				result.add(r.getString("username") + "," + r.getInt("score") + "," + r.getString("lastLogin"));
-				
+
 			}
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 

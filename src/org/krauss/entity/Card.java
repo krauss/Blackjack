@@ -77,16 +77,16 @@ public class Card extends JLabel {
 		
 		switch(suit){
 			case "\u2663":
-				this.setIcon(new ImageIcon("resources/imgs/"+number+"C.png"));
+				this.setIcon(new ImageIcon("res/imgs/"+number+"C.png"));
 				break;
 			case "\u2665":
-				this.setIcon(new ImageIcon("resources/imgs/"+number+"H.png"));
+				this.setIcon(new ImageIcon("res/imgs/"+number+"H.png"));
 				break;
 			case "\u2660":
-				this.setIcon(new ImageIcon("resources/imgs/"+number+"S.png"));
+				this.setIcon(new ImageIcon("res/imgs/"+number+"S.png"));
 				break;
 			default:
-				this.setIcon(new ImageIcon("resources/imgs/"+number+"D.png"));
+				this.setIcon(new ImageIcon("res/imgs/"+number+"D.png"));
 				break;				
 		}
 	}
@@ -95,7 +95,7 @@ public class Card extends JLabel {
 	public void setBackImage(boolean s) {
 		
 		if(s){
-			this.setIcon(new ImageIcon("resources/imgs/back.png"));
+			this.setIcon(new ImageIcon("res/imgs/back.png"));
 		} else{
 			setImage();
 		}		
