@@ -29,7 +29,7 @@ public class DatabaseHandler {
 
 		try {
 
-			conn = DriverManager.getConnection("jdbc:sqlite:blackjack.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:resources/database/blackjack.db");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

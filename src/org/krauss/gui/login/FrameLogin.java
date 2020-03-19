@@ -157,6 +157,7 @@ public class FrameLogin extends JFrame {
 
 						panelLogin.getJl_login_error().setText(playerLoginMsg);
 						panelLogin.getJb_login().setText("OK");
+						panelLogin.getJb_login().setEnabled(false);
 						gameTimer.start();
 
 					} else {

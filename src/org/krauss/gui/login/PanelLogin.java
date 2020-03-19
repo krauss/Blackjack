@@ -19,9 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import org.krauss.game.DatabaseHandler;
-
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -121,7 +119,8 @@ public class PanelLogin extends JPanel {
 		jl_login_error.setFont(new Font("Arial", Font.BOLD, 11));
 		jl_login_error.setForeground(Color.ORANGE);
 		
-		loginPanel.add(new JLabel(new ImageIcon("./resources/Blackjack-Game.png")), "dock north");
+		loginPanel.add(new JLabel(new ImageIcon("resources/Blackjack-Game.png")), "dock north");
+		
 		jl_username = new JLabel("Username: ");
 		jl_username.setForeground(Color.WHITE);
 		loginPanel.add(jl_username, "cell 0 1, center");
