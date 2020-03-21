@@ -4,11 +4,11 @@
 
 A pretty basic implementation of the famous game BlackJack, written in JAVA using swing components, [SQLite](https://www.sqlite.org/index.html) as the internal database, [MigLayout](http://www.miglayout.com/) as the layout manager and [Flatlaf](https://www.formdev.com/flatlaf/) as a third-party look-and-feel provider.
 
-![Login_screen](resources/bj_game.png)
+![Login_screen](res/bj_game.png)
 
 To create a new player and start playing, just type a username you want to use and a `checkbox` will appear as soon as you start setting your password. Then tick the `checkbox` and click `Login`.
 
-![Login_screen](resources/checkbox_login.png)
+![Login_screen](res/checkbox_login.png)
 
 If the `checkbox` does not come out, that means the username already exists in the database.
 
