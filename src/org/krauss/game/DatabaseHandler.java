@@ -1,5 +1,6 @@
 package org.krauss.game;
 
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -28,8 +29,12 @@ public class DatabaseHandler {
 	public DatabaseHandler() {
 
 		try {
-
-			conn = DriverManager.getConnection("jdbc:sqlite:res/database/blackjack.db");
+			DriverManager.registerDriver(new org.sqlite.JDBC());
+			URL pathToDB = getClass().getResource("/database/blackjack.db");
+			
+			if (pathToDB != null) {
+				conn = DriverManager.getConnection("jdbc:sqlite::resource:"+pathToDB);
+		    } 		
 
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package org.krauss.entity;
 
+import java.net.URL;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -74,19 +76,32 @@ public class Card extends JLabel {
 	
 	
 	private void setImage() {
+		URL pathToImg = null;
 		
 		switch(suit){
 			case "\u2663":
-				this.setIcon(new ImageIcon("res/imgs/"+number+"C.png"));
+				pathToImg = getClass().getResource("/imgs/"+number+"C.png");
+				if (pathToImg != null) {
+					this.setIcon(new ImageIcon(pathToImg));
+				}				
 				break;
-			case "\u2665":
-				this.setIcon(new ImageIcon("res/imgs/"+number+"H.png"));
+			case "\u2665":				
+				pathToImg = getClass().getResource("/imgs/"+number+"H.png");
+				if (pathToImg != null) {
+					this.setIcon(new ImageIcon(pathToImg));
+				}
 				break;
-			case "\u2660":
-				this.setIcon(new ImageIcon("res/imgs/"+number+"S.png"));
+			case "\u2660":				
+				pathToImg = getClass().getResource("/imgs/"+number+"S.png");
+				if (pathToImg != null) {
+					this.setIcon(new ImageIcon(pathToImg));
+				}
 				break;
 			default:
-				this.setIcon(new ImageIcon("res/imgs/"+number+"D.png"));
+				pathToImg = getClass().getResource("/imgs/"+number+"D.png");
+				if (pathToImg != null) {
+					this.setIcon(new ImageIcon(pathToImg));
+				}
 				break;				
 		}
 	}
@@ -95,7 +110,11 @@ public class Card extends JLabel {
 	public void setBackImage(boolean s) {
 		
 		if(s){
-			this.setIcon(new ImageIcon("res/imgs/back.png"));
+			URL pathToImg = getClass().getResource("/imgs/back.png");
+			if (pathToImg != null) {
+				this.setIcon(new ImageIcon(pathToImg));
+			}
+			this.setIcon(new ImageIcon(pathToImg));
 		} else{
 			setImage();
 		}		

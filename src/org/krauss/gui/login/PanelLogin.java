@@ -9,10 +9,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-
+import java.net.URL;
 import javax.swing.Timer;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import org.krauss.game.DatabaseHandler;
+
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -62,6 +61,7 @@ public class PanelLogin extends JPanel {
 	private void createLoginComponents() {
 		jt_login = new JTextField("username");
 		jt_login.setPreferredSize(new Dimension(150, 22));
+		
 		jt_login.addFocusListener(new FocusListener() {
 
 			@Override
@@ -120,8 +120,9 @@ public class PanelLogin extends JPanel {
 		jl_login_error = new JLabel("");
 		jl_login_error.setFont(new Font("Arial", Font.BOLD, 11));
 		jl_login_error.setForeground(Color.ORANGE);
-
-		loginPanel.add(new JLabel(new ImageIcon("res/Blackjack-Game.png")), "dock north");
+		
+		URL pathToImg = getClass().getResource("/Blackjack-Game.png");
+		loginPanel.add(new JLabel(new ImageIcon(pathToImg)), "dock north");
 
 		jl_username = new JLabel("Username: ");
 		jl_username.setForeground(Color.WHITE);
