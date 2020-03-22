@@ -25,6 +25,12 @@ public class Player {
 		this.userName = userName;
 		this.handCards = new ArrayList<Card>();
 	}
+	
+	public Player(String userName, int score, String lastLogin) {
+		this(userName);
+		this.score = score;
+		this.lastLogin = lastLogin;
+	}
 
 	public String getUserName() {
 		return userName;
@@ -78,6 +84,14 @@ public class Player {
 		}
 
 		return cards;
+	}
+	
+	public String playerToString() {
+		return this.userName + "," + this.score + "," + lastLogin;		
+	}
+	
+	public String toString() {
+		return this.userName + " - " + this.score + " pts";		
 	}
 	
 }

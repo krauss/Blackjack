@@ -181,9 +181,9 @@ public class DatabaseHandler {
 		return date;
 	}
 
-	public ArrayList<String> getDatabaseData() {
+	public ArrayList<Player> getDBData() {
 
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<Player> players = new ArrayList<Player>();
 
 		try {
 
@@ -191,8 +191,8 @@ public class DatabaseHandler {
 			ResultSet r = statement.executeQuery("Select username, score, lastlogin from Login;");
 
 			while (r.next()) {
-
-				result.add(r.getString("username") + "," + r.getInt("score") + "," + r.getString("lastLogin"));
+				
+				players.add(new Player(r.getString("username"), r.getInt("score"), r.getString("lastLogin")));
 
 			}
 			conn.close();
@@ -200,7 +200,7 @@ public class DatabaseHandler {
 			e.printStackTrace();
 		}
 
-		return result;
+		return players;
 	}
 
 }

@@ -3,10 +3,13 @@ package org.krauss.gui.admin;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Comparator;
 import javax.swing.BorderFactory;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import org.krauss.entity.Player;
 import org.krauss.game.DatabaseHandler;
 import net.miginfocom.swing.MigLayout;
 
@@ -23,12 +26,16 @@ public class PanelAdmin extends JPanel {
 	
 	//Database
 	private static DatabaseHandler dbHandler;
+	private ArrayList<Player> rows;
 	private Object[][] data;
 
 	//Table components
 	private JScrollPane jsp_scrollPane;
 	private JTable jt_rankTable;
 	private String collumns[] = {"Player", "Score", "Last Login"};
+	
+	//List components
+	private JList<Object> rank;
 
 	public PanelAdmin() {
 		
@@ -81,10 +88,16 @@ public class PanelAdmin extends JPanel {
 		
 		JPanel jp_rankPanel = new JPanel();
 		jp_rankPanel.setLayout(new MigLayout("", "5[]5", "5[]5"));
-		jp_rankPanel.setPreferredSize(new Dimension(120, 440));
+		jp_rankPanel.setPreferredSize(new Dimension(150, 440));
 		jp_rankPanel.setBorder(BorderFactory.createTitledBorder("Ranking"));
 		
-
+		ArrayList<Player> rankPlayers = rows;
+		rankPlayers.sort(Comparator.comparing(Player::getScore).reversed());
+		
+		
+		rank = new JList<Object>(rankPlayers.toArray());
+		jp_rankPanel.add(rank, "cell 0 0, center");
+		
 		this.add(jp_rankPanel, "cell 2 0, center");
 	}
 	
@@ -92,11 +105,12 @@ public class PanelAdmin extends JPanel {
 	private Object[][] fetchDataBaseData() {
 		
 		dbHandler = new DatabaseHandler();
-		ArrayList<String> rows = dbHandler.getDatabaseData(); 
+		rows = dbHandler.getDBData(); 
 		data = new Object[rows.size()][];
 		
-		for (int i = 0; i < rows.size(); i++ ) {			
-			data[i] = rows.get(i).split(",");
+		for (int i = 0; i < rows.size(); i++ ) {
+			
+			data[i] = rows.get(i).playerToString().split(",");
 		} 
 		
 		return data;

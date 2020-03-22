@@ -62,19 +62,19 @@ public class PanelGame extends JPanel {
 	private void createPanelGamePlayer() {
 		// Creates the player back panel
 		gamePanelPLayer = new JPanel();
-		gamePanelPLayer.setLayout(new MigLayout("", "10[190]10[grow]10", "10[160]10[40]10"));
+		gamePanelPLayer.setLayout(new MigLayout("", "5[190]5[grow]5", "5[160]5[10]5"));
 		gamePanelPLayer.setBackground(new Color(0x03853E));
 		this.add(gamePanelPLayer, "growx, wrap");
 
 		playerCardsPanel = new JPanel();
 		playerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4, true));
 		playerCardsPanel.setBackground(new Color(0x03853E));
-		playerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[grow]5"));
+		playerCardsPanel.setLayout(new MigLayout("", "2[grow]2", "2[grow]2"));
 
 		controlPanelPLayer = new JPanel();
 		controlPanelPLayer.setBorder(BorderFactory.createEtchedBorder());
 		controlPanelPLayer.setBackground(new Color(0x03853E));
-		controlPanelPLayer.setLayout(new MigLayout("", "5[180]5", "5[50]5"));
+		controlPanelPLayer.setLayout(new MigLayout("", "2[180]2", "2[50]2"));
 
 		playerName  = new JLabel();
 		playerSum  = new JLabel();
@@ -99,8 +99,8 @@ public class PanelGame extends JPanel {
 		jb_hit = new JButton("Hit");
 		jb_stand = new JButton("Stand");
 
-		hitStandPanel.add(jb_hit, "w 80!, right");
-		hitStandPanel.add(jb_stand, "w 80!, left, wrap");
+		hitStandPanel.add(jb_hit, "w 90!, right");
+		hitStandPanel.add(jb_stand, "w 90!, left, wrap");
 		
 		gamePanelPLayer.add(controlPanelPLayer, "top");
 		gamePanelPLayer.add(playerCardsPanel, "growx, growy, left, wrap");
@@ -111,7 +111,7 @@ public class PanelGame extends JPanel {
 	//The Dealer side of the game
 	private void createPanelGameDealer() {
 		gamePanelDealer = new JPanel();
-		gamePanelDealer.setLayout(new MigLayout("", "10[190]10[grow]10", "10[160]10[40]10"));
+		gamePanelDealer.setLayout(new MigLayout("", "5[190]5[grow]5", "5[160]5[10]5"));
 		gamePanelDealer.setBackground(new Color(0x03853E));
 		this.add(gamePanelDealer, "growx, wrap");
 
@@ -119,13 +119,13 @@ public class PanelGame extends JPanel {
 		dealerCardsPanel = new JPanel();
 		dealerCardsPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 4, true));
 		dealerCardsPanel.setBackground(new Color(0x03853E));
-		dealerCardsPanel.setLayout(new MigLayout("", "5[grow]5", "5[grow]5"));
+		dealerCardsPanel.setLayout(new MigLayout("", "[grow]", "[grow]"));
 
 		// Creates the control panel
 		controlPanelDealer = new JPanel();
 		controlPanelDealer.setBorder(BorderFactory.createEtchedBorder());
 		controlPanelDealer.setBackground(new Color(0x03853E));
-		controlPanelDealer.setLayout(new MigLayout("", "5[180]5", "5[50]5"));
+		controlPanelDealer.setLayout(new MigLayout("", "2[180]2", "2[50]2"));
 		
 		dealerSum = new JLabel("Sum:  ");
 		dealerHints = new JLabel("Hints:  ");
@@ -143,7 +143,7 @@ public class PanelGame extends JPanel {
 		controlPanelDealer.add(dealerHints);
 		
 		replayPanelDealer = new JPanel();
-		replayPanelDealer.setLayout(new MigLayout("", "5[80]5", "5[30]5"));
+		replayPanelDealer.setLayout(new MigLayout("", "2[80]2", "2[30]2"));
 		replayPanelDealer.setBackground(new Color(0x03853E));
 
 		gamePanelDealer.add(controlPanelDealer);

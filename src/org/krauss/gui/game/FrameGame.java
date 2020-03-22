@@ -43,8 +43,8 @@ public class FrameGame extends JFrame{
 		
 		this.setTitle("\u2663 \u2665    The BlackJack Game   \u2660 \u2666");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(950, 650));
-		this.setSize(950, 650);
+		this.setPreferredSize(new Dimension(950, 610));
+		this.setSize(950, 610);
 		this.setLocationRelativeTo(null);	
 		
 		createGameScreen();
@@ -132,7 +132,7 @@ public class FrameGame extends JFrame{
 		
 		jtb_toolBar = new JToolBar();
 		jtb_toolBar.setFloatable(false);
-		jtb_toolBar.setLayout(new MigLayout("", "6[]50[]10[]10[]10[]10", "[]"));
+		jtb_toolBar.setLayout(new MigLayout("", "6[]50[]10[]10[]10[]10[]10[]10", "[]"));
 		jb_logout = new JButton("Logout");
 		jb_logout.addActionListener(new ActionListener() {
 			
@@ -145,18 +145,24 @@ public class FrameGame extends JFrame{
 		Font fo = new Font("Arial", Font.PLAIN, 13);
 		JLabel welcome = new JLabel("<html><b>Player: </b>" + payer.getUserName()+ "</html>");
 		welcome.setFont(fo);
+		JLabel score = new JLabel("<html><b>Total score: </b>" + payer.getScore()+ "</html>");
+		score.setFont(fo);
 		JLabel lastLogin = new JLabel("<html><b>Last login: </b>" + payer.getLastLogin() + "</html>");
 		lastLogin.setFont(fo);
 		JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
 		separator1.setPreferredSize(new Dimension(5, 20));
 		JSeparator separator2 = new JSeparator(SwingConstants.VERTICAL);
 		separator2.setPreferredSize(new Dimension(5, 20));
+		JSeparator separator3 = new JSeparator(SwingConstants.VERTICAL);
+		separator3.setPreferredSize(new Dimension(5, 20));
 		
 		jtb_toolBar.add(jb_logout, "cell 0 0, center");
 		jtb_toolBar.add(welcome, "cell 1 0, center");
 		jtb_toolBar.add(separator1, "cell 2 0, left");
-		jtb_toolBar.add(lastLogin, "cell 3 0, center");
+		jtb_toolBar.add(score, "cell 3 0, center");
 		jtb_toolBar.add(separator2, "cell 4 0, left");
+		jtb_toolBar.add(lastLogin, "cell 5 0, center");
+		jtb_toolBar.add(separator3, "cell 6 0, left");
 		this.add(jtb_toolBar, BorderLayout.PAGE_END);
 		
 	}
