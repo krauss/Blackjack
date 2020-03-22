@@ -23,57 +23,54 @@ import org.krauss.gui.login.FrameLogin;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
-public class FrameGame extends JFrame{	
+public class FrameGame extends JFrame {
 
 	private PanelGame gp;
-	private Player payer;
+	private Player player;
 	private Player dealer;
 	private GameLogic game;
 	private DatabaseHandler conn;
 	private boolean standPressed = false;
-	
-	//ToolBar components
+
+	// ToolBar components
 	private JToolBar jtb_toolBar;
 	private JButton jb_logout;
-	
-	
-	public FrameGame(Player pl){
-		
-		this.payer = pl;
-		
+
+	public FrameGame(Player pl) {
+
+		this.player = pl;
+
 		this.setTitle("\u2663 \u2665    The BlackJack Game   \u2660 \u2666");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(950, 610));
 		this.setSize(950, 610);
-		this.setLocationRelativeTo(null);	
-		
+		this.setResizable(false);
+		this.setLocationRelativeTo(null);
+
 		createGameScreen();
 		createToolBar();
-		
-		
+
 		this.setVisible(true);
 		this.pack();
-		
+
 		initGame();
 	}
-	
-	
+
 	private void createGameScreen() {
 
 		gp = new PanelGame();
-		
-		
+
 		standPressed = false;
-		
+
 		gp.getJb_hit().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				payer.setHandCards(game.getDeckCard());
+				player.setHandCards(game.getDeckCard());
 
-				addCardsOnPanel(payer, gp.getPlayerCardsPanel());
-				gp.getPlayerSum().setText("Sum:  " + payer.getSum());
+				addCardsOnPanel(player, gp.getPlayerCardsPanel());
+				gp.getPlayerSum().setText("Sum:  " + player.getSum());
 				checkAce();
 
 				switch (game.checkGameOver(standPressed)) {
@@ -91,168 +88,130 @@ public class FrameGame extends JFrame{
 
 			}
 		});
-		
+
 		gp.getJb_stand().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				gp.getJb_hit().setEnabled(false);
 				gp.getJb_stand().setEnabled(false);
-				
+
 				dealer.getHandCards().get(0).setBackImage(false);
-				
-				gp.getDealerSum().setText("Sum:  "+dealer.getSum());
-				gp.getDealerHints().setText("Hints:  "+game.getDealerHints());
+
+				gp.getDealerSum().setText("Sum:  " + dealer.getSum());
+				gp.getDealerHints().setText("Hints:  " + game.getDealerHints());
 				standPressed = true;
 				initDealersGame();
 			}
 		});
-		
+
 		gp.getJb_replay().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				gp.removeAll();
+				gp.validate();
 				createGameScreen();
 				conn = new DatabaseHandler();
-				conn.refreshPlayerData(payer);
-				initGame();				
+				conn.refreshPlayerData(player);
+				initGame();
 				gp.getPlayerCardsPanel().repaint();
 				gp.getDealerCardsPanel().repaint();
-				
+
 			}
 		});
 
-		
 		this.add(gp);
-		
-	}
-	
-	private void createToolBar() {
-		
-		jtb_toolBar = new JToolBar();
-		jtb_toolBar.setFloatable(false);
-		jtb_toolBar.setLayout(new MigLayout("", "6[]50[]10[]10[]10[]10[]10[]10", "[]"));
-		jb_logout = new JButton("Logout");
-		jb_logout.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				logout();
-			}
-		});
-		
-		Font fo = new Font("Arial", Font.PLAIN, 13);
-		JLabel welcome = new JLabel("<html><b>Player: </b>" + payer.getUserName()+ "</html>");
-		welcome.setFont(fo);
-		JLabel score = new JLabel("<html><b>Total score: </b>" + payer.getScore()+ "</html>");
-		score.setFont(fo);
-		JLabel lastLogin = new JLabel("<html><b>Last login: </b>" + payer.getLastLogin() + "</html>");
-		lastLogin.setFont(fo);
-		JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
-		separator1.setPreferredSize(new Dimension(5, 20));
-		JSeparator separator2 = new JSeparator(SwingConstants.VERTICAL);
-		separator2.setPreferredSize(new Dimension(5, 20));
-		JSeparator separator3 = new JSeparator(SwingConstants.VERTICAL);
-		separator3.setPreferredSize(new Dimension(5, 20));
-		
-		jtb_toolBar.add(jb_logout, "cell 0 0, center");
-		jtb_toolBar.add(welcome, "cell 1 0, center");
-		jtb_toolBar.add(separator1, "cell 2 0, left");
-		jtb_toolBar.add(score, "cell 3 0, center");
-		jtb_toolBar.add(separator2, "cell 4 0, left");
-		jtb_toolBar.add(lastLogin, "cell 5 0, center");
-		jtb_toolBar.add(separator3, "cell 6 0, left");
-		this.add(jtb_toolBar, BorderLayout.PAGE_END);
-		
-	}
-	
-	private void logout() {
-		this.dispose();
-		new FrameLogin();
+
 	}
 
-	
 	private void initGame() {
-		payer.setHandCards(null);
+		player.setHandCards(null);
 		dealer = new Player("Dealer");
-		game = new GameLogic(payer, dealer);
+		game = new GameLogic(player, dealer);
 
-		gp.getPlayerName().setText("Player:  " + payer.getUserName());
+		gp.getPlayerName().setText("Player:  " + player.getUserName());
 
-		gp.getPlayerScore().setText("Score:  " + payer.getScore());		
+		gp.getPlayerScore().setText("Score:  " + player.getScore());
 
-		payer.setHandCards(game.getDeckCard());
+		player.setHandCards(game.getDeckCard());
 		dealer.setHandCards(game.getDeckCard());
 		dealer.getHandCards().get(0).setBackImage(true);
-		payer.setHandCards(game.getDeckCard());		
+		player.setHandCards(game.getDeckCard());
 		dealer.setHandCards(game.getDeckCard());
-		
-		addCardsOnPanel(payer, gp.getPlayerCardsPanel());
+
+		addCardsOnPanel(player, gp.getPlayerCardsPanel());
 		addCardsOnPanel(dealer, gp.getDealerCardsPanel());
-		
-		gp.getPlayerSum().setText("Sum:  " + payer.getSum());
+
+		gp.getPlayerSum().setText("Sum:  " + player.getSum());
 		checkAce();
 
 	}
 
 	private void addCardsOnPanel(Player player, JPanel p) {
-		
+
 		p.removeAll();
 		p.repaint();
 		for (Card card : player.getHandCards()) {
 			p.add(card, "west, gapleft 5");
-		}		
+		}
 	}
 
-	
 	private void terminatesGame(String t) {
 		gp.getJb_hit().setEnabled(false);
 		gp.getJb_stand().setEnabled(false);
 		gp.setLayout(new BorderLayout());
 		gp.add(gp.getOverlayPanel(), BorderLayout.CENTER);
 		gp.validate();
-		if (t.equalsIgnoreCase("LOSE")) {			
+
+		switch (t) {
+		
+		case "LOSE":
 			gp.getWinLoseLabel().setText("YOU LOSE!");
-		} else {
+			break;
+		case "WIN":
 			gp.getWinLoseLabel().setForeground(Color.BLUE);
-			gp.getWinLoseLabel().setText("YOU WIN!   +1000 pts");
+			gp.getWinLoseLabel().setText("YOU WIN!   +50 pts");
 			conn = new DatabaseHandler();
-			conn.setPlayerScore(payer);
+			conn.setPlayerScore(player);
+			break;
+		default:
+			gp.getWinLoseLabel().setText("YOU GOT A DRAW!");
+			break;
 		}
 	}
 
 	private void checkAce() {
-		for (Card d : payer.getHandCards()) {
+		for (Card d : player.getHandCards()) {
 			if (d.getNumber().equalsIgnoreCase("A")) {
-				//TODO
+				// TODO
 			}
 		}
 
 	}
-	
+
 	private void initDealersGame() {
 
 		Timer timer = new Timer(3000, null);
 		timer.setRepeats(true);
-		timer.start(); 
-		
+		timer.start();
+
 		timer.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				if(dealer.getSum() < 20 && (game.getDealerHints() > 0 ) && (dealer.getSum() <= payer.getSum())){
+
+				if (dealer.getSum() < 21 & (game.getDealerHints() > 0) && (dealer.getSum() <= player.getSum())) {
 					dealer.setHandCards(game.getDeckCard());
 					game.decDealerHints();
-					gp.getDealerHints().setText("Hints:  "+game.getDealerHints());
+					gp.getDealerHints().setText("Hints:  " + game.getDealerHints());
 					addCardsOnPanel(dealer, gp.getDealerCardsPanel());
-					gp.getDealerSum().setText("Sum:  "+dealer.getSum());
-				}else{
+					gp.getDealerSum().setText("Sum:  " + dealer.getSum());
+				} else {
 					timer.stop();
-					
+
 					switch (game.checkGameOver(standPressed)) {
+					
 					case LOSE:
 						terminatesGame("LOSE");
 						enableButtonReplay();
@@ -262,22 +221,63 @@ public class FrameGame extends JFrame{
 						enableButtonReplay();
 						break;
 					default:
+						terminatesGame("DRAW");
+						enableButtonReplay();
 						break;
 					}
-				}	
+				}
 			}
 
-			
 		});
 
 	}
-	
-	
+
 	private void enableButtonReplay() {
 		gp.getJb_replay().setVisible(true);
 	}
 	
+	private void createToolBar() {
+
+		jtb_toolBar = new JToolBar();
+		jtb_toolBar.setFloatable(false);
+		jtb_toolBar.setLayout(new MigLayout("", "6[]50[]10[]10[]10[]10[]10[]10", "[]"));
+		jb_logout = new JButton("Logout");
+		jb_logout.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logout();
+			}
+		});
+
+		Font fo = new Font("Arial", Font.PLAIN, 13);
+		JLabel welcome = new JLabel("<html><b>Player: </b>" + player.getUserName() + "</html>");
+		welcome.setFont(fo);
+		JLabel score = new JLabel("<html><b>Total score: </b>" + player.getScore() + "</html>");
+		score.setFont(fo);
+		JLabel lastLogin = new JLabel("<html><b>Last login: </b>" + player.getLastLogin() + "</html>");
+		lastLogin.setFont(fo);
+		JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
+		separator1.setPreferredSize(new Dimension(5, 20));
+		JSeparator separator2 = new JSeparator(SwingConstants.VERTICAL);
+		separator2.setPreferredSize(new Dimension(5, 20));
+		JSeparator separator3 = new JSeparator(SwingConstants.VERTICAL);
+		separator3.setPreferredSize(new Dimension(5, 20));
+
+		jtb_toolBar.add(jb_logout, "cell 0 0, center");
+		jtb_toolBar.add(welcome, "cell 1 0, center");
+		jtb_toolBar.add(separator1, "cell 2 0, left");
+		jtb_toolBar.add(score, "cell 3 0, center");
+		jtb_toolBar.add(separator2, "cell 4 0, left");
+		jtb_toolBar.add(lastLogin, "cell 5 0, center");
+		jtb_toolBar.add(separator3, "cell 6 0, left");
+		this.add(jtb_toolBar, BorderLayout.PAGE_END);
+
+	}
+
+	private void logout() {
+		this.dispose();
+		new FrameLogin();
+	}
+
 }
-
-
-	

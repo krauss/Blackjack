@@ -9,7 +9,7 @@ A pretty basic implementation of the famous game BlackJack, written in JAVA usin
 #### How to play?
 
 You can either clone this repository and setup a workspace in your IDE or simply download the latest `jar` file in our [releases folder](releases/).
-To create a new player and start playing, just type a username a `checkbox` will appear as soon as you start setting your password. Then tick the `checkbox` to create it and click `Login`.
+To create a new player and start playing, just type an username and a `checkbox` will appear as soon as you start setting your password. Then tick the `checkbox` to create it and click `Login`.
 
 ![Login_screen](res/checkbox_login.png)
 

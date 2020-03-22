@@ -17,7 +17,7 @@ public class GameLogic {
 	public static enum GameStatus{
 		WIN, 
 		LOSE, 
-		KEEP;
+		DRAW;
 		
 	}
 	
@@ -81,12 +81,12 @@ public class GameLogic {
 			return GameStatus.WIN;
 		} else if(dealerResult > 21){
 			return GameStatus.WIN;
-		}else if ((playerResult > dealerResult) && standPressed){
+		}else if ((playerResult > dealerResult) & standPressed){
 			return GameStatus.WIN;
-		} else if ((playerResult < dealerResult) && standPressed){
+		} else if ((playerResult < dealerResult) & standPressed){
 			return GameStatus.LOSE;
 		} else {
-			return GameStatus.KEEP;
+			return GameStatus.DRAW;
 		}
 		
 	}

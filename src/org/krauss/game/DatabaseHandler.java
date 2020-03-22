@@ -119,7 +119,7 @@ public class DatabaseHandler {
 		try {
 
 			statement = conn.createStatement();
-			statement.executeUpdate("update Login set score = score + 1000 where username = '" + p.getUserName() + "';");
+			statement.executeUpdate("update Login set score = score + 50 where username = '" + p.getUserName() + "';");
 
 			conn.close();
 		} catch (SQLException e) {

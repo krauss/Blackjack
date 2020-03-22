@@ -158,8 +158,7 @@ public class PanelGame extends JPanel {
 		overlayPanel.setLayout(new OverlayLayout(overlayPanel));
 		
 		transparentPanel = new JPanel();
-		transparentPanel.setPreferredSize(new Dimension(950, 650));
-		transparentPanel.setLayout(new MigLayout());
+		transparentPanel.setLayout(new MigLayout("", "[950]", "[610]"));
 		transparentPanel.setBackground(new Color(0, 0, 0, 90));
 		
 		finishedGamePanel = new JPanel();
@@ -177,7 +176,7 @@ public class PanelGame extends JPanel {
 		finishedGamePanel.add(winLoseLabel, "growx, center, wrap");
 		finishedGamePanel.add(jb_replay, "w 100!, center");	
 		
-		transparentPanel.add(finishedGamePanel, "center");		
+		transparentPanel.add(finishedGamePanel, "cell 0 0, center");		
 		overlayPanel.add(transparentPanel, BorderLayout.CENTER);
 		
 	}
