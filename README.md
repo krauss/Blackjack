@@ -1,4 +1,4 @@
-## Blackjack game
+## :clubs: :hearts: The BlackJack Game :spades: :diamonds: 
 
 #### What is it?
 
@@ -6,6 +6,9 @@ A pretty basic implementation of the famous game BlackJack, written in JAVA usin
 
 ![Login_screen](res/bj_game.png)
 
+#### How to play?
+
+You can either clone this repository and setup a workspace in your IDE or simply download the latest `jar` file in our [releases folder](releases/Blackjack_2.1.jar).
 To create a new player and start playing, just type a username you want to use and a `checkbox` will appear as soon as you start setting your password. Then tick the `checkbox` and click `Login`.
 
 ![Login_screen](res/checkbox_login.png)
