@@ -30,9 +30,10 @@ public class FrameAdmin extends JFrame {
 		
 		this.admin = p;
 		this.setResizable(false);
+		this.setTitle("Administrator Panel");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(750, 690));
-		this.setSize(750, 690);
+		this.setPreferredSize(new Dimension(750, 630));
+		this.setSize(750, 630);
 		this.setLocationRelativeTo(null);
 
 		initPanelGame();
