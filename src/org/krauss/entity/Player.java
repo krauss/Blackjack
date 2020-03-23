@@ -16,13 +16,13 @@ import org.krauss.entity.Card;
  */
 public class Player {
 
-	private String userName;
+	private String name;
 	private int score;
 	private ArrayList<Card> handCards;
 	private String lastLogin;
 
 	public Player(String userName) {
-		this.userName = userName;
+		this.name = userName;
 		this.handCards = new ArrayList<Card>();
 	}
 	
@@ -32,8 +32,8 @@ public class Player {
 		this.lastLogin = lastLogin;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getPlayerName() {
+		return name;
 	}
 
 	public int getScore() {
@@ -87,11 +87,11 @@ public class Player {
 	}
 	
 	public String playerToString() {
-		return this.userName + "," + this.score + "," + lastLogin;		
+		return this.name + "," + this.score + "," + lastLogin;		
 	}
 	
 	public String toString() {
-		return this.userName + " - " + this.score + " pts";		
+		return this.name + " - " + this.score + " pts";		
 	}
 	
 }

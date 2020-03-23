@@ -25,15 +25,15 @@ public class FrameLogin extends JFrame {
 	private DatabaseHandler conn;
 	private Timer gameTimer;
 	private Timer adminTimer;
-	private String playerLoginMsg = "<html><b><font color=\"#00FF00\"><br>Done, let's play!</font></b></html>";
-	private String adminLoginMsg = "<html><b><font color=\"#1efa81\"><br>Welcome back Master!</font></b></html>";
+	private String playerLoginMsg = "<html><b><font color=\"#00FF22\"><br>Well done mate!</font></b></html>";
+	private String adminLoginMsg = "<html><b><font color=\"#22BBFF\"><br>Welcome back mate!</font></b></html>";
 
 	public FrameLogin() {
 		
 		this.setTitle("\u2663 \u2665    The BlackJack Game   \u2660 \u2666");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(550, 590));
-		this.setSize(550, 590);
+		this.setPreferredSize(new Dimension(550, 600));
+		this.setSize(550, 600);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 
@@ -119,7 +119,7 @@ public class FrameLogin extends JFrame {
 
 					} else {
 						panelLogin.getJl_login_error()
-								.setText("<html>&#x26D4; <b>Password incorrect!</b></html>");
+								.setText("<html>&#x26D4; <b>Mate, your passy wrong!</b></html>");
 					}
 
 				}
@@ -127,7 +127,7 @@ public class FrameLogin extends JFrame {
 			//If it's a normal player login
 			} else {
 
-				if (panelLogin.getJc_createUser().isSelected()) {
+				if (panelLogin.getJc_createPlayer().isSelected()) {
 					conn = new DatabaseHandler();
 					
 					//Create the object Player first
@@ -164,7 +164,7 @@ public class FrameLogin extends JFrame {
 						gameTimer.start();
 
 					} else {
-						panelLogin.getJl_login_error().setText("<html>&#x26D4; <b>Password incorrect!</b></html>");
+						panelLogin.getJl_login_error().setText("<html>&#x26D4; <b>Mate, your passy wrong!</b></html>");
 					}
 
 				}

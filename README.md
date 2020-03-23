@@ -1,8 +1,6 @@
 ## :clubs: :hearts: The BlackJack Game :spades: :diamonds: 
 
-#### What is it?
-
-A pretty basic implementation of the famous game BlackJack, written in JAVA using swing components, [SQLite](https://www.sqlite.org/index.html) as the internal database, [MigLayout](http://www.miglayout.com/) as the layout manager and [Flatlaf](https://www.formdev.com/flatlaf/) as a third-party look-and-feel provider.
+A pretty basic implementation of the famous game BlackJack, written in JAVA using Swing components, [SQLite](https://www.sqlite.org/index.html) as the internal database, [MigLayout](http://www.miglayout.com/) as the layout manager and [Flatlaf](https://www.formdev.com/flatlaf/) as a third-party look-and-feel provider.
 
 ![Login_screen](res/bj_game.png)
 

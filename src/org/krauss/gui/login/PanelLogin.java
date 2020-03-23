@@ -10,6 +10,9 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.swing.Timer;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -28,11 +31,11 @@ public class PanelLogin extends JPanel {
 
 	private JPanel loginPanel;
 	private JPanel createUserPanel;
-	private JLabel jl_createUser;
-	private JCheckBox jc_createUser;
+	private JLabel jl_createPlayer;
+	private JCheckBox jc_createPlayer;
 	private JTextField jt_login;
 	private JPasswordField jt_password;
-	private JLabel jl_username;
+	private JLabel jl_playername;
 	private JLabel jl_password;
 	private JLabel jl_database;
 	private JButton jb_login;
@@ -59,23 +62,31 @@ public class PanelLogin extends JPanel {
 	}
 
 	private void createLoginComponents() {
-		jt_login = new JTextField("username");
+		jt_login = new JTextField("playername");
 		jt_login.setPreferredSize(new Dimension(150, 22));
-		
+
 		jt_login.addFocusListener(new FocusListener() {
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (jt_login.getText().equalsIgnoreCase("")) {
-					jt_login.setText("username");
+					jt_login.setText("playername");
 					if (createUserPanel.isVisible()) {
 						removeCreationPanel();
 					}
-				} else if (!jt_login.getText().equalsIgnoreCase("")) {
+				} else if (!jt_login.getText().equalsIgnoreCase("") & validatePlayername(jt_login.getText())) {
+					if (!jl_login_error.getText().isEmpty()) {
+						jl_login_error.setText("");
+					}
 					conn = new DatabaseHandler();
 					if (!conn.checkExistingUser(jt_login.getText())) {
-						createUserCreationPanel();
+						createPlayerCreationPanel();
 					} else if (createUserPanel.isVisible()) {
+						removeCreationPanel();
+					}
+				} else {
+					jl_login_error.setText("Sorry mate, the playername is invalid");
+					if (createUserPanel.isVisible()) {
 						removeCreationPanel();
 					}
 				}
@@ -83,12 +94,15 @@ public class PanelLogin extends JPanel {
 
 			@Override
 			public void focusGained(FocusEvent e) {
-				if (jt_login.getText().equalsIgnoreCase("username")) {
+				if (jt_login.getText().equalsIgnoreCase("playername")) {
 					jt_login.setText("");
 				}
 
 			}
 		});
+
+		jt_login.setToolTipText(
+				"Pick a playername no longer than 10 characters with only\n vowals and consonants. No special characters, please!");
 
 		jt_password = new JPasswordField();
 		jt_password.setPreferredSize(new Dimension(150, 22));
@@ -118,15 +132,15 @@ public class PanelLogin extends JPanel {
 		jb_login = new JButton("Login");
 
 		jl_login_error = new JLabel("");
-		jl_login_error.setFont(new Font("Arial", Font.BOLD, 11));
+		jl_login_error.setFont(new Font("Arial", Font.BOLD, 13));
 		jl_login_error.setForeground(Color.ORANGE);
-		
+
 		URL pathToImg = getClass().getResource("/Blackjack-Game.png");
 		loginPanel.add(new JLabel(new ImageIcon(pathToImg)), "dock north");
 
-		jl_username = new JLabel("Username: ");
-		jl_username.setForeground(Color.WHITE);
-		loginPanel.add(jl_username, "cell 0 1, center");
+		jl_playername = new JLabel("Playername: ");
+		jl_playername.setForeground(Color.WHITE);
+		loginPanel.add(jl_playername, "cell 0 1, center");
 		loginPanel.add(jt_login, "cell 0 1, center");
 		jl_password = new JLabel("Password: ");
 		jl_password.setForeground(Color.WHITE);
@@ -189,20 +203,27 @@ public class PanelLogin extends JPanel {
 		createUserPanel.setBackground(new Color(0x03853E));
 		createUserPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
 
-		jl_createUser = new JLabel("User not found! ");
-		jl_createUser.setFont(new Font("arial", Font.BOLD, 11));
-		jl_createUser.setForeground(Color.ORANGE);
-		jc_createUser = new JCheckBox("Create? ");
-		jc_createUser.setBackground(new Color(0x03853E));
-		jc_createUser.setFont(new Font("arial", Font.BOLD, 11));
-		jc_createUser.setForeground(Color.WHITE);
+		jl_createPlayer = new JLabel("Player not found! ");
+		jl_createPlayer.setFont(new Font("arial", Font.BOLD, 12));
+		jl_createPlayer.setForeground(Color.ORANGE);
+		jc_createPlayer = new JCheckBox("Create? ");
+		jc_createPlayer.setBackground(new Color(0x03853E));
+		jc_createPlayer.setFont(new Font("arial", Font.BOLD, 12));
+		jc_createPlayer.setForeground(Color.WHITE);
 
-		createUserPanel.add(jl_createUser, "wrap");
-		createUserPanel.add(jc_createUser, "wrap");
+		createUserPanel.add(jl_createPlayer, "wrap");
+		createUserPanel.add(jc_createPlayer, "wrap");
 
 	}
 
-	private void createUserCreationPanel() {
+	private boolean validatePlayername(String playername) {
+		Pattern regex = Pattern.compile("[a-zA-Z_0-9]*");
+		Matcher matcher = regex.matcher(playername);
+		
+		return matcher.matches() ? true : false;
+	}
+
+	private void createPlayerCreationPanel() {
 
 		loginPanel.remove(jt_password);
 		loginPanel.remove(jb_login);
@@ -218,7 +239,7 @@ public class PanelLogin extends JPanel {
 
 	public void removeCreationPanel() {
 
-		jc_createUser.setSelected(false);
+		jc_createPlayer.setSelected(false);
 		loginPanel.remove(jl_database);
 		loginPanel.remove(createUserPanel);
 		loginPanel.remove(jt_password);
@@ -251,8 +272,8 @@ public class PanelLogin extends JPanel {
 		return jl_login_error;
 	}
 
-	public JCheckBox getJc_createUser() {
-		return jc_createUser;
+	public JCheckBox getJc_createPlayer() {
+		return jc_createPlayer;
 	}
 
 }
