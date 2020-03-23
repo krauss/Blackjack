@@ -32,8 +32,8 @@ public class FrameAdmin extends JFrame {
 		this.setResizable(false);
 		this.setTitle("Administrator Panel");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(750, 630));
-		this.setSize(750, 630);
+		this.setPreferredSize(new Dimension(830, 630));
+		this.setSize(830, 630);
 		this.setLocationRelativeTo(null);
 
 		initPanelGame();
@@ -66,7 +66,7 @@ public class FrameAdmin extends JFrame {
 		});
 		
 		Font fo = new Font("Arial", Font.PLAIN, 13);
-		JLabel welcome = new JLabel("<html><b>User: </b>" + admin.getUserName()+ "</html>");
+		JLabel welcome = new JLabel("<html><b>User: </b>" + admin.getPlayerName()+ "</html>");
 		welcome.setFont(fo);
 		JLabel lastLogin = new JLabel("<html><b>Last login: </b>" + admin.getLastLogin() + "</html>");
 		lastLogin.setFont(fo);

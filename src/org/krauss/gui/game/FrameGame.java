@@ -130,7 +130,7 @@ public class FrameGame extends JFrame {
 		dealer = new Player("Dealer");
 		game = new GameLogic(player, dealer);
 
-		gp.getPlayerName().setText("Player:  " + player.getUserName());
+		gp.getPlayerName().setText("Player:  " + player.getPlayerName());
 
 		gp.getPlayerScore().setText("Score:  " + player.getScore());
 
@@ -251,7 +251,7 @@ public class FrameGame extends JFrame {
 		});
 
 		Font fo = new Font("Arial", Font.PLAIN, 13);
-		JLabel welcome = new JLabel("<html><b>Player: </b>" + player.getUserName() + "</html>");
+		JLabel welcome = new JLabel("<html><b>Player: </b>" + player.getPlayerName() + "</html>");
 		welcome.setFont(fo);
 		JLabel score = new JLabel("<html><b>Total score: </b>" + player.getScore() + "</html>");
 		score.setFont(fo);

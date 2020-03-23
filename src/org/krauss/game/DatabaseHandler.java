@@ -87,7 +87,7 @@ public class DatabaseHandler {
 	private void updateLastLogin(Statement statement, Player user) {
 
 		try {
-			statement.executeUpdate("update Login set lastLogin = '" + getDate() + "' where username = '" + user.getUserName() + "';");
+			statement.executeUpdate("update Login set lastLogin = '" + getDate() + "' where username = '" + user.getPlayerName() + "';");
 			user.setLastLogin(getDate());
 
 		} catch (SQLException e) {
@@ -99,7 +99,7 @@ public class DatabaseHandler {
 	public void refreshPlayerData(Player p) {
 		try {
 			statement = conn.createStatement();
-			result = statement.executeQuery("select * from Login where username = '" + p.getUserName() + "';");
+			result = statement.executeQuery("select * from Login where username = '" + p.getPlayerName() + "';");
 
 			if (result.next()) {
 				p.setScore(result.getInt("score"));
@@ -119,7 +119,7 @@ public class DatabaseHandler {
 		try {
 
 			statement = conn.createStatement();
-			statement.executeUpdate("update Login set score = score + 50 where username = '" + p.getUserName() + "';");
+			statement.executeUpdate("update Login set score = score + 50 where username = '" + p.getPlayerName() + "';");
 
 			conn.close();
 		} catch (SQLException e) {
@@ -162,8 +162,8 @@ public class DatabaseHandler {
 
 			statement = conn.createStatement();
 
-			statement.execute("insert into Login values ('" + nextValidId + "', '" + p.getUserName() + "', '"
-					+ userPass.hashCode() + "', '" + p.getUserName() + "', 0, '" + getDate() + "');");
+			statement.execute("insert into Login values ('" + nextValidId + "', '" + p.getPlayerName() + "', '"
+					+ userPass.hashCode() + "', '" + p.getPlayerName() + "', 0, '" + getDate() + "');");
 
 			// Update the lastLogin field on the Player object
 			p.setLastLogin(getDate());
@@ -173,12 +173,6 @@ public class DatabaseHandler {
 			e.printStackTrace();
 		}
 
-	}
-
-	private String getDate() {
-		LocalDateTime now = LocalDateTime.now();
-		String date = now.format(DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm"));
-		return date;
 	}
 
 	public ArrayList<Player> getDBData() {
@@ -203,4 +197,24 @@ public class DatabaseHandler {
 		return players;
 	}
 
+	
+	public void deletePlayer(String playername) {
+		
+		try {
+			
+			statement = conn.createStatement();
+			
+			statement.executeUpdate("Delete from Login where username = '" + playername + "';");
+
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private String getDate() {
+		LocalDateTime now = LocalDateTime.now();
+		String date = now.format(DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm"));
+		return date;
+	}
 }
