@@ -119,7 +119,7 @@ public class FrameLogin extends JFrame {
 
 					} else {
 						panelLogin.getJl_login_error()
-								.setText("<html>&#x26D4; <b>Mate, your passy wrong!</b></html>");
+								.setText("<html>&#x26D4; <b>Mate, your password's wrong!</b></html>");
 					}
 
 				}
@@ -164,7 +164,7 @@ public class FrameLogin extends JFrame {
 						gameTimer.start();
 
 					} else {
-						panelLogin.getJl_login_error().setText("<html>&#x26D4; <b>Mate, your passy wrong!</b></html>");
+						panelLogin.getJl_login_error().setText("<html>&#x26D4; <b>Mate, your password's wrong!</b></html>");
 					}
 
 				}

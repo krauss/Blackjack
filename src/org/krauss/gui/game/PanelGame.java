@@ -2,7 +2,6 @@ package org.krauss.gui.game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -97,10 +96,12 @@ public class PanelGame extends JPanel {
 		hitStandPanel.setLayout(new MigLayout("", "5[grow]5[grow]5", "5[30]5"));
 
 		jb_hit = new JButton("Hit");
+		jb_hit.setForeground(Color.BLUE);
 		jb_stand = new JButton("Stand");
-
-		hitStandPanel.add(jb_hit, "w 90!, right");
-		hitStandPanel.add(jb_stand, "w 90!, left, wrap");
+		jb_stand.setForeground(Color.RED);
+		
+		hitStandPanel.add(jb_hit, "w 90!, h 45!, right");
+		hitStandPanel.add(jb_stand, "w 90!, h 45!, left, wrap");
 		
 		gamePanelPLayer.add(controlPanelPLayer, "top");
 		gamePanelPLayer.add(playerCardsPanel, "growx, growy, left, wrap");
