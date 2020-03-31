@@ -19,19 +19,20 @@ If you are a JAVA GUI application & Docker master, feel free to try to help me f
 
 To download the image, simply run:
 
-```
-docker pull jrkrauss/blackjack:latest
+```shell
+$> docker pull jrkrauss/blackjack:latest
 ```
 
 To create and run the container, run:  
 
-```
-docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:latest
+```shell
+$> docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:latest
 ```
 
 P.S: This is the problem I mentioned before. The container execution exits with the error below:
 
-```	No protocol specified
+```java	
+	No protocol specified
 	Exception in thread "main" java.awt.AWTError: Can't connect to X11 window server using ':0' as the value of the DISPLAY variable.
 	at java.desktop/sun.awt.X11GraphicsEnvironment.initDisplay(Native Method)
 	at java.desktop/sun.awt.X11GraphicsEnvironment$1.run(X11GraphicsEnvironment.java:99)
