@@ -282,6 +282,8 @@ public class PanelAdmin extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			jl_player.setEnabled(false);
 			jl_playerData.setEnabled(false);
+			jb_resetPasswd.setText("Reset Password");
+			jb_resetPasswd.setForeground(Color.BLACK);
 			if(jpf_password.isVisible()) {
 				jp_optionsPanel.remove(jpf_password);
 			}			
