@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -52,6 +53,7 @@ public class PanelAdmin extends JPanel {
 	private JLabel jl_player;
 	private JLabel jl_playerData;
 	private JButton jb_delete;
+	private JPasswordField jpf_password;
 	private JButton jb_resetPasswd;
 	private JButton jb_cancel;
 	private JButton jb_edit;
@@ -77,7 +79,9 @@ public class PanelAdmin extends JPanel {
 		jl_player = new JLabel("Player:");
 		jl_player.setPreferredSize(new Dimension(100, 29));
 		jl_playerData = new JLabel();
+		jpf_password = new JPasswordField();
 		jb_resetPasswd = new JButton("Reset Password");
+		jb_resetPasswd.addActionListener(new ResetButtonListener());
 		jb_delete = new JButton("Delete");
 		jb_delete.setForeground(Color.RED);
 		jb_delete.addActionListener(new DeleteButtonListener());
@@ -141,6 +145,7 @@ public class PanelAdmin extends JPanel {
 		jp_rankPanel.setPreferredSize(new Dimension(220, 490));
 		jp_rankPanel.setBorder(BorderFactory.createTitledBorder("Ranking"));
 		
+		@SuppressWarnings("unchecked")
 		ArrayList<Player> rankPlayers = (ArrayList<Player>) rows.clone();
 		rankPlayers.sort(Comparator.comparing(Player::getScore).reversed());
 		
@@ -230,7 +235,13 @@ public class PanelAdmin extends JPanel {
 				JTable jt = (JTable) e.getSource();
 				if (jt.getSelectedRow() >= 0) {
 					jl_playerData.setText(rows.get(jt.getSelectedRow()).getPlayerName());
-					jb_edit.setEnabled(true);
+					//Enables the Edit button only if it's not the admin account.
+					if(jl_playerData.getText().equalsIgnoreCase("admin")) {						
+						jb_edit.setEnabled(false);
+					} else {
+						jb_edit.setEnabled(true);
+					}
+					
 				}
 				
 			} 
@@ -271,6 +282,9 @@ public class PanelAdmin extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			jl_player.setEnabled(false);
 			jl_playerData.setEnabled(false);
+			if(jpf_password.isVisible()) {
+				jp_optionsPanel.remove(jpf_password);
+			}			
 			jp_optionsPanel.remove(jb_resetPasswd);
 			jp_optionsPanel.remove(jb_delete);
 			jp_optionsPanel.remove(jb_cancel);
@@ -300,6 +314,43 @@ public class PanelAdmin extends JPanel {
 			updateJListRank(jl_playerData.getText());
 			updateJTableData(index);
 			
+		}
+		
+	}
+	
+	private class ResetButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//Open the DB connection
+			if (((JButton)e.getSource()).getText().equalsIgnoreCase("Reset Password")) {
+				
+				dbHandler = new DatabaseHandler();
+				jpf_password.setText("");
+				jp_optionsPanel.add(jpf_password, "cell 0 1, span 2, growx, left");
+				jp_optionsPanel.add(jb_resetPasswd, "cell 0 2, span 2, growx, left");
+				jp_optionsPanel.add(jb_delete, "cell 0 3, left");
+				jp_optionsPanel.add(jb_cancel, "cell 1 3, left");
+				jp_optionsPanel.add(jb_edit, "cell 0 4, span 2, left");
+				jb_resetPasswd.setText("Apply");
+				jb_resetPasswd.setForeground(new Color(0x03853E));
+				jp_optionsPanel.updateUI();
+				
+			} else if (((JButton)e.getSource()).getText().equalsIgnoreCase("Apply")) {
+				
+				dbHandler.updatePlayerPassword(jl_playerData.getText(), jpf_password.getPassword());
+				jb_resetPasswd.setText("Reset Password");
+				jb_resetPasswd.setForeground(Color.BLACK);
+				jp_optionsPanel.remove(jpf_password);
+				jp_optionsPanel.remove(jb_resetPasswd);
+				jp_optionsPanel.remove(jb_delete);
+				jp_optionsPanel.remove(jb_cancel);
+				jp_optionsPanel.updateUI();
+			}
+			
+			
+			
+						
 		}
 		
 	}

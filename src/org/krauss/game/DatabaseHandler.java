@@ -113,7 +113,7 @@ public class DatabaseHandler {
 
 	}
 
-	// Increase the user's score to plus 1000
+	// Increase the user's score to plus 50
 	public void setPlayerScore(Player p) {
 
 		try {
@@ -127,6 +127,22 @@ public class DatabaseHandler {
 		}
 
 	}
+	
+	// Increase the user's score to plus 50
+		public void updatePlayerPassword(String playername, char[] newPass) {
+			String password = String.valueOf(newPass);
+
+			try {
+
+				statement = conn.createStatement();
+				statement.executeUpdate("update Login set password = '"+password.hashCode()+"' where username = '" + playername + "';");
+
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
 
 	public boolean checkExistingUser(String userName) {
 		boolean result = false;
