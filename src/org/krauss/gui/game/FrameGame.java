@@ -25,16 +25,17 @@ import net.miginfocom.swing.MigLayout;
 @SuppressWarnings("serial")
 public class FrameGame extends JFrame {
 
-	private PanelGame gp;
+	private PanelGame panelGame;
 	private Player player;
 	private Player dealer;
 	private GameLogic game;
-	private DatabaseHandler conn;
+	private DatabaseHandler db_connection;
 	private boolean standPressed = false;
 
 	// ToolBar components
 	private JToolBar jtb_toolBar;
 	private JButton jb_logout;
+	private JLabel jl_score;
 
 	public FrameGame(Player pl) {
 
@@ -58,20 +59,19 @@ public class FrameGame extends JFrame {
 
 	private void createGameScreen() {
 
-		gp = new PanelGame();
+		panelGame = new PanelGame();
 
 		standPressed = false;
 
-		gp.getJb_hit().addActionListener(new ActionListener() {
+		panelGame.getJb_hit().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				player.setHandCards(game.getDeckCard());
 
-				addCardsOnPanel(player, gp.getPlayerCardsPanel());
-				gp.getPlayerSum().setText("Sum:  " + player.getSum());
-				checkAce();
+				addCardsOnPanel(player, panelGame.getPlayerCardsPanel());
+				panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
 
 				switch (game.checkGameOver(standPressed)) {
 				case LOSE:
@@ -89,39 +89,40 @@ public class FrameGame extends JFrame {
 			}
 		});
 
-		gp.getJb_stand().addActionListener(new ActionListener() {
+		panelGame.getJb_stand().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gp.getJb_hit().setEnabled(false);
-				gp.getJb_stand().setEnabled(false);
+				panelGame.getJb_hit().setEnabled(false);
+				panelGame.getJb_stand().setEnabled(false);
 
 				dealer.getHandCards().get(0).setBackImage(false);
 
-				gp.getDealerSum().setText("Sum:  " + dealer.getSum());
-				gp.getDealerHints().setText("Hints:  " + game.getDealerHints());
+				panelGame.getDealerSum().setText("Sum:  " + dealer.getSum());
+				panelGame.getDealerHints().setText("Hints:  " + game.getDealerHints());
 				standPressed = true;
 				initDealersGame();
 			}
 		});
 
-		gp.getJb_replay().addActionListener(new ActionListener() {
+		panelGame.getJb_replay().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gp.removeAll();
-				gp.validate();
+				panelGame.removeAll();
+				panelGame.validate();
 				createGameScreen();
-				conn = new DatabaseHandler();
-				conn.refreshPlayerData(player);
+				db_connection = new DatabaseHandler();
+				db_connection.refreshPlayerData(player);
+				jl_score.setText("<html><b>Total score: </b>" + player.getScore() + "</html>");
 				initGame();
-				gp.getPlayerCardsPanel().repaint();
-				gp.getDealerCardsPanel().repaint();
+				panelGame.getPlayerCardsPanel().updateUI();
+				panelGame.getDealerCardsPanel().updateUI();
 
 			}
 		});
 
-		this.add(gp);
+		this.add(panelGame);
 
 	}
 
@@ -130,9 +131,9 @@ public class FrameGame extends JFrame {
 		dealer = new Player("Dealer");
 		game = new GameLogic(player, dealer);
 
-		gp.getPlayerName().setText("Player:  " + player.getPlayerName());
+		panelGame.getPlayerName().setText("Player:  " + player.getPlayerName());
 
-		gp.getPlayerScore().setText("Score:  " + player.getScore());
+		panelGame.getPlayerScore().setText("Score:  " + player.getScore());
 
 		player.setHandCards(game.getDeckCard());
 		dealer.setHandCards(game.getDeckCard());
@@ -140,11 +141,10 @@ public class FrameGame extends JFrame {
 		player.setHandCards(game.getDeckCard());
 		dealer.setHandCards(game.getDeckCard());
 
-		addCardsOnPanel(player, gp.getPlayerCardsPanel());
-		addCardsOnPanel(dealer, gp.getDealerCardsPanel());
+		addCardsOnPanel(player, panelGame.getPlayerCardsPanel());
+		addCardsOnPanel(dealer, panelGame.getDealerCardsPanel());
 
-		gp.getPlayerSum().setText("Sum:  " + player.getSum());
-		checkAce();
+		panelGame.getPlayerSum().setText("Sum:  " + player.getSum());
 
 	}
 
@@ -158,36 +158,27 @@ public class FrameGame extends JFrame {
 	}
 
 	private void terminatesGame(String t) {
-		gp.getJb_hit().setEnabled(false);
-		gp.getJb_stand().setEnabled(false);
-		gp.setLayout(new BorderLayout());
-		gp.add(gp.getOverlayPanel(), BorderLayout.CENTER);
-		gp.validate();
+		panelGame.getJb_hit().setEnabled(false);
+		panelGame.getJb_stand().setEnabled(false);
+		panelGame.setLayout(new BorderLayout());
+		panelGame.add(panelGame.getOverlayPanel(), BorderLayout.CENTER);
+		panelGame.validate();
 
 		switch (t) {
 		
 		case "LOSE":
-			gp.getWinLoseLabel().setText("YOU LOSE!");
+			panelGame.getWinLoseLabel().setText("YOU LOSE!");
 			break;
 		case "WIN":
-			gp.getWinLoseLabel().setForeground(Color.BLUE);
-			gp.getWinLoseLabel().setText("YOU WIN!   +50 pts");
-			conn = new DatabaseHandler();
-			conn.setPlayerScore(player);
+			panelGame.getWinLoseLabel().setForeground(Color.BLUE);
+			panelGame.getWinLoseLabel().setText("YOU WIN!   +50 pts");
+			db_connection = new DatabaseHandler();
+			db_connection.setPlayerScore(player);
 			break;
 		default:
-			gp.getWinLoseLabel().setText("YOU GOT A DRAW!");
+			panelGame.getWinLoseLabel().setText("YOU GOT A DRAW!");
 			break;
 		}
-	}
-
-	private void checkAce() {
-		for (Card d : player.getHandCards()) {
-			if (d.getNumber().equalsIgnoreCase("A")) {
-				// TODO
-			}
-		}
-
 	}
 
 	private void initDealersGame() {
@@ -204,9 +195,9 @@ public class FrameGame extends JFrame {
 				if (dealer.getSum() < 21 & (game.getDealerHints() > 0) && (dealer.getSum() <= player.getSum())) {
 					dealer.setHandCards(game.getDeckCard());
 					game.decDealerHints();
-					gp.getDealerHints().setText("Hints:  " + game.getDealerHints());
-					addCardsOnPanel(dealer, gp.getDealerCardsPanel());
-					gp.getDealerSum().setText("Sum:  " + dealer.getSum());
+					panelGame.getDealerHints().setText("Hints:  " + game.getDealerHints());
+					addCardsOnPanel(dealer, panelGame.getDealerCardsPanel());
+					panelGame.getDealerSum().setText("Sum:  " + dealer.getSum());
 				} else {
 					timer.stop();
 
@@ -233,7 +224,7 @@ public class FrameGame extends JFrame {
 	}
 
 	private void enableButtonReplay() {
-		gp.getJb_replay().setVisible(true);
+		panelGame.getJb_replay().setVisible(true);
 	}
 	
 	private void createToolBar() {
@@ -253,8 +244,8 @@ public class FrameGame extends JFrame {
 		Font fo = new Font("Arial", Font.PLAIN, 13);
 		JLabel welcome = new JLabel("<html><b>Player: </b>" + player.getPlayerName() + "</html>");
 		welcome.setFont(fo);
-		JLabel score = new JLabel("<html><b>Total score: </b>" + player.getScore() + "</html>");
-		score.setFont(fo);
+		jl_score = new JLabel("<html><b>Total score: </b>" + player.getScore() + "</html>");
+		jl_score.setFont(fo);
 		JLabel lastLogin = new JLabel("<html><b>Last login: </b>" + player.getLastLogin() + "</html>");
 		lastLogin.setFont(fo);
 		JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
@@ -267,7 +258,7 @@ public class FrameGame extends JFrame {
 		jtb_toolBar.add(jb_logout, "cell 0 0, center");
 		jtb_toolBar.add(welcome, "cell 1 0, center");
 		jtb_toolBar.add(separator1, "cell 2 0, left");
-		jtb_toolBar.add(score, "cell 3 0, center");
+		jtb_toolBar.add(jl_score, "cell 3 0, center");
 		jtb_toolBar.add(separator2, "cell 4 0, left");
 		jtb_toolBar.add(lastLogin, "cell 5 0, center");
 		jtb_toolBar.add(separator3, "cell 6 0, left");
