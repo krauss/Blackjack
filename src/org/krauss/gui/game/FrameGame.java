@@ -29,7 +29,7 @@ public class FrameGame extends JFrame {
 	private Player player;
 	private Player dealer;
 	private GameLogic game;
-	private DatabaseHandler db_connection;
+	private DatabaseHandler dbHandler;
 	private boolean standPressed = false;
 
 	// ToolBar components
@@ -43,8 +43,8 @@ public class FrameGame extends JFrame {
 
 		this.setTitle("\u2663 \u2665    The BlackJack Game   \u2660 \u2666");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(950, 610));
-		this.setSize(950, 610);
+		this.setPreferredSize(new Dimension(900, 610));
+		this.setSize(900, 610);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
@@ -112,8 +112,8 @@ public class FrameGame extends JFrame {
 				panelGame.removeAll();
 				panelGame.validate();
 				createGameScreen();
-				db_connection = new DatabaseHandler();
-				db_connection.refreshPlayerData(player);
+				dbHandler = DatabaseHandler.getDbHandler();
+				dbHandler.refreshPlayerData(player);
 				jl_score.setText("<html><b>Total score: </b>" + player.getScore() + "</html>");
 				initGame();
 				panelGame.getPlayerCardsPanel().updateUI();
@@ -172,8 +172,8 @@ public class FrameGame extends JFrame {
 		case "WIN":
 			panelGame.getWinLoseLabel().setForeground(Color.BLUE);
 			panelGame.getWinLoseLabel().setText("YOU WIN!   +50 pts");
-			db_connection = new DatabaseHandler();
-			db_connection.setPlayerScore(player);
+			dbHandler = DatabaseHandler.getDbHandler();
+			dbHandler.setPlayerScore(player);
 			break;
 		default:
 			panelGame.getWinLoseLabel().setText("YOU GOT A DRAW!");
@@ -231,8 +231,8 @@ public class FrameGame extends JFrame {
 
 		jtb_toolBar = new JToolBar();
 		jtb_toolBar.setFloatable(false);
-		jtb_toolBar.setLayout(new MigLayout("", "6[]50[]10[]10[]10[]10[]10[]10", "[]"));
-		jb_logout = new JButton("Logout");
+		jtb_toolBar.setLayout(new MigLayout("", "8[]100[]10[]10[]10[]10[]10[]10", "[]"));
+		jb_logout = new JButton("<html><b>Logout</b></html>");
 		jb_logout.addActionListener(new ActionListener() {
 
 			@Override
