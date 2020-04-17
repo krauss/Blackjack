@@ -25,15 +25,18 @@ public class DatabaseHandler {
 	private Connection conn;
 	private Statement statement;
 	private ResultSet result;
+	private static DatabaseHandler dbHandler;
 
-	public DatabaseHandler() {
+	private DatabaseHandler() {
 
 		try {
-			DriverManager.registerDriver(new org.sqlite.JDBC());
-			URL pathToDB = getClass().getResource("/database/blackjack.db");
 			
+			DriverManager.registerDriver(new org.sqlite.JDBC());
+			URL pathToDB = getClass().getResource("/database/blackjack.db");			
 			if (pathToDB != null) {
+				
 				conn = DriverManager.getConnection("jdbc:sqlite::resource:"+pathToDB);
+				
 		    } 		
 
 		} catch (SQLException e) {
@@ -41,24 +44,38 @@ public class DatabaseHandler {
 		}
 
 	}
+	
+	//Singleton implementation
+	public static DatabaseHandler getDbHandler() {
+		
+		if (dbHandler == null ) {
+			
+			dbHandler = new DatabaseHandler();
+			
+		}
+		
+		return dbHandler;
+		
+	}
+	
 
 	public Player authenticateAdmin(String user, char[] pass) throws SQLException {
 		Player p = null;
 		String password = String.copyValueOf(pass);
 
 		statement = conn.createStatement();
-
 		result = statement.executeQuery("select * from Login where username = '" + user + "';");
-
 		if (result.next()) {
+			
 			if (result.getString("password").equalsIgnoreCase(password)) {
+				
 				p = new Player(result.getString("username"));
 				p.setScore(result.getInt("score"));
 				updateLastLogin(statement, p);
+				
 			}
 		}
 
-		conn.close();
 		return p;
 
 	}
@@ -68,18 +85,19 @@ public class DatabaseHandler {
 		String password = String.copyValueOf(pass);
 
 		statement = conn.createStatement();
-
 		result = statement.executeQuery("select * from Login where username = '" + user + "';");
-
 		if (result.next()) {
+			
 			if (result.getString("password").equalsIgnoreCase(password.hashCode() + "")) {
+				
 				p = new Player(result.getString("username"));
 				p.setScore(result.getInt("score"));
 				updateLastLogin(statement, p);
+				
 			}
+			
 		}
-
-		conn.close();
+		
 		return p;
 
 	}
@@ -87,6 +105,7 @@ public class DatabaseHandler {
 	private void updateLastLogin(Statement statement, Player user) {
 
 		try {
+			
 			statement.executeUpdate("update Login set lastLogin = '" + getDate() + "' where username = '" + user.getPlayerName() + "';");
 			user.setLastLogin(getDate());
 
@@ -98,14 +117,12 @@ public class DatabaseHandler {
 
 	public void refreshPlayerData(Player p) {
 		try {
+			
 			statement = conn.createStatement();
 			result = statement.executeQuery("select * from Login where username = '" + p.getPlayerName() + "';");
-
 			if (result.next()) {
 				p.setScore(result.getInt("score"));
 			}
-
-			conn.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,7 +138,6 @@ public class DatabaseHandler {
 			statement = conn.createStatement();
 			statement.executeUpdate("update Login set score = score + 50 where username = '" + p.getPlayerName() + "';");
 
-			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -137,7 +153,6 @@ public class DatabaseHandler {
 				statement = conn.createStatement();
 				statement.executeUpdate("update Login set password = '"+password.hashCode()+"' where username = '" + playername + "';");
 
-				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -151,13 +166,12 @@ public class DatabaseHandler {
 
 			statement = conn.createStatement();
 			ResultSet r = statement.executeQuery("Select username from Login where username = '" + userName + "';");
-
 			if (r.next()) {
 				if (r.getString("username").equalsIgnoreCase(userName)) {
 					result = true;
 				}
 			}
-			conn.close();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -173,18 +187,14 @@ public class DatabaseHandler {
 		try {
 
 			statement = conn.createStatement();
-
 			nextValidId = statement.executeQuery("select max(idLogin)+2 as maxId from Login;").getInt("maxId");
-
 			statement = conn.createStatement();
-
 			statement.execute("insert into Login values ('" + nextValidId + "', '" + p.getPlayerName() + "', '"
 					+ userPass.hashCode() + "', '" + p.getPlayerName() + "', 0, '" + getDate() + "');");
 
 			// Update the lastLogin field on the Player object
 			p.setLastLogin(getDate());
 
-			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -199,13 +209,12 @@ public class DatabaseHandler {
 
 			statement = conn.createStatement();
 			ResultSet r = statement.executeQuery("Select username, score, lastlogin from Login;");
-
 			while (r.next()) {
 				
 				players.add(new Player(r.getString("username"), r.getInt("score"), r.getString("lastLogin")));
 
 			}
-			conn.close();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -218,11 +227,9 @@ public class DatabaseHandler {
 		
 		try {
 			
-			statement = conn.createStatement();
-			
+			statement = conn.createStatement();			
 			statement.executeUpdate("Delete from Login where username = '" + playername + "';");
 
-			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

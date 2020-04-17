@@ -78,7 +78,7 @@ public class PanelLogin extends JPanel {
 					if (!jl_login_error.getText().isEmpty()) {
 						jl_login_error.setText("");
 					}
-					conn = new DatabaseHandler();
+					conn = DatabaseHandler.getDbHandler();
 					if (!conn.checkExistingUser(jt_login.getText())) {
 						createPlayerCreationPanel();
 					} else if (createUserPanel.isVisible()) {

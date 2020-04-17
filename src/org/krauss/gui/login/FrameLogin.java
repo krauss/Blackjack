@@ -22,7 +22,7 @@ public class FrameLogin extends JFrame {
 	// Game Objects
 	private Player player;
 	private Player admin;
-	private DatabaseHandler conn;
+	private DatabaseHandler dbHandler;
 	private Timer gameTimer;
 	private Timer adminTimer;
 	private String playerLoginMsg = "<html><b><font color=\"#00FF22\"><br>Well done mate!</font></b></html>";
@@ -103,8 +103,8 @@ public class FrameLogin extends JFrame {
 						&& (panelLogin.getJt_password().getPassword().length != 0)) {
 					try {
 
-						conn = new DatabaseHandler();
-						admin = conn.authenticateAdmin(panelLogin.getJt_login().getText(),
+						dbHandler = DatabaseHandler.getDbHandler();
+						admin = dbHandler.authenticateAdmin(panelLogin.getJt_login().getText(),
 								panelLogin.getJt_password().getPassword());
 
 					} catch (SQLException e1) {
@@ -128,13 +128,13 @@ public class FrameLogin extends JFrame {
 			} else {
 
 				if (panelLogin.getJc_createPlayer().isSelected()) {
-					conn = new DatabaseHandler();
+					dbHandler = DatabaseHandler.getDbHandler();
 					
 					//Create the object Player first
 					player = new Player(panelLogin.getJt_login().getText());
 					
 					//Insert it into the database
-					conn.insertNewUser(player, panelLogin.getJt_password().getPassword());
+					dbHandler.insertNewUser(player, panelLogin.getJt_password().getPassword());
 
 					
 					panelLogin.getJl_login_error().setText(playerLoginMsg);
@@ -149,8 +149,8 @@ public class FrameLogin extends JFrame {
 						&& (panelLogin.getJt_password().getPassword().length != 0)) {
 					try {
 
-						conn = new DatabaseHandler();
-						player = conn.authenticate(panelLogin.getJt_login().getText(),
+						dbHandler = DatabaseHandler.getDbHandler();
+						player = dbHandler.authenticate(panelLogin.getJt_login().getText(),
 								panelLogin.getJt_password().getPassword());
 
 					} catch (SQLException e1) {

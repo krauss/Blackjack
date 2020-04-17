@@ -164,7 +164,7 @@ public class PanelAdmin extends JPanel {
 
 	private Object[][] fetchDataBaseData() {
 
-		dbHandler = new DatabaseHandler();
+		dbHandler = DatabaseHandler.getDbHandler();
 		rows = dbHandler.getDBData();
 		data = new Object[rows.size()][];
 
@@ -181,7 +181,7 @@ public class PanelAdmin extends JPanel {
 
 		if (jt_rankTable.getModel() instanceof DefaultTableModel) {
 			((DefaultTableModel) jt_rankTable.getModel()).removeRow(row);
-			dbHandler = new DatabaseHandler();
+			dbHandler = DatabaseHandler.getDbHandler();
 			rows = dbHandler.getDBData();
 			jt_rankTable.updateUI();
 			jl_player.setEnabled(false);
@@ -306,7 +306,7 @@ public class PanelAdmin extends JPanel {
 			if (decision == 0) {
 
 				// Open the DB connection
-				dbHandler = new DatabaseHandler();
+				dbHandler = DatabaseHandler.getDbHandler();
 				// Delete the player
 				dbHandler.deletePlayer(jl_playerData.getText());
 
@@ -335,7 +335,7 @@ public class PanelAdmin extends JPanel {
 			// Open the DB connection
 			if (((JButton) e.getSource()).getText().equalsIgnoreCase("Reset Password")) {
 
-				dbHandler = new DatabaseHandler();
+				dbHandler = DatabaseHandler.getDbHandler();
 				jpf_password.setText("");
 				jp_optionsPanel.add(jpf_password, "cell 0 1, span 2, growx, left");
 				jp_optionsPanel.add(jb_resetPasswd, "cell 0 2, span 2, growx, left");
