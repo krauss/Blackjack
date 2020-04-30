@@ -2,3 +2,11 @@
 .classpath
 .project
 /java.io.BufferedInputStream@201d0b83
+.idea/.gitignore
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+Blackjack.iml
+/.idea/
+.idea/dbnavigator.xml

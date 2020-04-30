@@ -21,7 +21,7 @@ public class Main {
 					new FrameLogin();
 
 				} catch (Exception ex) {
-					System.err.println("Failed to initialize IntelliJLaF");
+					System.err.println(ex);
 				}
 
 			}
