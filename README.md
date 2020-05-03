@@ -1,10 +1,12 @@
 ## :clubs: :hearts: The BlackJack Game :spades: :diamonds: 
 
+#### 1. What is it
+
 A pretty basic implementation of the famous game BlackJack, written in JAVA using Swing components, [SQLite](https://www.sqlite.org/index.html) as the internal database, [MigLayout](http://www.miglayout.com/) as the layout manager and [Flatlaf](https://www.formdev.com/flatlaf/) as a third-party look-and-feel provider.
 
 ![Login_screen](res/bj_game.png)
 
-#### How to play?
+#### 2. How to use?
 
 You can either clone this repository and setup a workspace in your IDE or simply download the latest `jar` file in our [releases folder](releases/).
 To create a new player and start playing, just type an username and a `checkbox` will appear as soon as you start setting your password. Then tick the `checkbox` to create it and click `Login`.
@@ -13,7 +15,7 @@ To create a new player and start playing, just type an username and a `checkbox`
 
 If the `checkbox` does not come out, it means the username you picked already exists in the database, so pick another one.
 
-#### Docker Usage :whale:
+#### 3. Docker Usage :whale:
 
 If you are a JAVA GUI application & Docker master, feel free to try to help me fix the problem below which is preventing us from having a pretty cool and functioning Docker image of the game.
 
@@ -25,7 +27,7 @@ Once you have [Docker CE](https://docs.docker.com/) installed an running, from y
 $> docker pull jrkrauss/blackjack:latest
 ```
 
-##### Create the container and run it :ship: 
+##### Create the container and run/ship it :ship: 
 
 ```shell
 $> docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:latest
