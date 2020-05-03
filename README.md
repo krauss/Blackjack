@@ -13,17 +13,19 @@ To create a new player and start playing, just type an username and a `checkbox`
 
 If the `checkbox` does not come out, it means the username you picked already exists in the database, so pick another one.
 
-#### Docker Image
+#### Docker Usage :whale:
 
 If you are a JAVA GUI application & Docker master, feel free to try to help me fix the problem below which is preventing us from having a pretty cool and functioning Docker image of the game.
 
-To download the image, simply run:
+##### Download the image :cd:
+
+Once you have [Docker CE](https://docs.docker.com/) installed an running, from your Linux terminal or Windows cmd, type:
 
 ```shell
 $> docker pull jrkrauss/blackjack:latest
 ```
 
-To create and run the container, run:  
+##### Create the container and run it :ship: 
 
 ```shell
 $> docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY jrkrauss/blackjack:latest
