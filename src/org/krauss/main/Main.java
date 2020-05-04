@@ -1,8 +1,9 @@
 package org.krauss.main;
 
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import org.krauss.gui.login.FrameLogin;
-
+import com.formdev.flatlaf.FlatIntelliJLaf;
 
 public class Main {
 
@@ -14,7 +15,9 @@ public class Main {
 			public void run() {
 
 				try {
-
+					
+					UIManager.setLookAndFeel( new FlatIntelliJLaf() );
+					
 					new FrameLogin();
 
 				} catch (Exception ex) {
